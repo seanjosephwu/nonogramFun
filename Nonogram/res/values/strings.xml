@@ -4,5 +4,7 @@
     <string name="app_name">Nonogram</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="access_database">Access Database</string>
+    <string name="access_button">Access</string>
 
 </resources>
