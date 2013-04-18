@@ -9,9 +9,19 @@
     tools:context=".MainActivity" >
 
     <Button
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/access_button" 
-        android:onClick="accessServer" />
-    
+        android:onClick="accessServer"
+        android:text="@string/access_button" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_below="@+id/button1"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
 </RelativeLayout>
