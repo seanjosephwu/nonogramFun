@@ -38,8 +38,9 @@ public class MainActivity extends Activity {
      * @throws SQLException */
     private void accessServer() throws SQLException {
         // Do something in response to button
-    	Connection con = DriverManager.getConnection("jdbc:mysql://82.197.130.17", 
-    			"1361466_00e6", "uwcse403nanogram");
+    	//log(debugInfo);
+    	Connection con = DriverManager.getConnection("jdbc:mysql://fdb5.biz.nf:3306", 
+    			"1361466", "uwcse403nonogram");
     	PreparedStatement statement = con.prepareStatement("SELECT first_name FROM developers WHERE id = 1");
     	ResultSet result = statement.executeQuery();
     	myText.setText(result.getString("1"));
