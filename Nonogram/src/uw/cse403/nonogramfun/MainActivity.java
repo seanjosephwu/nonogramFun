@@ -3,6 +3,7 @@ package uw.cse403.nonogramfun;
 import android.os.Bundle;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -38,7 +39,7 @@ public class MainActivity extends Activity {
      * @throws SQLException */
     private void accessServer() throws SQLException {
         // Do something in response to button
-    	//log(debugInfo);
+    	Log.d("MainActivity","accessServer()");
     	Connection con = DriverManager.getConnection("jdbc:mysql://fdb5.biz.nf:3306", 
     			"1361466", "uwcse403nonogram");
     	PreparedStatement statement = con.prepareStatement("SELECT first_name FROM developers WHERE id = 1");
