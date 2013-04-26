@@ -33,4 +33,13 @@
         android:contentDescription="@string/hello_world"
         android:src="@drawable/huskysoftlogo" />
 
+    <Button
+        android:id="@+id/creategame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="20dp"
+        android:text="@string/access_button" />
+
 </RelativeLayout>
