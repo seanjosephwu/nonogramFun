@@ -3,11 +3,17 @@ package uw.cse403.nonogramfun;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.content.Intent;
 import android.app.Activity;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,16 +31,51 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener {
 
+    public Button b;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+        b = (Button) findViewById(R.id.creategame);
+        b.setOnClickListener(new View.OnClickListener() {
+        	public void onClick(View v) {
+        		Intent i = new Intent(MainActivity.this, CreateGame.class);
+        		startActivity(i);    		
+        	}
+        });
+
     }
+//        TableLayout layout = new TableLayout (this);
+//        layout.setLayoutParams( new TableLayout.LayoutParams(4,5) );
+//
+//        layout.setPadding(1,1,1,1);
+//
+//        for (int f=0; f<=5; f++) {
+//            TableRow tr = new TableRow(this);
+//            for (int c=0; c<=5; c++) {
+//                Button b = new Button (this);
+//                b.setText(""+f+c);
+//                b.setTextSize(10.0f);
+//                b.setTextColor(Color.rgb( 100, 200, 200));
+//                b.setOnClickListener(this);
+//                tr.addView(b,30,30);
+//            }
+//            layout.addView(tr);
+//        }
+//
+//        super.setContentView(layout); 
+        
+//
+//    public void onClick(View view) {
+//        ((Button) view).setText("*");
+//        ((Button) view).setEnabled(false);
+//    }
 
 
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -110,7 +151,38 @@ public class MainActivity extends Activity {
         }
     	
     }
+
+
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		
+		
+	}
+	
+	
+	public void howToPlayScreen() {
+		Intent i = new Intent(this, HowToPlay.class);
+		startActivity(i);
+	}
+	
+	
+	public void createGameScreen() {
+		Intent i = new Intent(this, CreateGame.class);
+		startActivity(i);
+	}
     
+	
+	public void playGameScreen() {
+		Intent i = new Intent(this, PlayGameMenu.class);
+		startActivity(i);
+	}
+	
+	
+	public void settingsScreen() {
+		Intent i = new Intent(this, Settings.class);
+		startActivity(i);
+	}
 }
 
 
