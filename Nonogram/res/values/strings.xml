@@ -6,5 +6,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="access_database">Access Database</string>
     <string name="access_button">Access</string>
+    <string name="creategame_button">Create A Game</string>
+    <string name="howtoplay_button">How To Play</string>
+    <string name="playgame_button">Play A Game</string>
+    <string name="settings_button">Settings</string>
 
 </resources>
