@@ -161,25 +161,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	}
 	
 	
-	public void howToPlayScreen() {
+	public void howToPlayScreen(View view) {
 		Intent i = new Intent(this, HowToPlay.class);
 		startActivity(i);
 	}
 	
 	
-	public void createGameScreen() {
+	public void createGameScreen(View view) {
 		Intent i = new Intent(this, CreateGame.class);
 		startActivity(i);
 	}
     
 	
-	public void playGameScreen() {
+	public void playGameScreen(View view) {
 		Intent i = new Intent(this, PlayGameMenu.class);
 		startActivity(i);
 	}
 	
 	
-	public void settingsScreen() {
+	public void settingsScreen(View view) {
 		Intent i = new Intent(this, Settings.class);
 		startActivity(i);
 	}
