@@ -27,7 +27,7 @@ public class CreateGame extends Activity implements OnClickListener{
 		  
 		layout.setPadding(20,20,20,20);
 
-		for (int f=0; f<5; f++) {
+		for (int f = 0; f < 5; f++) {
 			TableRow tr = new TableRow(this);
 			for (int c=0; c<5; c++) {
 	        	buttons[f][c] = new Button (this);
