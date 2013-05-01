@@ -48,32 +48,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         });
 
     }
-//        TableLayout layout = new TableLayout (this);
-//        layout.setLayoutParams( new TableLayout.LayoutParams(4,5) );
-//
-//        layout.setPadding(1,1,1,1);
-//
-//        for (int f=0; f<=5; f++) {
-//            TableRow tr = new TableRow(this);
-//            for (int c=0; c<=5; c++) {
-//                Button b = new Button (this);
-//                b.setText(""+f+c);
-//                b.setTextSize(10.0f);
-//                b.setTextColor(Color.rgb( 100, 200, 200));
-//                b.setOnClickListener(this);
-//                tr.addView(b,30,30);
-//            }
-//            layout.addView(tr);
-//        }
-//
-//        super.setContentView(layout); 
-        
-//
-//    public void onClick(View view) {
-//        ((Button) view).setText("*");
-//        ((Button) view).setEnabled(false);
-//    }
-
 
     
     @Override
