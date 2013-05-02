@@ -29,28 +29,34 @@ public class CreateGame extends Activity implements OnClickListener{
 //		p.setStrokeWidth(5);
 
 
-	    TestCanvas tcanvas=new TestCanvas(this);
-	    Canvas canvas = new Canvas();
-		tcanvas.draw(canvas);
+//	    TestCanvas tcanvas=new TestCanvas(this);
+//	    Canvas canvas = new Canvas();
+//		tcanvas.draw(canvas);
 
 		TableLayout layout = new TableLayout (this);
 		layout.setLayoutParams( new TableLayout.LayoutParams(4,5) );
 
-		layout.setPadding(0,0,50,50);
-		layout.addView((View)tcanvas);
+		layout.setPadding(50,50,50,50);
+//		layout.addView((View)tcanvas);
 
-		for (int f = 0; f < 5; f++) {
+		for (int i = 0; i < 5; i++) {
 			TableRow tr = new TableRow(this);
-			for (int c = 0; c < 5; c++) {
-	        	buttons[f][c] = new Cell(this);
-	        	buttons[f][c].setWidth(10);
-	        	buttons[f][c].setHeight(10);
-	        	buttons[f][c].setBackgroundColor(Color.BLACK);	   
-	        	buttons[f][c].setOnClickListener(this);
-	        	Log.i("button width[" + f + "] [" + c + "] = " + "" + buttons[f][c].getWidth(), ("" + buttons[f][c].getWidth()));
-	        	Log.i("button height[" + f + "] [" + c + "] = " + "" + buttons[f][c].getWidth(), ("" + buttons[f][c].getHeight()));
+			for (int j = 0; j < 5; j++) {
+	        	buttons[i][j] = new Cell(this);
+	        	buttons[i][j].setWidth(10);
+	        	buttons[i][j].setHeight(10);
+	        	//buttons[i][j].setBackgroundColor(Color.BLACK);
+	        	if((i % 2 == j % 2)){
+	        		buttons[i][j].setBackgroundColor(Color.LTGRAY);
+	        	}
+	        	else{
+	        		buttons[i][j].setBackgroundColor(Color.WHITE);
+	        	}
+	        	buttons[i][j].setOnClickListener(this);
+	        	Log.i("button width[" + i + "] [" + j + "] = " + "" + buttons[i][j].getWidth(), ("" + buttons[i][j].getWidth()));
+	        	Log.i("button height[" + i + "] [" + j + "] = " + "" + buttons[i][j].getWidth(), ("" + buttons[i][j].getHeight()));
 	        	//ca.drawLine(startX, startY, stopX, stopY, p);
-	        	tr.addView(buttons[f][c],50,50);
+	        	tr.addView(buttons[i][j],50,50);
 			}
 			layout.addView(tr);
 		}
@@ -71,10 +77,16 @@ public class CreateGame extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
-		if(((Cell)arg0).getSelectVal())
-			((Cell) arg0).setBackgroundColor(Color.RED);
-		else
-			((Cell) arg0).setBackgroundColor(Color.YELLOW);
+		if(((Cell)arg0).getSelectVal()){
+			//((Cell) arg0).setBackgroundColor(Color.RED);
+			((Cell) arg0).setText("");	
+		}
+		else{
+			//((Cell) arg0).setBackgroundColor(Color.YELLOW);
+			((Cell) arg0).setText("X");
+			((Cell) arg0).setTextColor(Color.BLUE);
+		}
+			
 		((Cell) arg0).setSelectVal();
 	}
     
@@ -98,8 +110,8 @@ public class CreateGame extends Activity implements OnClickListener{
     	
     }
     
+    /*
     public class TestCanvas extends View {
-
         public TestCanvas(Context context) {
             super(context);
         }
@@ -121,5 +133,5 @@ public class CreateGame extends Activity implements OnClickListener{
             canvas.save();
         }
     }
-    
+    */
 }
