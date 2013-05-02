@@ -8,8 +8,9 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -24,7 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="uw.cse403.nonogramfun.CreateGame"
             android:label="@string/app_name" >
@@ -34,9 +34,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="HowToPlay" android:label="@string/app_name"></activity>
-        <activity android:label="@string/app_name" android:name="PlayGameMenu"></activity>
-        <activity android:label="@string/app_name" android:name="Settings"></activity>
+        <activity
+            android:name="uw.cse403.nonogramfun.HowToPlay"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="uw.cse403.nonogramfun.PlayGameMenu"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="uw.cse403.nonogramfun.Settings"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="uw.cse403.nonogramfun.CreateGameSmall"
+            android:label="@string/title_activity_create_game_small" >
+        </activity>
+        <activity
+            android:name="uw.cse403.nonogramfun.CreateGameMedium"
+            android:label="@string/title_activity_create_game_medium" >
+        </activity>
+        <activity
+            android:name="uw.cse403.nonogramfun.CreateGameLarge"
+            android:label="@string/title_activity_create_game_large" >
+        </activity>
+        <activity
+            android:name="uw.cse403.nonogramfun.CreateGameMenu"
+            android:label="@string/title_activity_create_game_menu" >
+        </activity>
     </application>
 
 </manifest>
