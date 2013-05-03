@@ -45,7 +45,6 @@ public class CreateGameSmall extends Activity implements OnClickListener{
 	        	buttons[i][j] = new Cell(this);
 	        	buttons[i][j].setWidth(10);
 	        	buttons[i][j].setHeight(10);
-	        	//buttons[i][j].setBackgroundColor(Color.BLACK);
 	        	if((i % 2 == j % 2)){
 	        		buttons[i][j].setBackgroundColor(Color.LTGRAY);
 	        	}
