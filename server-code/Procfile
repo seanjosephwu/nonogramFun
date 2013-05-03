@@ -1,3 +1,1 @@
-web:    java -cp target/classes:target/dependency/* HelloWorld
-        java -cp target/classes:target/dependency/* NonoPuzzle
-        java -cp target/classes:target/dependency/* NonoDatabase
+web:      java -cp target/classes:target/dependency/* NonoServer
