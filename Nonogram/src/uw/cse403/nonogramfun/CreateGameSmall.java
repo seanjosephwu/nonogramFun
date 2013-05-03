@@ -55,7 +55,6 @@ public class CreateGameSmall extends Activity implements OnClickListener{
 	        	buttons[i][j].setOnClickListener(this);
 	        	Log.i("button width[" + i + "] [" + j + "] = " + "" + buttons[i][j].getWidth(), ("" + buttons[i][j].getWidth()));
 	        	Log.i("button height[" + i + "] [" + j + "] = " + "" + buttons[i][j].getWidth(), ("" + buttons[i][j].getHeight()));
-	        	//ca.drawLine(startX, startY, stopX, stopY, p);
 	        	tr.addView(buttons[i][j],50,50);
 			}
 			layout.addView(tr);
