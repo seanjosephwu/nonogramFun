@@ -8,21 +8,21 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onclick="CreateGameSmallScreen"
+        android:onClick="CreateGameSmallScreen"
         android:text="@string/create_small_button" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onclick="CreateGameMediumScreen"
+        android:onClick="CreateGameMediumScreen"
         android:text="@string/create_medium_button" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onclick="CreateGameLargeScreen"
+        android:onClick="CreateGameLargeScreen"
         android:text="@string/create_large_button" />
 
 </LinearLayout>
