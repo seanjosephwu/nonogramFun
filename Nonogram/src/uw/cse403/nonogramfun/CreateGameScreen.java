@@ -15,13 +15,18 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-public class CreateGameSmall extends Activity implements OnClickListener{
-	Button[][] buttons = new Button[5][5] ;
+public class CreateGameScreen extends Activity implements OnClickListener{
+	private Button[][] buttons;
 	//boolean selected = false;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_create_game_small);
+		setContentView(R.layout.activity_create_game_screen);
 
+		Bundle bundle = getIntent().getExtras();
+		int dimension = bundle.getInt("size");
+		
+		buttons = new Button[dimension][dimension];
+		
 //		Canvas ca = new Canvas();
 //		Paint p = new Paint();
 //		p.setAntiAlias(true);
@@ -34,14 +39,14 @@ public class CreateGameSmall extends Activity implements OnClickListener{
 //		tcanvas.draw(canvas);
 
 		TableLayout layout = new TableLayout (this);
-		layout.setLayoutParams( new TableLayout.LayoutParams(4,5) );
-
+		layout.setLayoutParams( new TableLayout.LayoutParams(dimension-1,dimension) );
+		
 		layout.setPadding(50,50,50,50);
 //		layout.addView((View)tcanvas);
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < dimension; i++) {
 			TableRow tr = new TableRow(this);
-			for (int j = 0; j < 5; j++) {
+			for (int j = 0; j < dimension; j++) {
 	        	buttons[i][j] = new Cell(this);
 	        	buttons[i][j].setWidth(10);
 	        	buttons[i][j].setHeight(10);
@@ -58,6 +63,20 @@ public class CreateGameSmall extends Activity implements OnClickListener{
 			}
 			layout.addView(tr);
 		}
+		
+		Button submitButton = new Button(this);
+		submitButton.setText("Submit");
+		submitButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		layout.addView(submitButton);
+		
 		Button b = new Button(this);
 		super.setContentView(layout); 
 

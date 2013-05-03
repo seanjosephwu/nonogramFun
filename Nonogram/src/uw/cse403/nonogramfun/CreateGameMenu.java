@@ -23,17 +23,20 @@ public class CreateGameMenu extends Activity {
 
 	
 	public void CreateGameSmallScreen(View view) {
-		Intent i = new Intent(this, CreateGameSmall.class);
+		Intent i = new Intent(this, CreateGameScreen.class);
+		i.putExtra("size", 5);
 		startActivity(i);
 	}
 
 	public void CreateGameMediumScreen(View view) {
-		Intent i = new Intent(this, CreateGameMedium.class);
+		Intent i = new Intent(this, CreateGameScreen.class);
+		i.putExtra("size", 10);
 		startActivity(i);
 	}
 
 	public void CreateGameLargeScreen(View view) {
-		Intent i = new Intent(this, CreateGameLarge.class);
+		Intent i = new Intent(this, CreateGameScreen.class);
+		i.putExtra("size", 14);
 		startActivity(i);
 	}
 
