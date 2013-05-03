@@ -1,7 +1,9 @@
 package uw.cse403.nonogramfun;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -17,13 +19,14 @@ import android.widget.TableRow;
 
 public class CreateGameScreen extends Activity implements OnClickListener{
 	private Button[][] buttons;
+	private int dimension;
 	//boolean selected = false;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_game_screen);
 
 		Bundle bundle = getIntent().getExtras();
-		int dimension = bundle.getInt("size");
+		dimension = bundle.getInt("size");
 		
 		buttons = new Button[dimension][dimension];
 		
@@ -70,8 +73,19 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				// Alert Dialog popup box
+				AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
+				alertDialog.setTitle("Error");
+				alertDialog.setMessage("Please do not submit an empty game");
+				// -1 = BUTTON_POSITIVE = a positive button?
+				alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// here you can add functions
+					}
+				});
+				alertDialog.show();
+
+				Color[][] gameArray = new Color[dimension][dimension];
 			}
 			
 		});
