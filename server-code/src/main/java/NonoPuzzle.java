@@ -1,20 +1,23 @@
 /**
  * CSE 403 AA
- * Project Nonogram
- * Due Friday June 15, 2013
+ * Project Nonogram: Backend
  * @author  HyeIn Kim
  * @version v1.0, University of Washington 
  * @since   Spring 2013 
  */
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.*;
+
+import enums.Difficulty;
 
 /**
  * 
  *
  */
-public class NonoPuzzle {
+public class NonoPuzzle implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private static int ID_COUNTER = 0;
 	private List<NonoNum>[] rowNonoNums;
 	private List<NonoNum>[] colNonoNums;
@@ -38,12 +41,12 @@ public class NonoPuzzle {
 		}
 	}
 	
-	public static NonoPuzzle makeNonoPuzzle(Color[][] array, Color bgColor, String name) {
-		PuzzleInfo info = new PuzzleInfo(ID_COUNTER ++, name, array.length, array[0].length, 0, 0);
+	public static NonoPuzzle createNonoPuzzle(Color[][] array, Color bgColor, String name) {
+		PuzzleInfo info = new PuzzleInfo(ID_COUNTER ++, name, findDifficulty(), array.length, array[0].length, 0, 0);
 		NonoPuzzle puzzle = new NonoPuzzle(array, bgColor, info);
 		
 		int maxNonoNumRowSize = 0;
-		for(int i=0; i<puzzle.getNonoPicRowSize(); i++) {
+		for(int i=0; i<puzzle.getNonoPicRowSize(); i++) { //TODO: factor out & clean up redundancy
 			int blockLength = 1;
 			for(int j=0; j<puzzle.getNonoPicColSize()-1; j++) {
 				if(!array[i][j].equals(bgColor)) {
@@ -63,7 +66,7 @@ public class NonoPuzzle {
 			int blockLength = 1;
 			for(int i=0; i<puzzle.getNonoPicRowSize()-1; i++) {
 				if(!array[i][j].equals(bgColor)) {
-					if(array[i][j].equals(array[i][j+1])) {
+					if(array[i][j].equals(array[i+1][j])) {
 						blockLength ++;
 					}else{
 						puzzle.colNonoNums[j].add(new NonoNum(blockLength, array[i][j]));
@@ -78,6 +81,11 @@ public class NonoPuzzle {
 		info.nonoNumColSize = maxNonoNumColSize;
 		
 		return puzzle;
+	}
+	
+	private static Difficulty findDifficulty() {
+		return Difficulty.EASY;
+		//return null; //TODO: categorize into difficulty given dimention
 	}
 	
 	public Iterator<NonoNum> getRowNonoNumItrator(int row) {
@@ -96,6 +104,10 @@ public class NonoPuzzle {
 		return puzzleInfo.puzzleName;
 	}
 
+	public Difficulty getDifficulty() {
+		return puzzleInfo.difficulty;
+	}
+	
 	public int getNonoPicRowSize() {
 		return puzzleInfo.nonoPicRowSize;
 	}
@@ -128,8 +140,20 @@ public class NonoPuzzle {
 		return nonoPicArr[row][col].equals(color);
 	}
 	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("I'm a nonopuzzle!\n");
+		for(int i=0; i<getNonoPicRowSize(); i++) {
+			for(int j=0; j<getNonoPicColSize(); j++) {
+				sb.append(nonoPicArr[i][j] + " ");
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
 	
-	public static class NonoNum {
+	public static class NonoNum implements Serializable {
+		private static final long serialVersionUID = 1L;
 		public final int number;
 		public final Color color;
 		
@@ -139,17 +163,20 @@ public class NonoPuzzle {
 		}
 	}
 	
-	private static class PuzzleInfo {
+	private static class PuzzleInfo implements Serializable {
+		private static final long serialVersionUID = 1L;
 		private int puzzleID;
 		private String puzzleName;
+		private Difficulty difficulty;
 		private int nonoPicRowSize;
 		private int nonoPicColSize;
 		private int nonoNumRowSize;
 		private int nonoNumColSize;
 		
-		public PuzzleInfo(int id, String name, int picRow, int picCol, int numRow, int numCol) {
+		public PuzzleInfo(int id, String name, Difficulty difficulty, int picRow, int picCol, int numRow, int numCol) {
 			this.puzzleID = id;
 			this.puzzleName = name;
+			this.difficulty = difficulty;
 			this.nonoPicRowSize = picRow;
 			this.nonoPicColSize = picCol;
 			this.nonoNumRowSize = numRow;
