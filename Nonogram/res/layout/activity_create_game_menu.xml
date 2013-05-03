@@ -8,7 +8,7 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onclick="CreateGameSmallScreen"
+        android:onclick="CreateGameSmall"
         android:text="@string/create_small_button" />
 
     <Button

@@ -22,7 +22,7 @@ public class CreateGameMenu extends Activity {
 	}
 
 	
-	public void CreateGameSmallScreen(View view) {
+	public void CreateGameSmall(View view) {
 		Intent i = new Intent(this, CreateGameSmall.class);
 		startActivity(i);
 	}
