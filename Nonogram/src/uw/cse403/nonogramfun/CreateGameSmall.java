@@ -76,11 +76,9 @@ public class CreateGameSmall extends Activity implements OnClickListener{
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		if(((Cell)arg0).getSelectVal()){
-			//((Cell) arg0).setBackgroundColor(Color.RED);
 			((Cell) arg0).setText("");	
 		}
 		else{
-			//((Cell) arg0).setBackgroundColor(Color.YELLOW);
 			((Cell) arg0).setText("X");
 			((Cell) arg0).setTextColor(Color.BLUE);
 		}
