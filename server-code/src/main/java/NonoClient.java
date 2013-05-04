@@ -126,7 +126,7 @@ public class NonoClient {
 	public static void main(String[] args) throws Exception {
 		System.out.println("Running NonoClient");
 		testJSON();
-		//testGetPuzzles();
+		testGetPuzzles();
 		//testClient();
 	}
 }

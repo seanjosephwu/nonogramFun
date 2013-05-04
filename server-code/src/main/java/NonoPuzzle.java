@@ -42,7 +42,7 @@ public class NonoPuzzle implements Serializable {
 	}
 	
 	public static NonoPuzzle createNonoPuzzle(Integer[][] array, Integer bgColor, String name) {
-    PuzzleInfo info = new PuzzleInfo(ID_COUNTER ++, name, findDifficulty(), array.length, array[0].length, 0, 0);
+    PuzzleInfo info = new PuzzleInfo(ID_COUNTER ++, name, findDifficulty(array), array.length, array[0].length, 0, 0);
 		NonoPuzzle puzzle = new NonoPuzzle(array, bgColor, info);
 		
 		int maxNonoNumRowSize = 0;
@@ -83,8 +83,18 @@ public class NonoPuzzle implements Serializable {
 		return puzzle;
 	}
 	
-	private static Difficulty findDifficulty() {
-		return Difficulty.EASY;
+	private static Difficulty findDifficulty(Integer[][] array) {
+    if ( array.length <= 5 ) {
+      return Difficulty.EASY;
+    } else if ( array.length <= 10 ) {
+      return Difficulty.MEDIUM;
+    } else if ( array.length <= 15 ) {
+      return Difficulty.HARD;
+    } else if ( array.length <= 20) {
+      return Difficulty.INSANE;
+    } else {
+      return Difficulty.UNKNOWN;
+    }
 		//return null; //TODO: categorize into difficulty given dimention
 	}
 	
