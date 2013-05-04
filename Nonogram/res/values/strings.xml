@@ -17,5 +17,6 @@
     <string name="create_medium_button">Medium (10x10)</string>
     <string name="create_large_button">Large (15x15)</string>
     <string name="title_activity_create_game_menu">CreateGameMenu</string>
+    <string name="title_activity_create_game_screen">CreateGameScreen</string>
 
 </resources>

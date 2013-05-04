@@ -1,7 +1,9 @@
 package uw.cse403.nonogramfun;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,13 +17,19 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-public class CreateGameSmall extends Activity implements OnClickListener{
-	Button[][] buttons = new Button[5][5] ;
+public class CreateGameScreen extends Activity implements OnClickListener{
+	private Button[][] buttons;
+	private int dimension;
 	//boolean selected = false;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_create_game_small);
+		setContentView(R.layout.activity_create_game_screen);
 
+		Bundle bundle = getIntent().getExtras();
+		dimension = bundle.getInt("size");
+		
+		buttons = new Button[dimension][dimension];
+		
 //		Canvas ca = new Canvas();
 //		Paint p = new Paint();
 //		p.setAntiAlias(true);
@@ -34,14 +42,14 @@ public class CreateGameSmall extends Activity implements OnClickListener{
 //		tcanvas.draw(canvas);
 
 		TableLayout layout = new TableLayout (this);
-		layout.setLayoutParams( new TableLayout.LayoutParams(4,5) );
-
+		layout.setLayoutParams( new TableLayout.LayoutParams(dimension-1,dimension) );
+		
 		layout.setPadding(50,50,50,50);
 //		layout.addView((View)tcanvas);
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < dimension; i++) {
 			TableRow tr = new TableRow(this);
-			for (int j = 0; j < 5; j++) {
+			for (int j = 0; j < dimension; j++) {
 	        	buttons[i][j] = new Cell(this);
 	        	buttons[i][j].setWidth(10);
 	        	buttons[i][j].setHeight(10);
@@ -58,6 +66,40 @@ public class CreateGameSmall extends Activity implements OnClickListener{
 			}
 			layout.addView(tr);
 		}
+		
+		Button submitButton = new Button(this);
+		submitButton.setText("Submit");
+		submitButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// Alert Dialog popup box
+				AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
+				alertDialog.setTitle("Error");
+				alertDialog.setMessage("Please do not submit an empty game");
+				// -1 = BUTTON_POSITIVE = a positive button?
+				alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// here you can add functions
+					}
+				});
+				alertDialog.show();
+
+				int[][] gameArray = new int[dimension][dimension];
+				for (int i = 0; i < dimension; i++) {
+					for (int j = 0; j < dimension; j++) {
+			        	if(buttons[i][j].getText().toString().equalsIgnoreCase("x")){
+			        		gameArray[i][j] = Color.WHITE;
+			        	} else {
+			        		gameArray[i][j] = Color.BLACK;
+			        	}
+					}
+				}
+			}
+			
+		});
+		layout.addView(submitButton);
+		
 		Button b = new Button(this);
 		super.setContentView(layout); 
 

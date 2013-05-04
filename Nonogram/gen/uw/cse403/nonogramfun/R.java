@@ -41,21 +41,17 @@ public final class R {
         public static final int tableRow4=0x7f080006;
     }
     public static final class layout {
-        public static final int activity_create_game_large=0x7f030000;
-        public static final int activity_create_game_medium=0x7f030001;
-        public static final int activity_create_game_menu=0x7f030002;
-        public static final int activity_create_game_small=0x7f030003;
-        public static final int activity_main=0x7f030004;
-        public static final int how_to_play=0x7f030005;
-        public static final int play_game_menu=0x7f030006;
-        public static final int settings=0x7f030007;
+        public static final int activity_create_game_menu=0x7f030000;
+        public static final int activity_create_game_screen=0x7f030001;
+        public static final int activity_main=0x7f030002;
+        public static final int how_to_play=0x7f030003;
+        public static final int play_game_menu=0x7f030004;
+        public static final int settings=0x7f030005;
     }
     public static final class menu {
-        public static final int create_game_large=0x7f070000;
-        public static final int create_game_medium=0x7f070001;
-        public static final int create_game_menu=0x7f070002;
-        public static final int create_game_small=0x7f070003;
-        public static final int main=0x7f070004;
+        public static final int create_game_menu=0x7f070000;
+        public static final int create_game_screen=0x7f070001;
+        public static final int main=0x7f070002;
     }
     public static final class string {
         public static final int access_button=0x7f050004;
@@ -73,6 +69,7 @@ public final class R {
         public static final int title_activity_create_game_large=0x7f05000b;
         public static final int title_activity_create_game_medium=0x7f05000a;
         public static final int title_activity_create_game_menu=0x7f05000f;
+        public static final int title_activity_create_game_screen=0x7f050010;
         public static final int title_activity_create_game_small=0x7f050009;
     }
     public static final class style {

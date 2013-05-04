@@ -62,6 +62,10 @@
             android:name="uw.cse403.nonogramfun.CreateGameMenu"
             android:label="@string/title_activity_create_game_menu" >
         </activity>
+        <activity
+            android:name="uw.cse403.nonogramfun.CreateGameScreen"
+            android:label="@string/title_activity_create_game_screen" >
+        </activity>
     </application>
 
 </manifest>
