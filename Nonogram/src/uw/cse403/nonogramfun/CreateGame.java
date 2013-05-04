@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -29,17 +31,13 @@ public class CreateGame extends Activity implements OnClickListener{
 
 		for (int f=0; f<5; f++) {
 			TableRow tr = new TableRow(this);
+			tr.setPadding(0, 0, 0, 5);
 			for (int c=0; c<5; c++) {
 	        	buttons[f][c] = new Button (this);
-	        	buttons[f][c].setText(""+f+c);
-	        	buttons[f][c].setTextSize(20.0f);
-	        	buttons[f][c].setText("*");
 	        	buttons[f][c].setBackgroundColor(Color.BLACK);
-	        	buttons[f][c].setTextColor(Color.BLACK);
-	        	//buttons[f][c].set
-	        	//buttons[f][c].setTextColor(Color.rgb( 100, 200, 200));
 	        	buttons[f][c].setOnClickListener(this);
-	        	tr.addView(buttons[f][c],30,30);
+	        	buttons[f][c].setPadding(5, 5, 5, 5);
+	        	tr.addView(buttons[f][c],50, 50);
 			}
 			layout.addView(tr);
 		}
@@ -72,10 +70,6 @@ public class CreateGame extends Activity implements OnClickListener{
 			((Button) arg0).setBackgroundColor(Color.WHITE);
 			((Button) arg0).setTextColor(Color.WHITE);
 		}
-			
-		//((Button) arg0).setText("*");
-
- //       ((Button) arg0).setEnabled(false);
 	}
     
     
