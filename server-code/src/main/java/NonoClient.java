@@ -6,7 +6,7 @@
  * @since   Spring 2013 
  */
 
-import java.awt.Color;
+import android.graphics.Color;
 import java.io.*;
 import java.net.*;
 
@@ -29,7 +29,7 @@ public class NonoClient {
 	
 	
 	
-	public static void createPuzzle(Color[][] cArray, Color bgColor, String name) throws UnknownHostException, IOException, JSONException {
+	public static void createPuzzle(Integer[][] cArray, Integer bgColor, String name) throws UnknownHostException, IOException, JSONException {
 		InetAddress inetAddress = InetAddress.getByName(NonoServer.NAME);
 		System.out.println(inetAddress.getHostAddress());
 		NonoNetwork network = new NonoNetwork(new Socket(inetAddress.getHostAddress(), BASE_PORT));
@@ -77,7 +77,7 @@ public class NonoClient {
 			//String response = tcpHandler.readMessageString();
 			//System.out.println("Server said: " + response);
 			
-			Color[][] arr = {{ Color.BLACK, Color.BLACK }, { Color.BLUE, Color.BLUE } };
+			Integer[][] arr = {{ Color.BLACK, Color.BLACK }, { Color.BLUE, Color.BLUE } };
 			tcpHandler.sendMessage(arr);
 			NonoPuzzle puzzle = (NonoPuzzle) tcpHandler.readMessageObject();
 			System.out.println("I got a response puzzle from server!!");
@@ -88,8 +88,8 @@ public class NonoClient {
 	// For testing  TODO: delete later
 	private static void testJSON() throws Exception {
 		System.out.println("I'm sending somthing to server!!");
-		Color[][] cArray = {{ Color.BLACK, Color.BLACK }, { Color.BLUE, Color.BLUE } };
-		Color bgColor = Color.BLACK;
+		Integer[][] cArray = {{ Color.BLACK, Color.BLACK }, { Color.BLUE, Color.BLUE } };
+		Integer bgColor = Color.BLACK;
 		createPuzzle(cArray, bgColor, "NOmmmmmmmmmmmmmmmmmmmmm");
 		InetAddress inetAddress = InetAddress.getByName(NonoServer.NAME);
 		System.out.println(inetAddress.getHostAddress());

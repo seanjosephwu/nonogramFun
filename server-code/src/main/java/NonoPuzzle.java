@@ -6,7 +6,7 @@
  * @since   Spring 2013 
  */
 
-import java.awt.Color;
+import android.graphics.Color;
 import java.io.Serializable;
 import java.util.*;
 
@@ -21,13 +21,13 @@ public class NonoPuzzle implements Serializable {
 	private static int ID_COUNTER = 0;
 	private List<NonoNum>[] rowNonoNums;
 	private List<NonoNum>[] colNonoNums;
-	private Color[][] nonoPicArr;
-	private Color backgroundColor;
+	private Integer[][] nonoPicArr;
+	private Integer backgroundColor;
 	private PuzzleInfo puzzleInfo;
 	
 	//
 	@SuppressWarnings("unchecked")
-	private NonoPuzzle(Color[][] array, Color bgColor, PuzzleInfo info) {
+	private NonoPuzzle(Integer[][] array, Integer bgColor, PuzzleInfo info) {
 		rowNonoNums = (List<NonoNum>[]) new List[info.nonoPicRowSize];
 		colNonoNums = (List<NonoNum>[]) new List[info.nonoPicColSize];
 		nonoPicArr = array;
@@ -41,8 +41,8 @@ public class NonoPuzzle implements Serializable {
 		}
 	}
 	
-	public static NonoPuzzle createNonoPuzzle(Color[][] array, Color bgColor, String name) {
-		PuzzleInfo info = new PuzzleInfo(ID_COUNTER ++, name, findDifficulty(), array.length, array[0].length, 0, 0);
+	public static NonoPuzzle createNonoPuzzle(Integer[][] array, Integer bgColor, String name) {
+    PuzzleInfo info = new PuzzleInfo(ID_COUNTER ++, name, findDifficulty(), array.length, array[0].length, 0, 0);
 		NonoPuzzle puzzle = new NonoPuzzle(array, bgColor, info);
 		
 		int maxNonoNumRowSize = 0;
@@ -124,19 +124,19 @@ public class NonoPuzzle implements Serializable {
 		return puzzleInfo.nonoNumColSize;
 	}
 	
-	public Color getBackgroundColor() {
+	public Integer getBackgroundColor() {
 		return backgroundColor;
 	}
 	
-	public boolean isBackgroundColor(Color color) {
+	public boolean isBackgroundColor(Integer color) {
 		return backgroundColor.equals(color);
 	}
 	
-	public Color getColor(int row, int col) {
+	public Integer getColor(int row, int col) {
 		return nonoPicArr[row][col];
 	}
 	
-	public boolean isSameColor(int row, int col, Color color) {
+	public boolean isSameColor(int row, int col, Integer color) {
 		return nonoPicArr[row][col].equals(color);
 	}
 	
@@ -155,9 +155,9 @@ public class NonoPuzzle implements Serializable {
 	public static class NonoNum implements Serializable {
 		private static final long serialVersionUID = 1L;
 		public final int number;
-		public final Color color;
+		public final Integer color;
 		
-		public NonoNum(int number, Color color) {
+		public NonoNum(int number, Integer color) {
 			this.number = number;
 			this.color = color;
 		}

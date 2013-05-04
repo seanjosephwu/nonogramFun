@@ -6,7 +6,7 @@
  * @since   Spring 2013 
  */
 
-import java.awt.Color;
+import android.graphics.Color;
 import java.io.*;
 import java.net.*;
 
@@ -168,8 +168,8 @@ public class NonoServer {
 	private static void testJSON(NonoNetwork network, JSONObject requestJSON) throws JSONException, IOException {
 		System.out.println("Client sent me something!\n");	
 		System.out.println(requestJSON);
-		Color[][] cArray = NonoUtil.getColorArray(requestJSON);
-		Color bgColor = NonoUtil.getColor(requestJSON);
+		Integer[][] cArray = NonoUtil.getColorArray(requestJSON);
+		Integer bgColor = NonoUtil.getColor(requestJSON);
 		String name = NonoUtil.getString(requestJSON);
 		NonoPuzzle puzzle = NonoPuzzle.createNonoPuzzle(cArray, bgColor, name);
 		System.out.println("So I made a puzzle out of it!!");
@@ -191,7 +191,7 @@ public class NonoServer {
 		//System.out.println("Client said: " + request);
 		//network.sendMessage("Hi, Client. I'm server!");
 		
-		Color[][] arr = (Color[][]) network.readMessageObject();
+		Integer[][] arr = (Integer[][]) network.readMessageObject();
 		network.sendMessage(NonoPuzzle.createNonoPuzzle(arr, Color.BLACK, "Test"));
 	}
 	

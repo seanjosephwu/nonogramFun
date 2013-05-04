@@ -6,7 +6,7 @@
  * @since   Spring 2013 
  */
 
-import java.awt.Color;
+import android.graphics.Color;
 import java.io.*;
 import java.nio.*;
 import org.json.*;
@@ -81,11 +81,11 @@ public class NonoUtil {
 		requestJSON.put(JSON_HEADER_TAG, NonoUtil.objectToJSON(sr));
 	}
 	
-	public static void putColorArray(JSONObject requestJSON, Color[][] cArray) throws JsonSyntaxException, JSONException {
+	public static void putColorArray(JSONObject requestJSON, Integer[][] cArray) throws JsonSyntaxException, JSONException {
 		requestJSON.put(JSON_COLOR_ARRAY_TAG, NonoUtil.objectToJSON(cArray));
 	}
 	
-	public static void putColor(JSONObject requestJSON, Color c) throws JsonSyntaxException, JSONException {
+	public static void putColor(JSONObject requestJSON, Integer c) throws JsonSyntaxException, JSONException {
 		requestJSON.put(JSON_COLOR_TAG, NonoUtil.objectToJSON(c));
 	}
 	
@@ -118,12 +118,12 @@ public class NonoUtil {
 		return JSON.fromJson(responseJSON.getString(JSON_HEADER_TAG), ServerResponse.class);
 	}
 	
-	public static Color[][] getColorArray(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
-		return JSON.fromJson(responseJSON.getString(JSON_COLOR_ARRAY_TAG), Color[][].class);
+	public static Integer[][] getColorArray(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
+		return JSON.fromJson(responseJSON.getString(JSON_COLOR_ARRAY_TAG), Integer[][].class);
 	}
 	
-	public static Color getColor(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
-		return JSON.fromJson(responseJSON.getString(JSON_COLOR_TAG), Color.class);
+	public static Integer getColor(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
+		return JSON.fromJson(responseJSON.getString(JSON_COLOR_TAG), Integer.class);
 	}
 	
 	public static NonoPuzzle getNonoPuzzle(JSONObject responseJSON) throws JsonSyntaxException, JSONException {

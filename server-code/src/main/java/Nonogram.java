@@ -6,7 +6,7 @@
  * @since   Spring 2013 
  */
 
-import java.awt.Color;
+import android.graphics.Color;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -25,8 +25,8 @@ public class Nonogram {
 	private Nonogram() {}
 	
 	public static void createPuzzle(JSONObject requestJSON) throws SQLException, IOException, JSONException {
-		Color[][] cArray = NonoUtil.getColorArray(requestJSON);
-		Color bgColor = NonoUtil.getColor(requestJSON);
+		Integer[][] cArray = NonoUtil.getColorArray(requestJSON);
+		Integer bgColor = NonoUtil.getColor(requestJSON);
 		String name = NonoUtil.getString(requestJSON);
 		System.out.println(name);
 		NonoPuzzle puzzle = NonoPuzzle.createNonoPuzzle(cArray, bgColor, name);
