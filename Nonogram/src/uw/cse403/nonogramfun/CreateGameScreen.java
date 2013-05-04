@@ -1,5 +1,10 @@
 package uw.cse403.nonogramfun;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
+import org.json.JSONException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -73,27 +78,59 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 
 			@Override
 			public void onClick(View v) {
-				// Alert Dialog popup box
-				AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
-				alertDialog.setTitle("Error");
-				alertDialog.setMessage("Please do not submit an empty game");
-				// -1 = BUTTON_POSITIVE = a positive button?
-				alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						// here you can add functions
-					}
-				});
-				alertDialog.show();
-
-				int[][] gameArray = new int[dimension][dimension];
+				final int[][] gameArray = new int[dimension][dimension];
+				boolean isEmpty = true;
 				for (int i = 0; i < dimension; i++) {
 					for (int j = 0; j < dimension; j++) {
 			        	if(buttons[i][j].getText().toString().equalsIgnoreCase("x")){
 			        		gameArray[i][j] = Color.WHITE;
+			        		isEmpty = false;
 			        	} else {
 			        		gameArray[i][j] = Color.BLACK;
 			        	}
 					}
+				}
+				
+				if ( isEmpty ){
+					// Alert Dialog popup box
+					AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
+					alertDialog.setTitle("Error");
+					alertDialog.setMessage("Please do not submit an empty game");
+					// -1 = BUTTON_POSITIVE = a positive button?
+					alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							// here you can add functions
+						}
+					});
+					alertDialog.show();
+				}
+				
+				Thread thread = new Thread(new Runnable(){
+				    @Override
+				    public void run() {
+						try {
+							NonoClient.createPuzzle(gameArray, Integer.valueOf(Color.WHITE), "Puzzle 1");
+							System.out.println("Puzzle Created!");
+						} catch (UnknownHostException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						System.out.println("Puzzle Created!");
+						
+				    }
+				});
+				thread.start();
+				try {
+					thread.join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 			
