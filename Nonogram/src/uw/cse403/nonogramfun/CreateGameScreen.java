@@ -1,5 +1,6 @@
 package uw.cse403.nonogramfun;
 
+
 import java.io.IOException;
 import java.net.UnknownHostException;
 
@@ -21,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import uw.cse403.nonogramServer.*;
 
 public class CreateGameScreen extends Activity implements OnClickListener{
 	private Button[][] buttons;
@@ -78,7 +80,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 
 			@Override
 			public void onClick(View v) {
-				final int[][] gameArray = new int[dimension][dimension];
+				final Integer[][] gameArray = new Integer[dimension][dimension];
 				boolean isEmpty = true;
 				for (int i = 0; i < dimension; i++) {
 					for (int j = 0; j < dimension; j++) {
