@@ -85,7 +85,16 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 				});
 				alertDialog.show();
 
-				Color[][] gameArray = new Color[dimension][dimension];
+				int[][] gameArray = new int[dimension][dimension];
+				for (int i = 0; i < dimension; i++) {
+					for (int j = 0; j < dimension; j++) {
+			        	if(buttons[i][j].getText().toString().equalsIgnoreCase("x")){
+			        		gameArray[i][j] = Color.WHITE;
+			        	} else {
+			        		gameArray[i][j] = Color.BLACK;
+			        	}
+					}
+				}
 			}
 			
 		});
