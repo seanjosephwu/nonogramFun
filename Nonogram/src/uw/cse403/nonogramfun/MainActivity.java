@@ -42,7 +42,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         b = (Button) findViewById(R.id.creategame);
         b.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
-        		Intent i = new Intent(MainActivity.this, CreateGame.class);
+        		Intent i = new Intent(MainActivity.this, CreateGameMenu.class);
         		startActivity(i);    		
         	}
         });
@@ -142,7 +142,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	
 	
 	public void createGameScreen(View view) {
-		Intent i = new Intent(this, CreateGame.class);
+		Intent i = new Intent(this, CreateGameMenu.class);
 		startActivity(i);
 	}
     
