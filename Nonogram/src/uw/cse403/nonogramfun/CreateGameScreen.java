@@ -1,5 +1,12 @@
 package uw.cse403.nonogramfun;
 
+/**
+ * CSE 403 AA
+ * Project Nonogram: Frontend
+ * @author  Xiaoxia Jian, Huiqi Wang, Renhao Xie, Alan Loh
+ * @version v1.0, University of Washington 
+ * @since   Spring 2013 
+ */
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -12,8 +19,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Looper;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,7 +31,6 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 	private Button[][] buttons;
 	private int dimension;
 
-	private boolean submit = false;;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_game_screen);
@@ -71,15 +75,15 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 
 				for (int i = 0; i < dimension; i++) {
 					for (int j = 0; j < dimension; j++) {
-			        	if(buttons[i][j].getText().toString().equalsIgnoreCase("x")){
-			        		gameArray[i][j] = Color.WHITE;
-			        		isEmpty = false;
-			        	} else {
-			        		gameArray[i][j] = Color.BLACK;
-			        	}
+						if(buttons[i][j].getText().toString().equalsIgnoreCase("x")){
+							gameArray[i][j] = Color.WHITE;
+							isEmpty = false;
+						} else {
+							gameArray[i][j] = Color.BLACK;
+						}
 					}
 				}
-				
+
 				if ( isEmpty ){
 					// Alert Dialog popup box
 					AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
@@ -92,43 +96,43 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 						}
 					});
 					alertDialog.show();
-				}
-				
-				AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
-				alertDialog.setTitle("Submit Success");
-				alertDialog.setMessage("Puzzle Created!");
-				// -1 = BUTTON_POSITIVE = a positive button?
-				alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						// here you can add functions
-					}
-				});
-				Thread thread = new Thread(new Runnable(){
-				    @Override
-				    public void run() {
-				    	try {
-							NonoClient.createPuzzle(gameArray, Integer.valueOf(Color.WHITE), "Puzzle 1");
-							
-						} catch (UnknownHostException e) {
-							//e.printStackTrace();
-						} catch (IOException e) {
-							//e.printStackTrace();
-						} catch (JSONException e) {
-							//e.printStackTrace();
+				} else {
+
+					AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
+					alertDialog.setTitle("Submit Success");
+					alertDialog.setMessage("Puzzle Created!");
+					// -1 = BUTTON_POSITIVE = a positive button?
+					alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							// here you can add functions
 						}
-						
-				    }
-				});
-				thread.start();
-				try {
-					thread.join();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					});
+					Thread thread = new Thread(new Runnable(){
+						@Override
+						public void run() {
+							try {
+								NonoClient.createPuzzle(gameArray, Integer.valueOf(Color.WHITE), "Puzzle 1");
+							} catch (UnknownHostException e) {
+								//e.printStackTrace();
+							} catch (IOException e) {
+								//e.printStackTrace();
+							} catch (JSONException e) {
+								//e.printStackTrace();
+							}
+
+						}
+					});
+					thread.start();
+					try {
+						thread.join();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					alertDialog.show();
 				}
-				alertDialog.show();
 			}
-			
 		}); 
+		
 		layout.addView(submitButton);
 		super.setContentView(layout); 
 
