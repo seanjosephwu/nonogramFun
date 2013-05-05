@@ -20,6 +20,7 @@ import android.widget.TableRow;
 public class CreateGameScreen extends Activity implements OnClickListener{
 	private Button[][] buttons;
 	private int dimension;
+	private boolean submit = false;;
 	//boolean selected = false;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,17 +30,6 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 		dimension = bundle.getInt("size");
 		
 		buttons = new Button[dimension][dimension];
-		
-//		Canvas ca = new Canvas();
-//		Paint p = new Paint();
-//		p.setAntiAlias(true);
-//		p.setStyle(Style.STROKE);
-//		p.setStrokeWidth(5);
-
-
-//	    TestCanvas tcanvas=new TestCanvas(this);
-//	    Canvas canvas = new Canvas();
-//		tcanvas.draw(canvas);
 
 		TableLayout layout = new TableLayout (this);
 		layout.setLayoutParams( new TableLayout.LayoutParams(dimension-1,dimension) );
@@ -60,8 +50,6 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 	        		buttons[i][j].setBackgroundColor(Color.WHITE);
 	        	}
 	        	buttons[i][j].setOnClickListener(this);
-	        	Log.i("button width[" + i + "] [" + j + "] = " + "" + buttons[i][j].getWidth(), ("" + buttons[i][j].getWidth()));
-	        	Log.i("button height[" + i + "] [" + j + "] = " + "" + buttons[i][j].getWidth(), ("" + buttons[i][j].getHeight()));
 	        	tr.addView(buttons[i][j],50,50);
 			}
 			layout.addView(tr);
@@ -73,6 +61,8 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 
 			@Override
 			public void onClick(View v) {
+				submit = true;
+
 				// Alert Dialog popup box
 				AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
 				alertDialog.setTitle("Error");
@@ -97,7 +87,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 				}
 			}
 			
-		});
+		}); 
 		layout.addView(submitButton);
 		
 		Button b = new Button(this);
@@ -150,28 +140,4 @@ public class CreateGameScreen extends Activity implements OnClickListener{
     	
     }
     
-    /*
-    public class TestCanvas extends View {
-        public TestCanvas(Context context) {
-            super(context);
-        }
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-            super.onDraw(canvas);
-            Paint paint = new Paint();
-            paint.setColor(Color.BLACK);
-
-    	for (int i = 0; i < 5; i++) {
-    		
-			canvas.drawLine(i * 10, 0, i * 10, 50, paint);
-		}
-
-		for (int j = 0; j < 5; j++) {
-			canvas.drawLine(0, j * 10, 50, j * 10, paint);
-		}
-            canvas.save();
-        }
-    }
-    */
 }
