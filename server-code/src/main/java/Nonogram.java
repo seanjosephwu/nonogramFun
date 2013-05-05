@@ -1,7 +1,7 @@
 /**
  * CSE 403 AA
  * Project Nonogram: Backend
- * @author  HyeIn Kim
+ * @author  HyeIn Kim, Sean Wu
  * @version v1.0, University of Washington 
  * @since   Spring 2013 
  */
@@ -10,9 +10,8 @@ import android.graphics.Color;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
-
+import java.util.Random;
 import org.json.*;
-
 import enums.*;
 
 /**
@@ -38,7 +37,8 @@ public class Nonogram {
 	public static NonoPuzzle getPuzzle(JSONObject requestJSON) throws JSONException, SQLException, ClassNotFoundException, IOException {
 		Difficulty difficulty = NonoUtil.getDifficulty(requestJSON);
 		List<Integer> puzzleIDList = NonoDatabase.getPuzzleIDList(difficulty);
-		int puzzleID = puzzleIDList.get(0); //TODO: randomly chose ID
+    int index = (int)Math.floor(Math.random()*puzzleIDList.size());
+		int puzzleID = puzzleIDList.get(index);
 		return NonoDatabase.getPuzzle(puzzleID);
 	}
 

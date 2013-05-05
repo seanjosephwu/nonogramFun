@@ -1,7 +1,7 @@
 /**
  * CSE 403 AA
  * Project Nonogram: Backend
- * @author  HyeIn Kim
+ * @author  HyeIn Kim, Sean Wu
  * @version v1.0, University of Washington 
  * @since   Spring 2013 
  */
@@ -20,36 +20,31 @@ public class NonoDatabase {
 	public static final String DRIVER = "org.postgresql.Driver";
 	public static final String USER_ID = "fcwlxdlohwgjtp";
 	public static final String PASSWORD = "uwcse403nonogram";
-//	public static final String DB_URL = "jdbc:mysql://82.197.130.17:3306/1361466_00e6";
-//	public static final String DRIVER = "com.mysql.jdbc.Driver";
-//	public static final String USER_ID = "kainby87@uw.edu";
-//	public static final String PASSWORD = "uwcse403nonogram";
 	public static final String url = "jdbc:postgresql://ec2-54-225-101-126.compute-1.amazonaws.com:5432/d64in60h3dpvf2?user=fcwlxdlohwgjtp&password=0xpGsFrLQgSJfp-4l9GE8HXdH-&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 	
 	private static Connection getConnection() {
-        System.out.println("MySQL Connect Example.");
-        try {
-			Class.forName(DRIVER).newInstance();
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        Properties props = new Properties();
-        props.setProperty("user","fcwlxdlohwgjtp");
-        props.setProperty("password","0xpGsFrLQgSJfp-4l9GE8HXdH-");
-        props.setProperty("ssl","true");
-        Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(url, props);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-       // Connection conn = DriverManager.getConnection(url);  
-       // Connection conn = DriverManager.getConnection(DB_URL, USER_ID, PASSWORD);
-        System.out.println("Connected to the database");
-		return conn;
+      try {
+        Class.forName(DRIVER).newInstance();
+      } catch (InstantiationException | IllegalAccessException
+                | ClassNotFoundException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      Properties props = new Properties();
+      props.setProperty("user","fcwlxdlohwgjtp");
+      props.setProperty("password","0xpGsFrLQgSJfp-4l9GE8HXdH-");
+      props.setProperty("ssl","true");
+      Connection conn = null;
+      try {
+        conn = DriverManager.getConnection(url, props);
+      } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+     // Connection conn = DriverManager.getConnection(url);  
+     // Connection conn = DriverManager.getConnection(DB_URL, USER_ID, PASSWORD);
+      System.out.println("Connected to the database");
+    return conn;
 	}
 	
 	public static NonoPuzzle getPuzzle(int puzzleID) throws SQLException, ClassNotFoundException, IOException {
@@ -107,18 +102,16 @@ public class NonoDatabase {
 
 	// For connection testing
 	public static void main(String[] args) throws InstantiationException, SQLException, IllegalAccessException, ClassNotFoundException {
-            System.out.println("MySQL Connect Example.");
-            Class.forName(DRIVER).newInstance();
-            Properties props = new Properties();
-            props.setProperty("user","fcwlxdlohwgjtp");
-            props.setProperty("password","0xpGsFrLQgSJfp-4l9GE8HXdH-");
-            props.setProperty("ssl","true");
-            Connection conn = DriverManager.getConnection(url, props);
-           // Connection conn = DriverManager.getConnection(url);  
-           // Connection conn = DriverManager.getConnection(DB_URL, USER_ID, PASSWORD);
-            System.out.println("Connected to the database");
-            conn.close();
-    }
-	
-	
+    System.out.println("MySQL Connect Example.");
+    Class.forName(DRIVER).newInstance();
+    Properties props = new Properties();
+    props.setProperty("user","fcwlxdlohwgjtp");
+    props.setProperty("password","0xpGsFrLQgSJfp-4l9GE8HXdH-");
+    props.setProperty("ssl","true");
+    Connection conn = DriverManager.getConnection(url, props);
+   // Connection conn = DriverManager.getConnection(url);  
+   // Connection conn = DriverManager.getConnection(DB_URL, USER_ID, PASSWORD);
+    System.out.println("Connected to the database");
+    conn.close();
+  }
 }
