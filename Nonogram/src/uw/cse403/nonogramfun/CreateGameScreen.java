@@ -1,14 +1,18 @@
 package uw.cse403.nonogramfun;
 
+
+import java.io.IOException;
+import java.net.UnknownHostException;
+
+import org.json.JSONException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -17,11 +21,12 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+
 public class CreateGameScreen extends Activity implements OnClickListener{
 	private Button[][] buttons;
 	private int dimension;
+
 	private boolean submit = false;;
-	//boolean selected = false;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_game_screen);
@@ -35,7 +40,6 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 		layout.setLayoutParams( new TableLayout.LayoutParams(dimension-1,dimension) );
 		
 		layout.setPadding(50,50,50,50);
-//		layout.addView((View)tcanvas);
 
 		for (int i = 0; i < dimension; i++) {
 			TableRow tr = new TableRow(this);
@@ -61,36 +65,71 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 
 			@Override
 			public void onClick(View v) {
-				submit = true;
 
-				// Alert Dialog popup box
+				final Integer[][] gameArray = new Integer[dimension][dimension];
+				boolean isEmpty = true;
+
+				for (int i = 0; i < dimension; i++) {
+					for (int j = 0; j < dimension; j++) {
+			        	if(buttons[i][j].getText().toString().equalsIgnoreCase("x")){
+			        		gameArray[i][j] = Color.WHITE;
+			        		isEmpty = false;
+			        	} else {
+			        		gameArray[i][j] = Color.BLACK;
+			        	}
+					}
+				}
+				
+				if ( isEmpty ){
+					// Alert Dialog popup box
+					AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
+					alertDialog.setTitle("Error");
+					alertDialog.setMessage("Please do not submit an empty game");
+					// -1 = BUTTON_POSITIVE = a positive button?
+					alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							// here you can add functions
+						}
+					});
+					alertDialog.show();
+				}
+				
 				AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
-				alertDialog.setTitle("Error");
-				alertDialog.setMessage("Please do not submit an empty game");
+				alertDialog.setTitle("Submit Success");
+				alertDialog.setMessage("Puzzle Created!");
 				// -1 = BUTTON_POSITIVE = a positive button?
 				alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						// here you can add functions
 					}
 				});
-				alertDialog.show();
-
-				int[][] gameArray = new int[dimension][dimension];
-				for (int i = 0; i < dimension; i++) {
-					for (int j = 0; j < dimension; j++) {
-			        	if(buttons[i][j].getText().toString().equalsIgnoreCase("x")){
-			        		gameArray[i][j] = Color.WHITE;
-			        	} else {
-			        		gameArray[i][j] = Color.BLACK;
-			        	}
-					}
+				Thread thread = new Thread(new Runnable(){
+				    @Override
+				    public void run() {
+				    	try {
+							NonoClient.createPuzzle(gameArray, Integer.valueOf(Color.WHITE), "Puzzle 1");
+							
+						} catch (UnknownHostException e) {
+							//e.printStackTrace();
+						} catch (IOException e) {
+							//e.printStackTrace();
+						} catch (JSONException e) {
+							//e.printStackTrace();
+						}
+						
+				    }
+				});
+				thread.start();
+				try {
+					thread.join();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
+				alertDialog.show();
 			}
 			
 		}); 
 		layout.addView(submitButton);
-		
-		Button b = new Button(this);
 		super.setContentView(layout); 
 
 	}
@@ -108,11 +147,9 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		if(((Cell)arg0).getSelectVal()){
-			//((Cell) arg0).setBackgroundColor(Color.RED);
 			((Cell) arg0).setText("");	
 		}
 		else{
-			//((Cell) arg0).setBackgroundColor(Color.YELLOW);
 			((Cell) arg0).setText("X");
 			((Cell) arg0).setTextColor(Color.BLUE);
 		}
