@@ -174,29 +174,4 @@ public class CreateGameScreen extends Activity implements OnClickListener{
     	}
     	
     }
-    
-    /*
-    public class TestCanvas extends View {
-        public TestCanvas(Context context) {
-            super(context);
-        }
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-            super.onDraw(canvas);
-            Paint paint = new Paint();
-            paint.setColor(Color.BLACK);
-
-    	for (int i = 0; i < 5; i++) {
-    		
-			canvas.drawLine(i * 10, 0, i * 10, 50, paint);
-		}
-
-		for (int j = 0; j < 5; j++) {
-			canvas.drawLine(0, j * 10, 50, j * 10, paint);
-		}
-            canvas.save();
-        }
-    }
-    */
 }
