@@ -1,5 +1,6 @@
 package uw.cse403.nonogramfun;
 
+
 /**
  * CSE 403 AA
  * Project Nonogram: Frontend
@@ -8,21 +9,99 @@ package uw.cse403.nonogramfun;
  * @since   Spring 2013 
  */
 
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
-public class PlayGameScreen extends Activity {
-	int dimension = 5;
+public class PlayGameScreen extends Activity implements OnClickListener{
+	int dimension;
+	//game get from server
 	Integer[][] gameArray = new Integer[dimension][dimension];
+	private Button[][] buttons;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_play_game_screen);
-		//pull the game from server
 		
+		Bundle bundle = getIntent().getExtras();
+		dimension = bundle.getInt("size");
+		
+		buttons = new Button[dimension + 1][dimension + 1];
+
+		TableLayout layout = new TableLayout (this);
+		layout.setLayoutParams( new TableLayout.LayoutParams(dimension-1,dimension) );
+		
+		layout.setPadding(50,50,50,50);
+
+		for (int i = 0; i < dimension + 1; i++) {
+			TableRow tr = new TableRow(this);
+			for (int j = 0; j < dimension + 1; j++) {
+				buttons[i][j] = new Cell(this);
+				if(i == 0 && j == 0){
+					buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
+				}
+				else if(j == 0){
+		        	buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
+					buttons[i][j].setText("1 2");
+					buttons[i][j].setTextSize(8);
+				}else if(i == 0){
+		        	buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
+					buttons[i][j].setText("1\n2");
+					buttons[i][j].setTextSize(8);
+				}else{
+		        	if((i % 2 == j % 2)){
+		        		buttons[i][j].setBackgroundColor(Color.LTGRAY);
+		        	}
+		        	else{
+		        		buttons[i][j].setBackgroundColor(Color.WHITE);
+		        	}
+		        	buttons[i][j].setOnClickListener(this);
+				}
+				
+				tr.addView(buttons[i][j],50,50);
+			}
+			layout.addView(tr);
+		}
+		
+		Button submitButton = new Button(this);
+		layout.addView(submitButton);
+		submitButton.setText("Submit");
+		super.setContentView(layout);
+		
+		/*
+		 * Since we haven't implement 
+		 */
+		//pull the game from server
+		/*
+		try {
+			NonoPuzzle puzzle = NonoClient.getPuzzle(Difficulty.EASY);
+			for(int i = 0; i < puzzle.getNonoPicRowSize(); i++){
+				for(int j = 0; j < puzzle.getNonoPicColSize(); j++){
+					gameArray[i][j] = puzzle.getColor(i, j);
+					Log.i("puzzle", "[" + i + "] " + "[" + j + "] " + gameArray[i][j].toString());
+				}
+			}			
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
 	}
 
 	@Override
@@ -94,5 +173,39 @@ public class PlayGameScreen extends Activity {
 				}
 			}
 		}
+	}
+	
+	//inner class for cell
+	class Cell extends Button {
+    	private boolean select;
+		public Cell(Context context) {
+			super(context);
+			// TODO Auto-generated constructor stub
+			select = false;
+		}
+    	public void setSelectVal(){
+    		if(select)
+    			select = false;
+    		else
+    			select = true;
+    	}
+    	
+    	public boolean getSelectVal(){
+    		return select;
+    	}	
+    }
+	
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		if(((Cell)arg0).getSelectVal()){
+			((Cell) arg0).setText("");	
+		}
+		else{
+			((Cell) arg0).setText("X");
+			((Cell) arg0).setTextColor(Color.BLUE);
+		}
+			
+		((Cell) arg0).setSelectVal();
 	}
 }

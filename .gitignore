@@ -4,4 +4,4 @@
 *.apk
 *.dex
 *.ap_
-
+.classpath

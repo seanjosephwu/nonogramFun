@@ -180,5 +180,4 @@ public class CreateGameScreen extends Activity implements OnClickListener{
     	}
     	
     }
-    
 }
