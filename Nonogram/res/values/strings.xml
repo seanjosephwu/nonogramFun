@@ -15,8 +15,13 @@
     <string name="title_activity_create_game_large">CreateGameLarge</string>
     <string name="create_small_button">Small (5x5)</string>
     <string name="create_medium_button">Medium (10x10)</string>
-    <string name="create_large_button">Large (15x15)</string>
+    <string name="create_large_button">Large (14x14)</string>
+    <string name="play_small_button">Small (5x5)</string>
+    <string name="play_medium_button">Medium (10x10)</string>
+    <string name="play_large_button">Large (14x14)</string>
     <string name="title_activity_create_game_menu">CreateGameMenu</string>
     <string name="title_activity_create_game_screen">CreateGameScreen</string>
+    <string name="title_activity_play_game_menu">PlayGameMenu</string>
+    <string name="title_activity_play_game_screen">PlayGameScreen</string>
 
 </resources>

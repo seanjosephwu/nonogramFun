@@ -10,11 +10,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -22,12 +20,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import uw.cse403.nonogramServer.*;
+
 
 public class CreateGameScreen extends Activity implements OnClickListener{
 	private Button[][] buttons;
 	private int dimension;
-	//boolean selected = false;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_game_screen);
@@ -36,23 +33,11 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 		dimension = bundle.getInt("size");
 		
 		buttons = new Button[dimension][dimension];
-		
-//		Canvas ca = new Canvas();
-//		Paint p = new Paint();
-//		p.setAntiAlias(true);
-//		p.setStyle(Style.STROKE);
-//		p.setStrokeWidth(5);
-
-
-//	    TestCanvas tcanvas=new TestCanvas(this);
-//	    Canvas canvas = new Canvas();
-//		tcanvas.draw(canvas);
 
 		TableLayout layout = new TableLayout (this);
 		layout.setLayoutParams( new TableLayout.LayoutParams(dimension-1,dimension) );
 		
 		layout.setPadding(50,50,50,50);
-//		layout.addView((View)tcanvas);
 
 		for (int i = 0; i < dimension; i++) {
 			TableRow tr = new TableRow(this);
@@ -107,23 +92,28 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 					alertDialog.show();
 				}
 				
+				AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
+				alertDialog.setTitle("Submit Success");
+				alertDialog.setMessage("Puzzle Created!");
+				// -1 = BUTTON_POSITIVE = a positive button?
+				alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// here you can add functions
+					}
+				});
 				Thread thread = new Thread(new Runnable(){
 				    @Override
 				    public void run() {
-						try {
+				    	try {
 							NonoClient.createPuzzle(gameArray, Integer.valueOf(Color.WHITE), "Puzzle 1");
-							System.out.println("Puzzle Created!");
+							
 						} catch (UnknownHostException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//e.printStackTrace();
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//e.printStackTrace();
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//e.printStackTrace();
 						}
-						System.out.println("Puzzle Created!");
 						
 				    }
 				});
@@ -131,15 +121,13 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 				try {
 					thread.join();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				alertDialog.show();
 			}
 			
 		});
 		layout.addView(submitButton);
-		
-		Button b = new Button(this);
 		super.setContentView(layout); 
 
 	}
