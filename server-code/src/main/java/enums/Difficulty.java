@@ -1,4 +1,5 @@
 package enums;
+
 /**
  * CSE 403 AA
  * Project Nonogram: Backend
@@ -7,12 +8,6 @@ package enums;
  * @since   Spring 2013 
  */
 
-
-
-/**
- * 
- *
- */
 public enum Difficulty {
 	EASY("Easy"), MEDIUM("Medium"), HARD("Hard"), INSANE("Insane"), UNKNOWN("Unknown");
 	private final String name;

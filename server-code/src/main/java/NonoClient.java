@@ -1,7 +1,7 @@
 /**
  * CSE 403 AA
  * Project Nonogram: Backend
- * @author  HyeIn Kim
+ * @author  HyeIn Kim, Sean Wu
  * @version v1.0, University of Washington 
  * @since   Spring 2013 
  */
@@ -9,9 +9,7 @@
 import android.graphics.Color;
 import java.io.*;
 import java.net.*;
-
 import org.json.*;
-
 import enums.*;
 
 /**
@@ -26,8 +24,6 @@ public class NonoClient {
 	
 	//
 	private NonoClient() {}
-	
-	
 	
 	public static void createPuzzle(Integer[][] cArray, Integer bgColor, String name) throws UnknownHostException, IOException, JSONException {
 		InetAddress inetAddress = InetAddress.getByName(NonoServer.NAME);
@@ -58,7 +54,6 @@ public class NonoClient {
 		return NonoUtil.getNonoPuzzle(responseJSON);
 	}
 	
-	//
 	private static void checkResponseError(JSONObject responseJSON) throws IOException, JSONException {
 		if(NonoUtil.getServerResponse(responseJSON) != ServerResponse.SUCCESS) {
 			throw new IOException("Error: " + NonoUtil.getString(responseJSON));
