@@ -1,11 +1,14 @@
 package uw.cse403.nonogramfun;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
 
-import org.json.JSONException;
+/**
+ * CSE 403 AA
+ * Project Nonogram: Frontend
+ * @author  Xiaoxia Jian, Huiqi Wang, Renhao Xie, Alan Loh
+ * @version v1.0, University of Washington 
+ * @since   Spring 2013 
+ */
 
-import uw.cse403.nonogramfun.CreateGameScreen.Cell;
 
 import android.os.Bundle;
 import android.app.Activity;
