@@ -23,9 +23,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 public class PlayGameScreen extends Activity implements OnClickListener{
-	int dimension;
-	//game get from server
-	Integer[][] gameArray = new Integer[dimension][dimension];
+	private int dimension;
+	private Integer[][] gameArray = new Integer[dimension][dimension];
 	private Button[][] buttons;
 	
 	@Override
@@ -40,7 +39,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 
 		TableLayout layout = new TableLayout (this);
 		layout.setLayoutParams( new TableLayout.LayoutParams(dimension-1,dimension) );
-		
 		layout.setPadding(50,50,50,50);
 
 		for (int i = 0; i < dimension + 1; i++) {
@@ -51,10 +49,12 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
 				}
 				else if(j == 0){
+					// vertical number field
 		        	buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
 					buttons[i][j].setText("1 2");
 					buttons[i][j].setTextSize(8);
 				}else if(i == 0){
+					// horizontal number field
 		        	buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
 					buttons[i][j].setText("1\n2");
 					buttons[i][j].setTextSize(8);
@@ -78,10 +78,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		submitButton.setText("Submit");
 		super.setContentView(layout);
 		
-		/*
-		 * Since we haven't implement 
-		 */
-		//pull the game from server
+		//pull the game from server (bug)
 		/*
 		try {
 			NonoPuzzle puzzle = NonoClient.getPuzzle(Difficulty.EASY);
