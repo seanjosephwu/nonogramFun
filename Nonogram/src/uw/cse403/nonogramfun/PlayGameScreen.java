@@ -12,6 +12,8 @@ package uw.cse403.nonogramfun;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.List;
+import java.util.Map;
 
 import org.json.JSONException;
 
@@ -31,6 +33,9 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	private int dimension;
 	private Integer[][] gameArray;
 	private Button[][] buttons;
+	private String[] rowHint;
+	private String[] columnHint;
+	private Difficulty puzzleDifficulty;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +43,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		setContentView(R.layout.activity_play_game_screen);
 		
 		Bundle bundle = getIntent().getExtras();
-		dimension = bundle.getInt("size"); // Alan, can we get the difficulty level? (in String)
+		dimension = bundle.getInt("size");
 		gameArray = new Integer[dimension][dimension];
 		
 		fetchPuzzle();
@@ -103,8 +108,16 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				try {
-					
-					NonoPuzzle puzzle = NonoClient.getPuzzle(Difficulty.EASY);
+					if (dimension == 5){
+						puzzleDifficulty = Difficulty.EASY;
+					} else if (dimension == 10) {
+						puzzleDifficulty = Difficulty.MEDIUM;
+					} else if (dimension == 14) {
+						puzzleDifficulty = Difficulty.HARD;
+					} else {
+						puzzleDifficulty = Difficulty.UNKNOWN;
+					}
+					NonoPuzzle puzzle = NonoClient.getPuzzle(puzzleDifficulty);
 					Log.i("row " , Integer.toString(puzzle.getNonoPicRowSize()));
 					Log.i("col ", Integer.toString(puzzle.getNonoPicColSize()));
 					for(int i = 0; i < puzzle.getNonoPicRowSize(); i++){
@@ -132,7 +145,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	
 	private void parseGameRow(){
 		for(int x = 0; x < dimension; x++){
-			String[] rowHint = new String[dimension];
+			rowHint = new String[dimension];
 			boolean emptyCell = false, start = true;
 			rowHint[x] = "";
 			int count = 0;
@@ -164,7 +177,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	
 	private void parseGameColumn(){
 		for(int y = 0; y < dimension; y++){
-			String[] columnHint = new String[dimension];
+			columnHint = new String[dimension];
 			boolean emptyCell = false, start = true;
 			columnHint[y] = "";
 			int count = 0;
