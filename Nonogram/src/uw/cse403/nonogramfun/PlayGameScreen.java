@@ -126,7 +126,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	

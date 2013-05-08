@@ -49,8 +49,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 			TableRow tr = new TableRow(this);
 			for (int j = 0; j < dimension; j++) {
 	        	buttons[i][j] = new Cell(this);
-	        	buttons[i][j].setWidth(10);
-	        	buttons[i][j].setHeight(10);
+	      
 	        	if((i % 2 == j % 2)){
 	        		buttons[i][j].setBackgroundColor(Color.LTGRAY);
 	        	}
