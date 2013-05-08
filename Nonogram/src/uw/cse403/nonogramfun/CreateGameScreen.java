@@ -8,6 +8,7 @@ package uw.cse403.nonogramfun;
  * @since   Spring 2013 
  */
 
+import server.NonoClient;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
