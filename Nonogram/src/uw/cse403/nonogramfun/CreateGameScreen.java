@@ -49,8 +49,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 			TableRow tr = new TableRow(this);
 			for (int j = 0; j < dimension; j++) {
 	        	buttons[i][j] = new Cell(this);
-	        	buttons[i][j].setWidth(10);
-	        	buttons[i][j].setHeight(10);
+	      
 	        	if((i % 2 == j % 2)){
 	        		buttons[i][j].setBackgroundColor(Color.LTGRAY);
 	        	}
@@ -92,7 +91,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 					// -1 = BUTTON_POSITIVE = a positive button?
 					alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							// here you can add functions
+							// do nothing
 						}
 					});
 					alertDialog.show();
@@ -104,7 +103,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 					// -1 = BUTTON_POSITIVE = a positive button?
 					alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							// here you can add functions
+							// do nothing
 						}
 					});
 					Thread thread = new Thread(new Runnable(){
