@@ -86,7 +86,7 @@ public class NonoPuzzle implements Serializable {
 
 	private static Difficulty findDifficulty() {
 		return Difficulty.EASY;
-		//return null; //TODO: categorize into difficulty given dimention
+		//return null; //TODO: categorize into difficulty given dimension
 	}
 
 	public Iterator<NonoNum> getRowNonoNumItrator(int row) {

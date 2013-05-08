@@ -10,6 +10,11 @@ package uw.cse403.nonogramfun;
  */
 
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
+import org.json.JSONException;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -24,7 +29,7 @@ import android.widget.TableRow;
 
 public class PlayGameScreen extends Activity implements OnClickListener{
 	private int dimension;
-	private Integer[][] gameArray = new Integer[dimension][dimension];
+	private Integer[][] gameArray;
 	private Button[][] buttons;
 	
 	@Override
@@ -33,14 +38,19 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		setContentView(R.layout.activity_play_game_screen);
 		
 		Bundle bundle = getIntent().getExtras();
-		dimension = bundle.getInt("size");
+		dimension = bundle.getInt("size"); // Alan, can we get the difficulty level? (in String)
+		gameArray = new Integer[dimension][dimension];
 		
+		fetchPuzzle();
+		
+		// dimension + 1 for the number field at the top and left sides
 		buttons = new Button[dimension + 1][dimension + 1];
 
 		TableLayout layout = new TableLayout (this);
 		layout.setLayoutParams( new TableLayout.LayoutParams(dimension-1,dimension) );
 		layout.setPadding(50,50,50,50);
 
+		//create the empty game board and the number fields
 		for (int i = 0; i < dimension + 1; i++) {
 			TableRow tr = new TableRow(this);
 			for (int j = 0; j < dimension + 1; j++) {
@@ -51,12 +61,12 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				else if(j == 0){
 					// vertical number field
 		        	buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
-					buttons[i][j].setText("1 2");
+					//buttons[i][j].setText("1 2");
 					buttons[i][j].setTextSize(8);
 				}else if(i == 0){
 					// horizontal number field
 		        	buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
-					buttons[i][j].setText("1\n2");
+					//buttons[i][j].setText("1\n2");
 					buttons[i][j].setTextSize(8);
 				}else{
 		        	if((i % 2 == j % 2)){
@@ -78,27 +88,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		submitButton.setText("Submit");
 		super.setContentView(layout);
 		
-		//pull the game from server (bug)
-		/*
-		try {
-			NonoPuzzle puzzle = NonoClient.getPuzzle(Difficulty.EASY);
-			for(int i = 0; i < puzzle.getNonoPicRowSize(); i++){
-				for(int j = 0; j < puzzle.getNonoPicColSize(); j++){
-					gameArray[i][j] = puzzle.getColor(i, j);
-					Log.i("puzzle", "[" + i + "] " + "[" + j + "] " + gameArray[i][j].toString());
-				}
-			}			
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 	}
 
 	@Override
@@ -108,6 +97,39 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		return true;
 	}
 
+	//pull a puzzle from the server database
+	private void fetchPuzzle(){
+		Thread thread = new Thread(new Runnable(){
+			@Override
+			public void run() {
+				try {
+					
+					NonoPuzzle puzzle = NonoClient.getPuzzle(Difficulty.EASY);
+					Log.i("row " , Integer.toString(puzzle.getNonoPicRowSize()));
+					Log.i("col ", Integer.toString(puzzle.getNonoPicColSize()));
+					for(int i = 0; i < puzzle.getNonoPicRowSize(); i++){
+						for(int j = 0; j < puzzle.getNonoPicColSize(); j++){
+							gameArray[i][j] = puzzle.getColor(i, j);
+						}
+					}	
+				} catch (UnknownHostException e) {
+					//e.printStackTrace();
+				} catch (IOException e) {
+					//e.printStackTrace();
+				} catch (JSONException e) {
+					//e.printStackTrace();
+				}
+
+			}
+		});
+		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private void parseGameRow(){
 		for(int x = 0; x < dimension; x++){
 			String[] rowHint = new String[dimension];
