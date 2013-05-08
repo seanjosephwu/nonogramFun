@@ -12,9 +12,6 @@ package uw.cse403.nonogramfun;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.List;
-import java.util.Map;
-
 import org.json.JSONException;
 
 import android.os.Bundle;
@@ -35,7 +32,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	private Button[][] buttons;
 	private String[] rowHint;
 	private String[] columnHint;
-	private Difficulty puzzleDifficulty;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +43,8 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		gameArray = new Integer[dimension][dimension];
 		
 		fetchPuzzle();
+		parseGameRow();
+		parseGameColumn();
 		
 		// dimension + 1 for the number field at the top and left sides
 		buttons = new Button[dimension + 1][dimension + 1];
@@ -63,15 +61,15 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				if(i == 0 && j == 0){
 					buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
 				}
-				else if(j == 0){
+				else if(j == 0 && i < dimension){
 					// vertical number field
 		        	buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
-					//buttons[i][j].setText("1 2");
+					buttons[i][j].setText(columnHint[i]);
 					buttons[i][j].setTextSize(8);
-				}else if(i == 0){
+				}else if(i == 0 && j < dimension){
 					// horizontal number field
 		        	buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
-					//buttons[i][j].setText("1\n2");
+					buttons[i][j].setText(rowHint[j]);
 					buttons[i][j].setTextSize(8);
 				}else{
 		        	if((i % 2 == j % 2)){
@@ -92,7 +90,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		layout.addView(submitButton);
 		submitButton.setText("Submit");
 		super.setContentView(layout);
-		
 	}
 
 	@Override
@@ -107,6 +104,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		Thread thread = new Thread(new Runnable(){
 			@Override
 			public void run() {
+				Difficulty puzzleDifficulty;
 				try {
 					if (dimension == 5){
 						puzzleDifficulty = Difficulty.EASY;
@@ -117,11 +115,11 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					} else {
 						puzzleDifficulty = Difficulty.UNKNOWN;
 					}
+					
 					NonoPuzzle puzzle = NonoClient.getPuzzle(puzzleDifficulty);
-					Log.i("row " , Integer.toString(puzzle.getNonoPicRowSize()));
-					Log.i("col ", Integer.toString(puzzle.getNonoPicColSize()));
-					for(int i = 0; i < puzzle.getNonoPicRowSize(); i++){
-						for(int j = 0; j < puzzle.getNonoPicColSize(); j++){
+					
+					for(int i = 0; i < puzzle.getNonoPicColSize(); i++){
+						for(int j = 0; j < puzzle.getNonoPicRowSize(); j++){
 							gameArray[i][j] = puzzle.getColor(i, j);
 						}
 					}	
@@ -155,11 +153,11 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					emptyCell = false;
 					count++;
 					start = false;
-					//if already at the last cell of the row print out the 
-					//count anyway
+					//if already at the last cell of the row store the count anyway
 					if (y == dimension - 1){
 						rowHint[x] += count;
 					}
+					
 				// If the game cell is not filled in...
 				} else {
 					// If we reached the end of a set of filled cells and 
@@ -187,8 +185,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					emptyCell = false;
 					count++;
 					start = false;
-					//if already at the last cell of the row print out the 
-					//count anyway
+					//if already at the last cell of the row store the count anyway
 					if (x == dimension - 1){
 						columnHint[y] += count;
 					}
