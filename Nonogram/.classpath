@@ -8,7 +8,7 @@
 	<classpathentry kind="lib" path="libs/gson-2.2.3.jar"/>
 	<classpathentry kind="lib" path="libs/mysql-connector-java-5.1.24-bin.jar"/>
 	<classpathentry kind="lib" path="libs/org.json.jar"/>
-	<classpathentry kind="lib" path="libs/android-3.jar"/>
 	<classpathentry kind="src" path="/NonoBackend"/>
+	<classpathentry kind="lib" path="libs/android-4.1.1.4.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
