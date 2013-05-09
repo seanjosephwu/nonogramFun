@@ -19,17 +19,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 public class PlayGameScreen extends Activity implements OnClickListener{
-	private int dimension;
-	private Integer[][] gameArray;
-	private Button[][] buttons;
+	private int dimension;         //dimension is size for the clickable cells
+	private Integer[][] gameArray; //store the gameArray get back from the server
+	private View[][] buttons;      
 	private String[] rowHint;
 	private String[] columnHint;
 	
@@ -43,45 +48,69 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		gameArray = new Integer[dimension][dimension];
 		
 		fetchPuzzle();
-		parseGameRow();
-		parseGameColumn();
+		//parseGameRow();
+		//parseGameColumn();
 		
 		// dimension + 1 for the number field at the top and left sides
-		buttons = new Button[dimension + 1][dimension + 1];
-
+		buttons = new View[dimension + 1][dimension + 1];
+		
 		TableLayout layout = new TableLayout (this);
-		layout.setLayoutParams( new TableLayout.LayoutParams(dimension-1,dimension) );
+		layout.setLayoutParams( new TableLayout.LayoutParams());
 		layout.setPadding(50,50,50,50);
 
+		 HorizontalScrollView scrollView = new  HorizontalScrollView(this);
+		
 		//create the empty game board and the number fields
 		for (int i = 0; i < dimension + 1; i++) {
 			TableRow tr = new TableRow(this);
 			for (int j = 0; j < dimension + 1; j++) {
-				buttons[i][j] = new Cell(this);
+				
+				if (i == 0 || j == 0) 
+					buttons[i][j] = new TextView(this);
+				else
+					buttons[i][j] = new Cell(this);
+				
 				if(i == 0 && j == 0){
-					buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
+					//buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
+					TextView textview = (TextView) buttons[i][j];
+					textview.setBackgroundColor(Color.TRANSPARENT);
+					tr.addView(buttons[i][j],50,50);
 				}
-				else if(j == 0 && i < dimension){
+				else if(j == 0){
 					// vertical number field
-		        	buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
-					buttons[i][j].setText(columnHint[i]);
-					buttons[i][j].setTextSize(8);
-				}else if(i == 0 && j < dimension){
+					TextView textview = (TextView) buttons[i][j];
+		        	textview.setBackgroundColor(Color.TRANSPARENT);
+		        	
+		        	//textview.setText(columnHint[i]);
+		        	textview.setText("1 2 3 4 5 6 7");
+		        	
+		        	textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+		        	tr.addView(buttons[i][j],150,50);
+				}else if(i == 0){
 					// horizontal number field
-		        	buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
-					buttons[i][j].setText(rowHint[j]);
-					buttons[i][j].setTextSize(8);
+					TextView textview = (TextView) buttons[i][j];
+					textview.setBackgroundColor(Color.TRANSPARENT);
+					
+					//textview.setText(rowHint[j]);
+					textview.setText("1\n2\n3\n4\n5\n6\n7");
+					
+					textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+					textview.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
+					tr.addView(buttons[i][j],50,200);
 				}else{
+					Cell c = (Cell) buttons[i][j];
 		        	if((i % 2 == j % 2)){
-		        		buttons[i][j].setBackgroundColor(Color.LTGRAY);
+		        		c.setBackgroundColor(Color.LTGRAY);
+		        		c.setOriginColor(Color.LTGRAY);
 		        	}
 		        	else{
-		        		buttons[i][j].setBackgroundColor(Color.WHITE);
+		        		c.setBackgroundColor(Color.WHITE);
+		        		c.setOriginColor(Color.WHITE);
 		        	}
-		        	buttons[i][j].setOnClickListener(this);
+		        	c.setOnClickListener(this);
+		        	tr.addView(buttons[i][j],50,50);
 				}
 				
-				tr.addView(buttons[i][j],50,50);
 			}
 			layout.addView(tr);
 		}
@@ -89,7 +118,8 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		Button submitButton = new Button(this);
 		layout.addView(submitButton);
 		submitButton.setText("Submit");
-		super.setContentView(layout);
+		scrollView.addView(layout);
+		super.setContentView(scrollView);
 	}
 
 	@Override
@@ -163,7 +193,8 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					// If we reached the end of a set of filled cells and 
 					// it's not the first cell in the row...
 					if (emptyCell == false && start == false){
-						rowHint[x] += count + " ";
+						//rowHint[x] += count + " ";
+						rowHint[x] += count + "\n";
 						count = 0;
 						emptyCell = true;
 					}
@@ -204,37 +235,56 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		}
 	}
 	
-	//inner class for cell
+	//inner class for cell, which has state that change based on each 
+	//click.
 	class Cell extends Button {
-    	private boolean select;
+		//0 : unmark
+		//1 : mark
+		//2 : question mark
+		public int state;  
+		public int origin; 
+		
 		public Cell(Context context) {
 			super(context);
-			// TODO Auto-generated constructor stub
-			select = false;
+			state = 0; 
 		}
-    	public void setSelectVal(){
-    		if(select)
-    			select = false;
-    		else
-    			select = true;
-    	}
-    	
-    	public boolean getSelectVal(){
-    		return select;
-    	}	
+		
+		//set the state if there is a click
+		public void setState(){
+			if(state < 2)
+	    		state++;
+	    	else
+	    		state = 0;
+		}
+		
+		public int getState(){
+			return state;
+		}
+		
+		//store the origin cell color before any action
+		public void setOriginColor(int color){
+			origin = color;
+		}
+		
+		public void setColor(int state){
+			if(state == 0){
+				this.setText("");
+				this.setBackgroundColor(origin);
+			}else if(state == 1){
+				this.setText("");
+				this.setBackgroundColor(Color.BLACK);
+			}else{
+				this.setBackgroundColor(origin);
+				this.setText("?");
+				this.setTextColor(Color.BLUE);
+			}
+		}
     }
 	
 	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-		if(((Cell)arg0).getSelectVal()){
-			((Cell) arg0).setText("");	
-		}
-		else{
-			((Cell) arg0).setText("X");
-			((Cell) arg0).setTextColor(Color.BLUE);
-		}
-			
-		((Cell) arg0).setSelectVal();
+	public void onClick(View view) {
+		Cell cell = (Cell)view;
+		cell.setState();
+		cell.setColor(cell.getState());
 	}
 }
