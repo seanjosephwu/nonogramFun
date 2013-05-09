@@ -17,7 +17,10 @@ import org.json.JSONException;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -48,8 +51,19 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		gameArray = new Integer[dimension][dimension];
 		
 		fetchPuzzle();
-		//parseGameRow();
-		//parseGameColumn();
+		parseGameRow();
+		parseGameColumn();
+		
+		//delete later
+		// log the rowHint and columnHint
+		for (int i = 0; i < dimension; i++){
+			if (rowHint[i] != null){
+			Log.i("rowHint["+Integer.toString(i)+"] ", rowHint[i]);
+			}
+			if (columnHint[i] != null){
+			Log.i("columnHint["+Integer.toString(i)+"] ", columnHint[i]);
+			}
+		}
 		
 		// dimension + 1 for the number field at the top and left sides
 		buttons = new View[dimension + 1][dimension + 1];
@@ -81,8 +95,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					TextView textview = (TextView) buttons[i][j];
 		        	textview.setBackgroundColor(Color.TRANSPARENT);
 		        	
-		        	//textview.setText(columnHint[i]);
-		        	textview.setText("1 2 3 4 5 6 7");
+		        	textview.setText(columnHint[i-1]);
 		        	
 		        	textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 		        	tr.addView(buttons[i][j],150,50);
@@ -91,14 +104,20 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					TextView textview = (TextView) buttons[i][j];
 					textview.setBackgroundColor(Color.TRANSPARENT);
 					
-					//textview.setText(rowHint[j]);
-					textview.setText("1\n2\n3\n4\n5\n6\n7");
+					textview.setText(rowHint[j-1]);
 					
 					textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 					textview.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
 					tr.addView(buttons[i][j],50,200);
 				}else{
 					Cell c = (Cell) buttons[i][j];
+					Context context = this.getApplicationContext();
+		        	Resources res = context.getResources();
+		        	Drawable draw = res.getDrawable(R.drawable.white_outline);
+		        	Drawable backgroundRes = c.getBackground();
+		        	Drawable[] drawableLayers = { backgroundRes, draw};
+		        	LayerDrawable ld = new LayerDrawable(drawableLayers);
+		        	c.setBackground(ld);
 		        	if((i % 2 == j % 2)){
 		        		c.setBackgroundColor(Color.LTGRAY);
 		        		c.setOriginColor(Color.LTGRAY);
@@ -107,6 +126,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		        		c.setBackgroundColor(Color.WHITE);
 		        		c.setOriginColor(Color.WHITE);
 		        	}
+		        	
 		        	c.setOnClickListener(this);
 		        	tr.addView(buttons[i][j],50,50);
 				}
@@ -147,9 +167,10 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					}
 					
 					NonoPuzzle puzzle = NonoClient.getPuzzle(puzzleDifficulty);
-					
+					Log.i("hi", "getPuzzle");
 					for(int i = 0; i < puzzle.getNonoPicColSize(); i++){
 						for(int j = 0; j < puzzle.getNonoPicRowSize(); j++){
+							Log.i("["+Integer.toString(i)+"]"+"["+Integer.toString(j)+"]", Integer.toString(puzzle.getColor(i, j)));
 							gameArray[i][j] = puzzle.getColor(i, j);
 						}
 					}	
@@ -172,14 +193,14 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	}
 	
 	private void parseGameRow(){
+		rowHint = new String[dimension];
 		for(int x = 0; x < dimension; x++){
-			rowHint = new String[dimension];
 			boolean emptyCell = false, start = true;
 			rowHint[x] = "";
 			int count = 0;
 			for(int y = 0; y < dimension; y++){
 				// If the game cell is filled in...
-				if (gameArray[x][y] == Color.BLACK){
+				if (gameArray[x][y].equals(Color.BLACK)){
 					emptyCell = false;
 					count++;
 					start = false;
@@ -193,7 +214,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					// If we reached the end of a set of filled cells and 
 					// it's not the first cell in the row...
 					if (emptyCell == false && start == false){
-						//rowHint[x] += count + " ";
 						rowHint[x] += count + "\n";
 						count = 0;
 						emptyCell = true;
@@ -205,14 +225,14 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	}
 	
 	private void parseGameColumn(){
+		columnHint = new String[dimension];
 		for(int y = 0; y < dimension; y++){
-			columnHint = new String[dimension];
 			boolean emptyCell = false, start = true;
 			columnHint[y] = "";
 			int count = 0;
 			for(int x = 0; x < dimension; x++){
 				// If the game cell is filled in...
-				if (gameArray[x][y] == Color.BLACK){
+				if (gameArray[x][y].equals(Color.BLACK)){
 					emptyCell = false;
 					count++;
 					start = false;
@@ -238,9 +258,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	//inner class for cell, which has state that change based on each 
 	//click.
 	class Cell extends Button {
-		//0 : unmark
-		//1 : mark
-		//2 : question mark
+		
 		public int state;  
 		public int origin; 
 		
@@ -267,12 +285,16 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		}
 		
 		public void setColor(int state){
+			//0 : unmark
+			//1 : mark
+			//2 : question mark
 			if(state == 0){
 				this.setText("");
 				this.setBackgroundColor(origin);
 			}else if(state == 1){
 				this.setText("");
 				this.setBackgroundColor(Color.BLACK);
+				
 			}else{
 				this.setBackgroundColor(origin);
 				this.setText("?");
