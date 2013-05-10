@@ -16,7 +16,9 @@ import org.json.JSONException;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -37,10 +39,14 @@ import android.widget.TextView;
 public class PlayGameScreen extends Activity implements OnClickListener{
 	private int dimension;         //dimension is size for the clickable cells
 	private Integer[][] gameArray; //store the gameArray get back from the server
-	private View[][] buttons;      
+	private View[][] buttons;      //button arrays. first number is the row number, second number is column number
 	private String[] rowHint;
 	private String[] columnHint;
 	
+	
+	// IMPORTANT: X and Y axis are FLIPPED in both gameArray and buttons[][].
+	// For debugging purpose, given buttons[x][y], x denotes the ROW NUMBER, y denotes the COLUMN number
+	// so x is the vertical axis, and y is the horizontal axis
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,11 +63,11 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		//delete later
 		// log the rowHint and columnHint
 		for (int i = 0; i < dimension; i++){
-			if (rowHint[i] != null){
-			Log.i("rowHint["+Integer.toString(i)+"] ", rowHint[i]);
-			}
 			if (columnHint[i] != null){
-			Log.i("columnHint["+Integer.toString(i)+"] ", columnHint[i]);
+				Log.i("columnHint["+Integer.toString(i)+"] ", columnHint[i]);
+			}
+			if (rowHint[i] != null){
+				Log.i("rowHint["+Integer.toString(i)+"] ", rowHint[i]);
 			}
 		}
 		
@@ -72,7 +78,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		layout.setLayoutParams( new TableLayout.LayoutParams());
 		layout.setPadding(50,50,50,50);
 
-		 HorizontalScrollView scrollView = new  HorizontalScrollView(this);
+		HorizontalScrollView scrollView = new  HorizontalScrollView(this);
 		
 		//create the empty game board and the number fields
 		for (int i = 0; i < dimension + 1; i++) {
@@ -91,20 +97,20 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					tr.addView(buttons[i][j],50,50);
 				}
 				else if(j == 0){
-					// vertical number field
+					// horizontal number field
 					TextView textview = (TextView) buttons[i][j];
 		        	textview.setBackgroundColor(Color.TRANSPARENT);
 		        	
-		        	textview.setText(columnHint[i-1]);
+		        	textview.setText(rowHint[i-1]);
 		        	
 		        	textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 		        	tr.addView(buttons[i][j],150,50);
 				}else if(i == 0){
-					// horizontal number field
+					// vertical number field
 					TextView textview = (TextView) buttons[i][j];
 					textview.setBackgroundColor(Color.TRANSPARENT);
 					
-					textview.setText(rowHint[j-1]);
+					textview.setText(columnHint[j-1]);
 					
 					textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 					textview.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
@@ -138,8 +144,26 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		Button submitButton = new Button(this);
 		layout.addView(submitButton);
 		submitButton.setText("Submit");
+		
+		submitButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+
+				for (int i = 0; i < dimension; i++) {
+					for (int j = 0; j < dimension; j++) {
+						if(buttons[i][j] instanceof Cell){
+							Log.i("buttons["+Integer.toString(i)+"]["+Integer.toString(j)+"]", Integer.toString(((Cell)buttons[i][j]).getState()));
+						}
+					}
+				}
+			}
+		}); 
+		
+		
 		scrollView.addView(layout);
 		super.setContentView(scrollView);
+		
 	}
 
 	@Override
@@ -214,7 +238,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					// If we reached the end of a set of filled cells and 
 					// it's not the first cell in the row...
 					if (emptyCell == false && start == false){
-						rowHint[x] += count + "\n";
+						rowHint[x] += count + " ";
 						count = 0;
 						emptyCell = true;
 					}
@@ -243,9 +267,9 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				// If the game cell is not filled in...
 				} else {
 					// If we reached the end of a set of filled cells and 
-					// it's not the first cell in the row...
+					// it's not the first cell in the column...
 					if (emptyCell == false && start == false){
-						columnHint[x] += count + " ";
+						columnHint[y] += count + "\n";
 						count = 0;
 						emptyCell = true;
 					}
