@@ -80,7 +80,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 
 		HorizontalScrollView scrollView = new  HorizontalScrollView(this);
 		
-		//create the empty game board and the number fields
+		//create the empty game board with the number fields
 		for (int i = 0; i < dimension + 1; i++) {
 			TableRow tr = new TableRow(this);
 			for (int j = 0; j < dimension + 1; j++) {
@@ -91,7 +91,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					buttons[i][j] = new Cell(this);
 				
 				if(i == 0 && j == 0){
-					//buttons[i][j].setBackgroundColor(Color.TRANSPARENT);
 					TextView textview = (TextView) buttons[i][j];
 					textview.setBackgroundColor(Color.TRANSPARENT);
 					tr.addView(buttons[i][j],50,50);
@@ -100,18 +99,14 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					// horizontal number field
 					TextView textview = (TextView) buttons[i][j];
 		        	textview.setBackgroundColor(Color.TRANSPARENT);
-		        	
 		        	textview.setText(rowHint[i-1]);
-		        	
 		        	textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 		        	tr.addView(buttons[i][j],150,50);
 				}else if(i == 0){
 					// vertical number field
 					TextView textview = (TextView) buttons[i][j];
 					textview.setBackgroundColor(Color.TRANSPARENT);
-					
 					textview.setText(columnHint[j-1]);
-					
 					textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 					textview.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
 					tr.addView(buttons[i][j],50,200);
@@ -146,7 +141,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		submitButton.setText("Submit");
 		
 		submitButton.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View v) {
 
@@ -159,7 +153,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				}
 			}
 		}); 
-		
 		
 		scrollView.addView(layout);
 		super.setContentView(scrollView);
@@ -279,8 +272,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		}
 	}
 	
-	//inner class for cell, which has state that change based on each 
-	//click.
+	//inner class for cell, which has state that changes based on each click
 	class Cell extends Button {
 		
 		public int state;  
@@ -291,7 +283,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			state = 0; 
 		}
 		
-		//set the state if there is a click
+		//set the state after a click
 		public void setState(){
 			if(state < 2)
 	    		state++;
