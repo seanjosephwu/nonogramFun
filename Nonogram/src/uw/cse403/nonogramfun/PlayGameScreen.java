@@ -160,6 +160,18 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			}
 		}); 
 		
+		Button hintButton = new Button(this);
+		layout.addView(hintButton);
+		hintButton.setText("Hint");
+		
+		hintButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+
+			
+			}
+		}); 
+		
 		
 		scrollView.addView(layout);
 		super.setContentView(scrollView);
