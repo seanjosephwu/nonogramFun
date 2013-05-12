@@ -73,7 +73,7 @@ public class NonoClient {
 			//String response = tcpHandler.readMessageString();
 			//System.out.println("Server said: " + response);
 			
-			Integer[][] arr = {{ Color.BLACK, Color.BLACK }, { Color.BLUE, Color.BLUE } };
+			Integer[][] arr = {{ Color.BLACK, Color.BLACK }, { Color.WHITE, Color.WHITE } };
 			tcpHandler.sendMessage(arr);
 			NonoPuzzle puzzle = (NonoPuzzle) tcpHandler.readMessageObject();
 			System.out.println("I got a response puzzle from server!!");
@@ -84,7 +84,16 @@ public class NonoClient {
 	// For testing  TODO: delete later
 	private static void testJSON() throws Exception {
 		System.out.println("I'm sending somthing to server!!");
-		Integer[][] cArray = {{ Color.BLACK, Color.BLACK }, { Color.BLUE, Color.BLUE } };
+		Integer[][] cArray = {{ Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE },
+							{ Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE}, 
+							{ Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE , Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE}, 
+							{ Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE , Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE}, 
+							{ Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE , Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE},
+							{Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE , Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE},
+							{Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE , Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE},
+							{Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE , Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE},
+							{Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE , Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE},
+							{Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE , Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.WHITE}};
 		Integer bgColor = Color.BLACK;
 		createPuzzle(cArray, bgColor, "NOmmmmmmmmmmmmmmmmmmmmm");
 		InetAddress inetAddress = InetAddress.getByName(NonoServer.NAME);
@@ -114,16 +123,18 @@ public class NonoClient {
 	
 	private static void testGetPuzzles() throws UnknownHostException, IOException, JSONException {
 		System.out.println("I'm trying to get from the server!!");
-		NonoPuzzle puzzle = getPuzzle(Difficulty.EASY);
+		NonoPuzzle puzzle = getPuzzle(Difficulty.MEDIUM);
 		System.out.println("Got Puzzle!");
 		System.out.println(puzzle);
 	}
 	// For testing  TODO: delete later
+	
 	public static void main(String[] args) throws Exception {
 		System.out.println("Running NonoClient");
 		testJSON();
 		testGetPuzzles();
 		//testClient();
 	}
+	
 }
 	
