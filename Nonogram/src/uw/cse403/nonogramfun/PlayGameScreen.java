@@ -60,6 +60,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		parseGameRow();
 		parseGameColumn();
 		
+		/*
 		//delete later
 		// log the rowHint and columnHint
 		for (int i = 0; i < dimension; i++){
@@ -70,6 +71,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				Log.i("rowHint["+Integer.toString(i)+"] ", rowHint[i]);
 			}
 		}
+		*/
 		
 		// dimension + 1 for the number field at the top and left sides
 		buttons = new View[dimension + 1][dimension + 1];
@@ -78,7 +80,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		layout.setLayoutParams( new TableLayout.LayoutParams());
 		layout.setPadding(50,50,50,50);
 
-		HorizontalScrollView scrollView = new  HorizontalScrollView(this);
+		HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
 		
 		//create the empty game board and the number fields
 		for (int i = 0; i < dimension + 1; i++) {
@@ -119,11 +121,11 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					Cell c = (Cell) buttons[i][j];
 					Context context = this.getApplicationContext();
 		        	Resources res = context.getResources();
-		        	Drawable draw = res.getDrawable(R.drawable.white_outline);
-		        	Drawable backgroundRes = c.getBackground();
-		        	Drawable[] drawableLayers = { backgroundRes, draw};
-		        	LayerDrawable ld = new LayerDrawable(drawableLayers);
-		        	c.setBackground(ld);
+		        	//Drawable draw = res.getDrawable(R.drawable.white_outline);
+		        	//Drawable backgroundRes = c.getBackground();
+		        	//Drawable[] drawableLayers = { backgroundRes, draw};
+		        	//LayerDrawable ld = new LayerDrawable(drawableLayers);
+		        	//c.setBackground(ld);
 		        	if((i % 2 == j % 2)){
 		        		c.setBackgroundColor(Color.LTGRAY);
 		        		c.setOriginColor(Color.LTGRAY);
@@ -141,9 +143,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			layout.addView(tr);
 		}
 		
-		Button submitButton = new Button(this);
-		layout.addView(submitButton);
-		submitButton.setText("Submit");
+		Button submitButton = (Button) findViewById(R.id.playgamesubmit);
 		
 		submitButton.setOnClickListener(new OnClickListener(){
 
@@ -161,9 +161,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		}); 
 		
 		
-		scrollView.addView(layout);
-		super.setContentView(scrollView);
-		
+		scrollView.addView(layout);		
 	}
 
 	@Override
