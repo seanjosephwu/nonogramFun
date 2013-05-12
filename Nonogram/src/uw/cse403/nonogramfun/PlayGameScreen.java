@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
 import org.json.JSONException;
 
 import android.os.Bundle;
+import android.animation.Animator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -29,6 +30,10 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ScrollView;
@@ -112,13 +117,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					tr.addView(buttons[i][j],50,200);
 				}else{
 					Cell c = (Cell) buttons[i][j];
-					Context context = this.getApplicationContext();
-		        	Resources res = context.getResources();
-		        	Drawable draw = res.getDrawable(R.drawable.white_outline);
-		        	Drawable backgroundRes = c.getBackground();
-		        	Drawable[] drawableLayers = { backgroundRes, draw};
-		        	LayerDrawable ld = new LayerDrawable(drawableLayers);
-		        	c.setBackground(ld);
+					
 		        	if((i % 2 == j % 2)){
 		        		c.setBackgroundColor(Color.LTGRAY);
 		        		c.setOriginColor(Color.LTGRAY);
@@ -161,8 +160,42 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		hintButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-
-			
+				boolean diff = false;
+				for (int i = 0; i < dimension; i++) {
+					for (int j = 0; j < dimension; j++) {
+						if(buttons[i+1][j+1] instanceof Cell){
+							int cellState = ((Cell) buttons[i+1][j+1]).getColor();
+							Integer cellState_sol = gameArray[i][j];
+							Log.i("i", Integer.toString(i));
+							Log.i("j", Integer.toString(j));
+							Log.i("cellState", Integer.toString(cellState));
+							Log.i("sol", Integer.toString(cellState_sol));
+							// current cell color doesn't match the solution
+							if (!cellState_sol.equals(cellState)) {
+								Log.i("if not equal", "!!!");
+								
+								diff = true;
+								
+								// cell flashes
+								final Animation animation = new AlphaAnimation(1, 0);
+								animation.setDuration(500);
+								animation.setInterpolator(new LinearInterpolator());
+								animation.setRepeatCount(3);
+								Log.i("animation bg color", Integer.toString(animation.getBackgroundColor()));
+								((Cell) buttons[i+1][j+1]).startAnimation(animation);
+								
+								hintActionListener listener = new hintActionListener(((Cell) buttons[i+1][j+1]), 
+										cellState, cellState_sol);
+								animation.setAnimationListener(listener);
+								break;
+							}
+						}
+					}
+					
+					if (diff){
+						break;
+					}
+				}
 			}
 		}); 
 		
@@ -171,13 +204,44 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		
 	}
 
+	// a listener class to give a hint, and set back to the original cell color after hint is given
+	private class hintActionListener implements AnimationListener {
+		Cell cell;
+		int cellState;
+		int cellState_sol;
+		
+		private hintActionListener(Cell cell, int cellState, int cellState_sol){
+			this.cell = cell;
+			this.cellState = cellState;
+			this.cellState_sol = cellState_sol;
+		}
+		
+		@Override
+		public void onAnimationEnd(Animation arg0) {
+			// set back to the original cell color
+			cell.setColor(cellState);	
+		}
+
+		@Override
+		public void onAnimationStart(Animation arg0) {
+			// gives the correct cell color as for the hint
+			cell.setColor(cellState_sol);
+		}
+
+		@Override
+		public void onAnimationRepeat(Animation animation) {
+			// nothing to do here
+		}
+		
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.play_game_screen, menu);
 		return true;
 	}
-
+	
 	//pull a puzzle from the server database
 	private void fetchPuzzle(){
 		Thread thread = new Thread(new Runnable(){
@@ -196,7 +260,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					}
 					
 					NonoPuzzle puzzle = NonoClient.getPuzzle(puzzleDifficulty);
-					Log.i("hi", "getPuzzle");
+
 					for(int i = 0; i < puzzle.getNonoPicColSize(); i++){
 						for(int j = 0; j < puzzle.getNonoPicRowSize(); j++){
 							Log.i("["+Integer.toString(i)+"]"+"["+Integer.toString(j)+"]", Integer.toString(puzzle.getColor(i, j)));
@@ -287,24 +351,31 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	//inner class for cell, which has state that changes based on each click
 	class Cell extends Button {
 		
-		public int state;  
-		public int origin; 
+		private int state;  
+		private int origin; 
+		private int current;
 		
 		public Cell(Context context) {
 			super(context);
 			state = 0; 
+			current = Color.WHITE;
 		}
 		
 		//set the state after a click
 		public void setState(){
-			if(state < 2)
+			if(state < 2){
 	    		state++;
-	    	else
+			} else {
 	    		state = 0;
+			}
 		}
 		
 		public int getState(){
 			return state;
+		}
+		
+		public int getColor(){
+			return current;
 		}
 		
 		//store the origin cell color before any action
@@ -312,22 +383,29 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			origin = color;
 		}
 		
-		public void setColor(int state){
+		public void setStateColor(){
 			//0 : unmark
 			//1 : mark
 			//2 : question mark
 			if(state == 0){
 				this.setText("");
 				this.setBackgroundColor(origin);
+				current = origin;
 			}else if(state == 1){
 				this.setText("");
 				this.setBackgroundColor(Color.BLACK);
-				
+				current = Color.BLACK;
 			}else{
 				this.setBackgroundColor(origin);
 				this.setText("?");
 				this.setTextColor(Color.BLUE);
+				current = origin;
 			}
+		}
+		
+		public void setColor(int color){
+			this.setBackgroundColor(color);
+			current = color;
 		}
     }
 	
@@ -335,6 +413,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	public void onClick(View view) {
 		Cell cell = (Cell)view;
 		cell.setState();
-		cell.setColor(cell.getState());
+		cell.setStateColor();
 	}
 }
