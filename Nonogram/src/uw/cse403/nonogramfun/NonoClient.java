@@ -24,7 +24,7 @@ import com.google.gson.JsonSyntaxException;
  *
  */
 public class NonoClient {
-	private static final int BASE_PORT = 1024;
+	private static final int BASE_PORT = 1025;
 	private static final String SERVER_NAME = "cubist.cs.washington.edu";
 	//TODO: where should I check parameter validity? before sending? at server? or both?
 	//TODO: what is the best way of getting port & serverIP in remote machine?
