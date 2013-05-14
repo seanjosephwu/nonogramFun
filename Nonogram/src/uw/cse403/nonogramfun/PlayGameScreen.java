@@ -173,9 +173,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				stopTimer = true;
 				for (int i = 0; i < dimension; i++) {
 					for (int j = 0; j < dimension; j++) {
-//						if(buttons[i][j] instanceof Cell){
-//							Log.i("buttons["+Integer.toString(i)+"]["+Integer.toString(j)+"]", Integer.toString(((Cell)buttons[i][j]).getState()));
-//						}
 						// the solution
 						Integer sol = gameArray[i][j];
 						// the answer given by the user
