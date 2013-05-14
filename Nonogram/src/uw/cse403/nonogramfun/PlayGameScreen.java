@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
@@ -168,14 +169,46 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				//once click submit, stop the timer
+				boolean correct = true;
 				stopTimer = true;
 				for (int i = 0; i < dimension; i++) {
 					for (int j = 0; j < dimension; j++) {
-						if(buttons[i][j] instanceof Cell){
-							Log.i("buttons["+Integer.toString(i)+"]["+Integer.toString(j)+"]", Integer.toString(((Cell)buttons[i][j]).getState()));
+//						if(buttons[i][j] instanceof Cell){
+//							Log.i("buttons["+Integer.toString(i)+"]["+Integer.toString(j)+"]", Integer.toString(((Cell)buttons[i][j]).getState()));
+//						}
+						// the solution
+						Integer sol = gameArray[i][j];
+						// the answer given by the user
+						int state = ((Cell)buttons[i + 1][j + 1]).getState();
+						if (state != 1 && sol.equals(Color.BLACK)) {
+							correct = false;
+							break;
 						}
 					}
 				}
+				if (correct) {
+					AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
+					alertDialog.setTitle("Correct Answer");
+					alertDialog.setMessage("Congratulations!");
+					// -1 = BUTTON_POSITIVE = a positive button?
+					alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							// do nothing
+						}
+					});
+					alertDialog.show();
+				} else {
+						AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
+						alertDialog.setTitle("Wrong anwser");
+						alertDialog.setMessage("You need to play the game again");
+						// -1 = BUTTON_POSITIVE = a positive button?
+						alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								// do nothing
+							}
+						});
+						alertDialog.show();
+					}
 			}
 		}); 
 		
@@ -206,7 +239,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 								animation.setDuration(500);
 								animation.setInterpolator(new LinearInterpolator());
 								animation.setRepeatCount(3);
-								Log.i("animation bg color", Integer.toString(animation.getBackgroundColor()));
+								//Log.i("animation bg color", Integer.toString(animation.getBackgroundColor()));
 								((Cell) buttons[i+1][j+1]).startAnimation(animation);
 								
 								hintActionListener listener = new hintActionListener(((Cell) buttons[i+1][j+1]), 
