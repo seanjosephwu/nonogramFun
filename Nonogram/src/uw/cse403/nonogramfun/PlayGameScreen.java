@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import org.json.JSONException;
 
+import uw.cse403.nonogramfun.enums.*;
+import uw.cse403.nonogramfun.server.*;
+
 import android.os.Bundle;
 import android.animation.Animator;
 import android.app.Activity;
