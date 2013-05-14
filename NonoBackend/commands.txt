@@ -1,0 +1,29 @@
+CURRENTLY CHANGING TO HEROKU POSTGRESQL
+
+These instructions are for Debian-based Linux (Tested on Ubuntu 12.10)
+Install the PSQL Client in the terminal:
+sudo apt-get install postgresql-client
+
+Issue the command at terminal to get into the database:
+psql -h ec2-54-225-101-126.compute-1.amazonaws.com -U fcwlxdlohwgjtp d64in60h3dpvf2
+
+Give this password: 0xpGsFrLQgSJfp-4l9GE8HXdH-
+Issue SQL Queries here on the Puzzles table
+
+EXAMPLE:
+
+SELECT * FROM Puzzles;
+
+\d
+\dt
+\d+ puzzles
+
+
+
+How to upload the .apk
+
+Go to biz.nf and use the following login information: User: 1361466 Password: uwcse403nonogram
+
+Go to "Website Manager" and "File Manager"
+
+Delete the old Nonogram.apk and replace it with the current one
