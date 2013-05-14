@@ -12,12 +12,17 @@ package uw.cse403.nonogramfun;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.json.JSONException;
 
 import uw.cse403.nonogramfun.enums.*;
 import uw.cse403.nonogramfun.server.*;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.animation.Animator;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -36,10 +41,10 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.os.Handler.Callback;
 
 public class PlayGameScreen extends Activity implements OnClickListener{
 	private int dimension;         //dimension is size for the clickable cells
@@ -47,7 +52,11 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	private View[][] buttons;      //button arrays. first number is the row number, second number is column number
 	private String[] rowHint;
 	private String[] columnHint;
-	
+	private TextView timedisplay;
+	long starttime; 
+	Handler timerHandle;
+	Runnable timerRun;
+	boolean stopTimer = false;
 	
 	// IMPORTANT: X and Y axis are FLIPPED in both gameArray and buttons[][].
 	// For debugging purpose, given buttons[x][y], x denotes the ROW NUMBER, y denotes the COLUMN number
@@ -61,10 +70,25 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		dimension = bundle.getInt("size");
 		gameArray = new Integer[dimension][dimension];
 		
-		fetchPuzzle();
-		parseGameRow();
-		parseGameColumn();
+		//timer 
+		starttime = System.currentTimeMillis();
+	    //this  posts a message to the main thread from our timertask
+	    //and updates the textfield
+	    timerHandle = new Handler();
+	    timerRun = new Runnable() {
+			@Override
+			public void run() {
+				timeHasPassed();
+			}
+	    };
+	   	timedisplay = new TextView(this);
+	   	timedisplay.setText("0:00");
 		
+		//fetchPuzzle();
+		//parseGameRow();
+		//parseGameColumn();
+		
+		/*
 		//delete later
 		// log the rowHint and columnHint
 		for (int i = 0; i < dimension; i++){
@@ -75,6 +99,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				Log.i("rowHint["+Integer.toString(i)+"] ", rowHint[i]);
 			}
 		}
+		*/
 		
 		// dimension + 1 for the number field at the top and left sides
 		buttons = new View[dimension + 1][dimension + 1];
@@ -82,8 +107,10 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		TableLayout layout = new TableLayout (this);
 		layout.setLayoutParams( new TableLayout.LayoutParams());
 		layout.setPadding(50,50,50,50);
+		
+		layout.addView(timedisplay);
 
-		HorizontalScrollView scrollView = new  HorizontalScrollView(this);
+		HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
 		
 		//create the empty game board with the number fields
 		for (int i = 0; i < dimension + 1; i++) {
@@ -104,20 +131,27 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					// horizontal number field
 					TextView textview = (TextView) buttons[i][j];
 		        	textview.setBackgroundColor(Color.TRANSPARENT);
-		        	textview.setText(rowHint[i-1]);
+		        	//textview.setText(rowHint[i-1]);
 		        	textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 		        	tr.addView(buttons[i][j],150,50);
 				}else if(i == 0){
 					// vertical number field
 					TextView textview = (TextView) buttons[i][j];
 					textview.setBackgroundColor(Color.TRANSPARENT);
-					textview.setText(columnHint[j-1]);
+					//textview.setText(columnHint[j-1]);
 					textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 					textview.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
 					tr.addView(buttons[i][j],50,200);
 				}else{
 					Cell c = (Cell) buttons[i][j];
-					
+					Context context = this.getApplicationContext();
+		        	Resources res = context.getResources();
+		        	//Drawable draw = res.getDrawable(R.drawable.white_outline);
+		        	//Drawable backgroundRes = c.getBackground();
+		        	//Drawable[] drawableLayers = { backgroundRes, draw};
+		        	//LayerDrawable ld = new LayerDrawable(drawableLayers);
+		        	//c.setBackground(ld);
+
 		        	if((i % 2 == j % 2)){
 		        		c.setOriginColor(Color.LTGRAY);
 		        		c.setColor(Color.LTGRAY);
@@ -135,14 +169,13 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			layout.addView(tr);
 		}
 		
-		Button submitButton = new Button(this);
-		layout.addView(submitButton);
-		submitButton.setText("Submit");
+		Button submitButton = (Button) findViewById(R.id.playgamesubmit);
 		
 		submitButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-
+				//once click submit, stop the timer
+				stopTimer = true;
 				for (int i = 0; i < dimension; i++) {
 					for (int j = 0; j < dimension; j++) {
 						if(buttons[i][j] instanceof Cell){
@@ -198,9 +231,9 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			}
 		}); 
 		
-		scrollView.addView(layout);
-		super.setContentView(scrollView);
-		
+		//scrollView.addView(timer);
+		scrollView.addView(layout);	
+		timerRun.run();
 	}
 
 	// a listener class to give a hint, and set back to the original cell color after hint is given
@@ -410,5 +443,16 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		Cell cell = (Cell)view;
 		cell.setState();
 		cell.setStateColor();
+	}
+	
+	//helper function to calculate the time has passed
+	public void timeHasPassed(){
+        long millis = System.currentTimeMillis() - starttime;
+        int seconds = (int) (millis / 1000);
+        int minutes = seconds / 60;
+        seconds     = seconds % 60;
+        timedisplay.setText(String.format("%d:%02d", minutes, seconds));
+        if (!stopTimer)
+        	timerHandle.postDelayed(timerRun, 1000);
 	}
 }
