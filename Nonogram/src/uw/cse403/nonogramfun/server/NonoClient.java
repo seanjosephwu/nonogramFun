@@ -18,7 +18,7 @@ import uw.cse403.nonogramfun.enums.*;
  *
  */
 public class NonoClient {
-	private static final int BASE_PORT = 1024;
+	private static final int BASE_PORT = 1025;
 	//TODO: where should I check parameter validity? before sending? at server? or both?
 	//TODO: what is the best way of getting port & serverIP in remote machine?
 	//TODO: closing the network
@@ -60,8 +60,6 @@ public class NonoClient {
 			throw new IOException("Error: " + NonoUtil.getString(responseJSON));
 		}
 	}
-	
-	
 	
 	
 	// For testing  TODO: delete later

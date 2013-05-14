@@ -84,9 +84,9 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	   	timedisplay = new TextView(this);
 	   	timedisplay.setText("0:00");
 		
-		//fetchPuzzle();
-		//parseGameRow();
-		//parseGameColumn();
+		fetchPuzzle();
+		parseGameRow();
+		parseGameColumn();
 		
 		/*
 		//delete later
@@ -131,27 +131,20 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					// horizontal number field
 					TextView textview = (TextView) buttons[i][j];
 		        	textview.setBackgroundColor(Color.TRANSPARENT);
-		        	//textview.setText(rowHint[i-1]);
+		        	textview.setText(rowHint[i-1]);
 		        	textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 		        	tr.addView(buttons[i][j],150,50);
 				}else if(i == 0){
 					// vertical number field
 					TextView textview = (TextView) buttons[i][j];
 					textview.setBackgroundColor(Color.TRANSPARENT);
-					//textview.setText(columnHint[j-1]);
+					textview.setText(columnHint[j-1]);
 					textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 					textview.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
 					tr.addView(buttons[i][j],50,200);
 				}else{
 					Cell c = (Cell) buttons[i][j];
-					Context context = this.getApplicationContext();
-		        	Resources res = context.getResources();
-		        	//Drawable draw = res.getDrawable(R.drawable.white_outline);
-		        	//Drawable backgroundRes = c.getBackground();
-		        	//Drawable[] drawableLayers = { backgroundRes, draw};
-		        	//LayerDrawable ld = new LayerDrawable(drawableLayers);
-		        	//c.setBackground(ld);
-
+					
 		        	if((i % 2 == j % 2)){
 		        		c.setOriginColor(Color.LTGRAY);
 		        		c.setColor(Color.LTGRAY);
@@ -231,7 +224,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			}
 		}); 
 		
-		//scrollView.addView(timer);
 		scrollView.addView(layout);	
 		timerRun.run();
 	}
