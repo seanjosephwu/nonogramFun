@@ -12,9 +12,6 @@ package uw.cse403.nonogramfun;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import org.json.JSONException;
 
 import uw.cse403.nonogramfun.enums.*;
@@ -22,15 +19,11 @@ import uw.cse403.nonogramfun.server.*;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.animation.Animator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -45,7 +38,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.os.Handler.Callback;
 
 public class PlayGameScreen extends Activity implements OnClickListener{
 	private int dimension;         //dimension is size for the clickable cells
@@ -73,8 +65,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		
 		//timer 
 		starttime = System.currentTimeMillis();
-	    //this  posts a message to the main thread from our timertask
-	    //and updates the textfield
+	    //this  posts a message to the main thread from our timertask and updates the textfield
 	    timerHandle = new Handler();
 	    timerRun = new Runnable() {
 			@Override
@@ -88,19 +79,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		fetchPuzzle();
 		parseGameRow();
 		parseGameColumn();
-		
-		/*
-		//delete later
-		// log the rowHint and columnHint
-		for (int i = 0; i < dimension; i++){
-			if (columnHint[i] != null){
-				Log.i("columnHint["+Integer.toString(i)+"] ", columnHint[i]);
-			}
-			if (rowHint[i] != null){
-				Log.i("rowHint["+Integer.toString(i)+"] ", rowHint[i]);
-			}
-		}
-		*/
 		
 		// dimension + 1 for the number field at the top and left sides
 		buttons = new View[dimension + 1][dimension + 1];
@@ -224,6 +202,9 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 							Integer cellColor_sol = gameArray[i][j];
 							int cellState = ((Cell) buttons[i+1][j+1]).getState();
 							
+							// the solution doesn't match current cell when:
+							// 1. solution cell is black and current cell is not marked
+							// 2. solution cell is white and current cell is marked (black/question mark)
 							if ((cellState == 0 && cellColor_sol.equals(Color.BLACK)) || 
 								(cellState != 0 && cellColor_sol.equals(Color.WHITE))){
 								diff = true;
@@ -235,8 +216,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 								final Animation animation = new AlphaAnimation(1, 0);
 								animation.setDuration(500);
 								animation.setInterpolator(new LinearInterpolator());
-								animation.setRepeatCount(3);
-								//Log.i("animation bg color", Integer.toString(animation.getBackgroundColor()));
+								animation.setRepeatCount(1);
 								((Cell) buttons[i+1][j+1]).startAnimation(animation);
 								
 								hintActionListener listener = new hintActionListener(((Cell) buttons[i+1][j+1]), 
@@ -274,12 +254,14 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		public void onAnimationEnd(Animation arg0) {
 			// set back to the original cell color
 			cell.setColor(cellState);	
+			cell.setEnabled(true);
 		}
 
 		@Override
 		public void onAnimationStart(Animation arg0) {
 			// gives the correct cell color as for the hint
 			cell.setColor(cellState_sol);
+			cell.setEnabled(false);
 		}
 
 		@Override
@@ -317,7 +299,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 
 					for(int i = 0; i < puzzle.getNonoPicColSize(); i++){
 						for(int j = 0; j < puzzle.getNonoPicRowSize(); j++){
-							Log.i("["+Integer.toString(i)+"]"+"["+Integer.toString(j)+"]", Integer.toString(puzzle.getColor(i, j)));
 							gameArray[i][j] = puzzle.getColor(i, j);
 						}
 					}	
