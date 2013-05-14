@@ -25,10 +25,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -153,12 +150,12 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		        	//c.setBackground(ld);
 
 		        	if((i % 2 == j % 2)){
-		        		c.setBackgroundColor(Color.LTGRAY);
 		        		c.setOriginColor(Color.LTGRAY);
+		        		c.setColor(Color.LTGRAY);
 		        	}
 		        	else{
-		        		c.setBackgroundColor(Color.WHITE);
 		        		c.setOriginColor(Color.WHITE);
+		        		c.setColor(Color.WHITE);
 		        	}
 		        	
 		        	c.setOnClickListener(this);
@@ -197,18 +194,17 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				for (int i = 0; i < dimension; i++) {
 					for (int j = 0; j < dimension; j++) {
 						if(buttons[i+1][j+1] instanceof Cell){
-							int cellState = ((Cell) buttons[i+1][j+1]).getColor();
-							Integer cellState_sol = gameArray[i][j];
-							Log.i("i", Integer.toString(i));
-							Log.i("j", Integer.toString(j));
-							Log.i("cellState", Integer.toString(cellState));
-							Log.i("sol", Integer.toString(cellState_sol));
-							// current cell color doesn't match the solution
-							if (!cellState_sol.equals(cellState)) {
-								Log.i("if not equal", "!!!");
-								
+							int cellColor = ((Cell) buttons[i+1][j+1]).getColor();
+							Integer cellColor_sol = gameArray[i][j];
+							int cellState = ((Cell) buttons[i+1][j+1]).getState();
+							
+							if ((cellState == 0 && cellColor_sol.equals(Color.BLACK)) || 
+								(cellState != 0 && cellColor_sol.equals(Color.WHITE))){
 								diff = true;
-								
+							}
+							
+							// current cell color doesn't match the solution
+							if (diff) {
 								// cell flashes
 								final Animation animation = new AlphaAnimation(1, 0);
 								animation.setDuration(500);
@@ -218,7 +214,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 								((Cell) buttons[i+1][j+1]).startAnimation(animation);
 								
 								hintActionListener listener = new hintActionListener(((Cell) buttons[i+1][j+1]), 
-										cellState, cellState_sol);
+										cellColor, cellColor_sol);
 								animation.setAnimationListener(listener);
 								break;
 							}
@@ -301,11 +297,11 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 						}
 					}	
 				} catch (UnknownHostException e) {
-					//e.printStackTrace();
+					
 				} catch (IOException e) {
-					//e.printStackTrace();
+					
 				} catch (JSONException e) {
-					//e.printStackTrace();
+					
 				}
 
 			}
@@ -314,7 +310,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
-			//e.printStackTrace();
+			
 		}
 	}
 	
@@ -417,22 +413,19 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		}
 		
 		public void setStateColor(){
-			//0 : unmark
-			//1 : mark
-			//2 : question mark
 			if(state == 0){
+				//0 : set to the original cell color (unmark)
 				this.setText("");
-				this.setBackgroundColor(origin);
-				current = origin;
+				this.setColor(origin);
 			}else if(state == 1){
+				//1 : mark the cell black
 				this.setText("");
-				this.setBackgroundColor(Color.BLACK);
-				current = Color.BLACK;
+				this.setColor(Color.BLACK);
 			}else{
-				this.setBackgroundColor(origin);
+				//2 : leave a question mark on the cell
+				this.setColor(origin);
 				this.setText("?");
 				this.setTextColor(Color.BLUE);
-				current = origin;
 			}
 		}
 		
