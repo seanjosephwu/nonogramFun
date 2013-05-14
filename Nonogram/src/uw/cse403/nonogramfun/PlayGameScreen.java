@@ -86,18 +86,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		parseGameRow();
 		parseGameColumn();
 		
-		/*
-		//delete later
-		// log the rowHint and columnHint
-		for (int i = 0; i < dimension; i++){
-			if (columnHint[i] != null){
-				Log.i("columnHint["+Integer.toString(i)+"] ", columnHint[i]);
-			}
-			if (rowHint[i] != null){
-				Log.i("rowHint["+Integer.toString(i)+"] ", rowHint[i]);
-			}
-		}
-		*/
 		
 		// dimension + 1 for the number field at the top and left sides
 		buttons = new View[dimension + 1][dimension + 1];
@@ -242,7 +230,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 								final Animation animation = new AlphaAnimation(1, 0);
 								animation.setDuration(500);
 								animation.setInterpolator(new LinearInterpolator());
-								animation.setRepeatCount(3);
+								animation.setRepeatCount(1);
 								//Log.i("animation bg color", Integer.toString(animation.getBackgroundColor()));
 								((Cell) buttons[i+1][j+1]).startAnimation(animation);
 								
