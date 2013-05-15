@@ -6,11 +6,11 @@
  * @since   Spring 2013 
  */
 
-package test;
+package uw.cse403.nonogramfun.test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import enums.Difficulty;
+import uw.cse403.nonogramfun.enums.Difficulty;
 
 
 /**

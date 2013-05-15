@@ -1,4 +1,4 @@
-package test;
+package uw.cse403.nonogramfun.test;
 
 import static org.junit.Assert.*;
 
