@@ -7,12 +7,17 @@
  */
 
 
-package nonogram;
-import java.sql.*;
-import java.util.*;
+package uw.cse403.nonogramfun.nonogram;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
-import utility.NonoUtil;
-import enums.*;
+import uw.cse403.nonogramfun.enums.Difficulty;
+import uw.cse403.nonogramfun.utility.NonoUtil;
 
 
 /**

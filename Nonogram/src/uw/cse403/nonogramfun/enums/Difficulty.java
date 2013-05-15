@@ -7,7 +7,7 @@
  */
 
 
-package enums;
+package uw.cse403.nonogramfun.enums;
 
 
 /**

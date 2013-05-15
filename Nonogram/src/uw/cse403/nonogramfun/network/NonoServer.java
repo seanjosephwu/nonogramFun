@@ -7,19 +7,21 @@
  */
 
 
-package network;
-import java.io.*;
-import java.net.*;
+package uw.cse403.nonogramfun.network;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.SocketTimeoutException;
 
-import nonogram.NonoPuzzle;
-import nonogram.Nonogram;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import org.json.*; 
-
-import utility.NonoUtil;
-import utility.ParameterPolice;
-
-import enums.*;
+import uw.cse403.nonogramfun.enums.ClientRequest;
+import uw.cse403.nonogramfun.enums.ServerResponse;
+import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
+import uw.cse403.nonogramfun.nonogram.Nonogram;
+import uw.cse403.nonogramfun.utility.NonoUtil;
+import uw.cse403.nonogramfun.utility.ParameterPolice;
 
 
 /**

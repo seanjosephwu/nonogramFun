@@ -7,11 +7,13 @@
  */
 
 
-package network;
+package uw.cse403.nonogramfun.network;
 import java.io.IOException;
-import java.net.*;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
-import utility.ParameterPolice;
+import uw.cse403.nonogramfun.utility.ParameterPolice;
 
 
 /**

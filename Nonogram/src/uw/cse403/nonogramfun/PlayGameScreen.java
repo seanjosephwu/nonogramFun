@@ -10,21 +10,14 @@ package uw.cse403.nonogramfun;
  */
 
 
-import java.io.IOException;
-import java.net.UnknownHostException;
-import org.json.JSONException;
-
-import enums.*;
-import network.*;
-import nonogram.*;
-
+import uw.cse403.nonogramfun.enums.Difficulty;
+import uw.cse403.nonogramfun.network.NonoClient;
+import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -35,7 +28,6 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;

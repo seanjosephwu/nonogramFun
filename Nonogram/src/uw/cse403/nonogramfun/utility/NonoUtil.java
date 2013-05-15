@@ -7,15 +7,26 @@
  */
 
 
-package utility;
-import java.io.*;
-import java.nio.*;
+package uw.cse403.nonogramfun.utility;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.BufferUnderflowException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
-import nonogram.NonoPuzzle;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import org.json.*;
-import enums.*;
-import com.google.gson.*;
+import uw.cse403.nonogramfun.enums.ClientRequest;
+import uw.cse403.nonogramfun.enums.Difficulty;
+import uw.cse403.nonogramfun.enums.ServerResponse;
+import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 
 /**

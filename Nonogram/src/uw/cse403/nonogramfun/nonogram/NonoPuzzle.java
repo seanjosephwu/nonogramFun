@@ -7,11 +7,14 @@
  */
 
 
-package nonogram;
+package uw.cse403.nonogramfun.nonogram;
 import java.io.Serializable;
-import java.util.*;
-import utility.ParameterPolice;
-import enums.Difficulty;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import uw.cse403.nonogramfun.enums.Difficulty;
+import uw.cse403.nonogramfun.utility.ParameterPolice;
 
 
 /**

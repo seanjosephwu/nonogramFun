@@ -7,16 +7,20 @@
  */
 
 
-package network;
-import android.graphics.Color;
-import java.io.*;
-import java.net.*;
-import nonogram.*;
-import org.json.*;
+package uw.cse403.nonogramfun.network;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 
-import utility.NonoUtil;
-import utility.ParameterPolice;
-import enums.*;
+import org.json.JSONObject;
+
+import uw.cse403.nonogramfun.enums.ClientRequest;
+import uw.cse403.nonogramfun.enums.Difficulty;
+import uw.cse403.nonogramfun.enums.ServerResponse;
+import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
+import uw.cse403.nonogramfun.utility.NonoUtil;
+import uw.cse403.nonogramfun.utility.ParameterPolice;
+import android.graphics.Color;
 
 
 /**

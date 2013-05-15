@@ -7,12 +7,14 @@
  */
 
 
-package nonogram;
-import java.util.*;
-import org.json.*;
-import utility.NonoUtil;
-import utility.ParameterPolice;
-import enums.*;
+package uw.cse403.nonogramfun.nonogram;
+import java.util.List;
+
+import org.json.JSONObject;
+
+import uw.cse403.nonogramfun.enums.Difficulty;
+import uw.cse403.nonogramfun.utility.NonoUtil;
+import uw.cse403.nonogramfun.utility.ParameterPolice;
 
 
 /**

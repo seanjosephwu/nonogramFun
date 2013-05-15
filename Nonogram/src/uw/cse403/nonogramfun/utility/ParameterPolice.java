@@ -7,7 +7,7 @@
  */
 
 
-package utility;
+package uw.cse403.nonogramfun.utility;
 
 
 /**

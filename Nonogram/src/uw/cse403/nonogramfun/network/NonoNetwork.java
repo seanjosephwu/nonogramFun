@@ -7,15 +7,18 @@
  */
 
 
-package network;
-import java.io.*;
-import java.net.*;
+package uw.cse403.nonogramfun.network;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.SocketException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import org.json.*;
-
-import utility.NonoUtil;
-import utility.ParameterPolice;
+import uw.cse403.nonogramfun.utility.NonoUtil;
+import uw.cse403.nonogramfun.utility.ParameterPolice;
 
 
 
