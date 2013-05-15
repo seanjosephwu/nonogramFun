@@ -14,8 +14,9 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import org.json.JSONException;
 
-import uw.cse403.nonogramfun.enums.*;
-import uw.cse403.nonogramfun.server.*;
+import enums.*;
+import network.*;
+import nonogram.*;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -89,7 +90,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		
 		layout.addView(timedisplay);
 
-		HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
+		// HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
 		
 		//create the empty game board with the number fields
 		for (int i = 0; i < dimension + 1; i++) {
@@ -141,8 +142,8 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			layout.addView(tr);
 		}
 		
-		Button submitButton = (Button) findViewById(R.id.playgamesubmit);
-		
+		//Button submitButton = (Button) findViewById(R.id.playgamesubmit);
+		/*
 		submitButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -186,7 +187,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					}
 			}
 		}); 
-		
+		*/
 		Button hintButton = new Button(this);
 		layout.addView(hintButton);
 		hintButton.setText("Hint");
@@ -234,7 +235,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			}
 		}); 
 		
-		scrollView.addView(layout);	
+		//scrollView.addView(layout);	
 		timerRun.run();
 	}
 
@@ -292,7 +293,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					} else if (dimension == 14) {
 						puzzleDifficulty = Difficulty.HARD;
 					} else {
-						puzzleDifficulty = Difficulty.UNKNOWN;
+						puzzleDifficulty = Difficulty.UNDEFINED;
 					}
 					
 					NonoPuzzle puzzle = NonoClient.getPuzzle(puzzleDifficulty);
@@ -302,11 +303,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 							gameArray[i][j] = puzzle.getColor(i, j);
 						}
 					}	
-				} catch (UnknownHostException e) {
-					
-				} catch (IOException e) {
-					
-				} catch (JSONException e) {
+				} catch (Exception e) {
 					
 				}
 

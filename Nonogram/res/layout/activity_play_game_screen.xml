@@ -8,21 +8,4 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".PlayGameScreen" >
     
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity = "center"
-        android:id="@+id/nonogram_gameboard"
-        >
-        
-    </HorizontalScrollView>
-    
-    <Button 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/playgamesubmit"
-        android:layout_below="@id/nonogram_gameboard"
-        android:text= "Submit"
-        />
-    
 </RelativeLayout>

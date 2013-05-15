@@ -8,7 +8,7 @@ package uw.cse403.nonogramfun;
  * @since   Spring 2013 
  */
 
-import uw.cse403.nonogramfun.server.NonoClient;
+import network.NonoClient;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
@@ -112,11 +112,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 						public void run() {
 							try {
 								NonoClient.createPuzzle(gameArray, Integer.valueOf(Color.WHITE), "Puzzle 1");
-							} catch (UnknownHostException e) {
-								//e.printStackTrace();
-							} catch (IOException e) {
-								//e.printStackTrace();
-							} catch (JSONException e) {
+							} catch (Exception e) {
 								//e.printStackTrace();
 							}
 
