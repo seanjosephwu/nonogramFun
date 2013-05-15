@@ -1,3 +1,0 @@
-//TODO: where should I check parameter validity? before sending? at server? or both?
-
-where to put the server IP finding functionality
