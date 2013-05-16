@@ -43,12 +43,11 @@ public class NonoUtil {
 	public static final String JSON_DIFFICULTY_TAG = "JSON_Difficulty";
 	public static final String JSON_STRING_TAG = "JSON_String";
 	private static final Gson JSON = new Gson();
-	
-	
+
+
 	// Private constructor
-	private NonoUtil() {}
-	
-	
+	private NonoUtil() { }
+
 	/**
 	 * Converts a given integer to byte, in little endian
 	 * @param i An integer to be converted to byte
@@ -61,7 +60,7 @@ public class NonoUtil {
 		byte buf[] = b.array();
 		return buf;
 	}
-	
+
 	/**
 	 * Converts given byte array to integer.
 	 * @param buf A byte array to be converted to integer
@@ -71,12 +70,12 @@ public class NonoUtil {
 	 */
 	public static int byteToInt(byte buf[]) {
 		ParameterPolice.checkIfNull(buf, "Byte array");
-		
+
 		ByteBuffer b = ByteBuffer.wrap(buf);
 		b.order(ByteOrder.LITTLE_ENDIAN);
 		return b.getInt();
 	}
-	
+
 	/**
 	 * Converts the given object into byte array.
 	 * @param object An object to be converted to byte array
@@ -86,7 +85,7 @@ public class NonoUtil {
 	 */
 	public static byte[] objecToByte(Object object) throws IOException {
 		ParameterPolice.checkIfNull(object, "Object");
-		
+
 		ByteArrayOutputStream boStream = new ByteArrayOutputStream();
 	    ObjectOutputStream ooStream = new ObjectOutputStream(boStream);
 	    ooStream.writeObject(object);
@@ -95,7 +94,7 @@ public class NonoUtil {
 	    boStream.close();
 	    return boStream.toByteArray();
 	}
-	
+
 	/**
 	 * Converts a byte array to object.
 	 * @param byteArray A byte array to be converted to object.
@@ -106,12 +105,12 @@ public class NonoUtil {
 	 */
 	public static Object byteToObject(byte[] byteArray) throws IOException, ClassNotFoundException {
 		ParameterPolice.checkIfNull(byteArray, "Byte Array");
-		
+
 		ByteArrayInputStream biStream = new ByteArrayInputStream(byteArray);
-        ObjectInputStream oiStream = new ObjectInputStream(biStream);
-        Object object = oiStream.readObject();
-        oiStream.close();
-        return object;
+    ObjectInputStream oiStream = new ObjectInputStream(biStream);
+    Object object = oiStream.readObject();
+    oiStream.close();
+    return object;
 	}
 	
 	/**
@@ -124,44 +123,40 @@ public class NonoUtil {
 		ParameterPolice.checkIfNull(object, "Object");
 		return JSON.toJson(object);
 	}
-	
-	
-	
+
 	//--Wrapper functions (Adding parameters into JSON Object)-----------------------------------------------------
-	
+
 	public static void putClientRequest(JSONObject requestJSON, ClientRequest cr) throws JsonSyntaxException, JSONException {
 		requestJSON.put(JSON_HEADER_TAG, NonoUtil.objectToJSON(cr));
 	}
-	
+
 	public static void putServerResponse(JSONObject requestJSON, ServerResponse sr) throws JsonSyntaxException, JSONException {
 		requestJSON.put(JSON_HEADER_TAG, NonoUtil.objectToJSON(sr));
 	}
-	
+
 	public static void putColorArray(JSONObject requestJSON, Integer[][] cArray) throws JsonSyntaxException, JSONException {
 		requestJSON.put(JSON_COLOR_ARRAY_TAG, NonoUtil.objectToJSON(cArray));
 	}
-	
+
 	public static void putColor(JSONObject requestJSON, Integer c) throws JsonSyntaxException, JSONException {
 		requestJSON.put(JSON_COLOR_TAG, NonoUtil.objectToJSON(c));
 	}
-	
+
 	public static void putNonoPuzzle(JSONObject requestJSON, NonoPuzzle puzzle) throws JsonSyntaxException, JSONException {
 		requestJSON.put(JSON_NONOPUZZLE_TAG, NonoUtil.objectToJSON(puzzle));
 	}
-	
+
 	public static void putDifficulty(JSONObject requestJSON, Difficulty d) throws JsonSyntaxException, JSONException {
 		requestJSON.put(JSON_DIFFICULTY_TAG, NonoUtil.objectToJSON(d));
 	}
-	
+
 	public static void putString(JSONObject requestJSON, String s) throws JsonSyntaxException, JSONException {
 		requestJSON.put(JSON_STRING_TAG, NonoUtil.objectToJSON(s));
 	}
-	
+
 	public static void putObject(JSONObject requestJSON, String key, Object val) throws JSONException {
 		requestJSON.put(key, NonoUtil.objectToJSON(val));
 	}
-	
-	
 	
 	//--Wrapper functions (Getting result from JSON Object)-----------------------------------------------------
 	
@@ -176,25 +171,25 @@ public class NonoUtil {
 	public static Integer[][] getColorArray(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
 		return JSON.fromJson(responseJSON.getString(JSON_COLOR_ARRAY_TAG), Integer[][].class);
 	}
-	
+
 	public static Integer getColor(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
 		return JSON.fromJson(responseJSON.getString(JSON_COLOR_TAG), Integer.class);
 	}
-	
+
 	public static NonoPuzzle getNonoPuzzle(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
 		return JSON.fromJson(responseJSON.getString(JSON_NONOPUZZLE_TAG), NonoPuzzle.class);
 	}
-	
+
 	public static Difficulty getDifficulty(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
 		return JSON.fromJson(responseJSON.getString(JSON_DIFFICULTY_TAG), Difficulty.class);
 	}
-	
+
 	public static String getString(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
 		return responseJSON.getString(JSON_STRING_TAG);
 	}
-	
+
 	public static StackTraceElement[] getErrorMsg(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
 		return JSON.fromJson(responseJSON.getString(JSON_ERROR_MSG_TAG), StackTraceElement[].class);
 	}
-
 }
+
