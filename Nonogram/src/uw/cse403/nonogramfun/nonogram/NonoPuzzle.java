@@ -16,10 +16,10 @@ import java.util.List;
 import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.utility.ParameterPolice;
 
-
 /**
  * A NonoPuzzle object represents a NonoPuzzle game. It stores all information 
- * needed to play a single NonoPuzzle game. Each NonoPuzzle has unique ID and it may have a name.
+ * needed to play a single NonoPuzzle game. Each NonoPuzzle has unique ID and 
+ * it may have a name.
  */
 public class NonoPuzzle implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -30,8 +30,7 @@ public class NonoPuzzle implements Serializable {
 	private Integer backgroundColor;
 	private PuzzleInfo puzzleInfo;
 
-
-	// Private constructor 
+	// Private constructor
 	@SuppressWarnings("unchecked")
 	private NonoPuzzle(Integer[][] array, Integer bgColor, PuzzleInfo info) {
 		rowNonoNums = (List<NonoNum>[]) new List[info.nonoPicRowSize];
@@ -39,14 +38,13 @@ public class NonoPuzzle implements Serializable {
 		nonoPicArr = array;
 		backgroundColor = bgColor;
 		puzzleInfo = info;
-		for(int i=0; i<rowNonoNums.length; i++) {
+		for (int i = 0; i < rowNonoNums.length; i++) {
 			rowNonoNums[i] = new LinkedList<NonoNum>();
 		}
-		for(int i=0; i<colNonoNums.length; i++) {
+		for (int i = 0; i < colNonoNums.length; i++) {
 			colNonoNums[i] = new LinkedList<NonoNum>();
 		}
 	}
-
 
 	/**
 	 * Creates and returns a NonoPuzzle object using given parameters.
@@ -56,7 +54,8 @@ public class NonoPuzzle implements Serializable {
 	 * @return A NonoPuzzle created using given parameters.
 	 * @throws IllegalArgumentException if given array is null.
 	 */
-	public static NonoPuzzle createNonoPuzzle(Integer[][] array, Integer bgColor, String name) {
+	public static NonoPuzzle createNonoPuzzle(Integer[][] array, 
+                                              Integer bgColor, String name) {
 		ParameterPolice.checkIfNull(array, "Color array");
 
 		Difficulty difficulty = Difficulty.getDifficulty(array.length, array[0].length);
@@ -65,40 +64,40 @@ public class NonoPuzzle implements Serializable {
 
 		// 1. Find NonoNumbers for the rows.
 		int maxNonoNumRowSize = 0;
-		for(int i=0; i<puzzle.getNonoPicRowSize(); i++) { 
+		for (int i = 0; i < puzzle.getNonoPicRowSize(); i++) { 
 			int blockLength = 1;
-			for(int j=0; j<puzzle.getNonoPicColSize()-1; j++) {
-				if(!array[i][j].equals(bgColor)) {
-					if(array[i][j].equals(array[i][j+1])) {
-						blockLength ++;
-					}else{
+			for (int j = 0; j < puzzle.getNonoPicColSize() - 1; j++) {
+				if (!array[i][j].equals(bgColor)) {
+					if (array[i][j].equals(array[i][j + 1])) {
+						blockLength++;
+					} else {
 						puzzle.rowNonoNums[i].add(new NonoNum(blockLength, array[i][j]));
 						blockLength = 1;
 					}
 				}
 			}
-			if(!array[i][puzzle.getNonoPicColSize()-1].equals(bgColor)) {
-				puzzle.rowNonoNums[i].add(new NonoNum(blockLength, array[i][puzzle.getNonoPicColSize()-1]));
+			if (!array[i][puzzle.getNonoPicColSize() - 1].equals(bgColor)) {
+				puzzle.rowNonoNums[i].add(new NonoNum(blockLength, array[i][puzzle.getNonoPicColSize() - 1]));
 			}
 			maxNonoNumRowSize = Math.max(maxNonoNumRowSize, puzzle.rowNonoNums[i].size());
 		}
 
 		// 2. Find NonoNumbers for the columns
 		int maxNonoNumColSize = 0;
-		for(int j=0; j<puzzle.getNonoPicColSize(); j++) {
+		for(int j = 0; j < puzzle.getNonoPicColSize(); j++) {
 			int blockLength = 1;
-			for(int i=0; i<puzzle.getNonoPicRowSize()-1; i++) {
-				if(!array[i][j].equals(bgColor)) {
-					if(array[i][j].equals(array[i+1][j])) {
-						blockLength ++;
-					}else{
+			for (int i = 0; i < puzzle.getNonoPicRowSize() - 1; i++) {
+				if (!array[i][j].equals(bgColor)) {
+					if (array[i][j].equals(array[i + 1][j])) {
+						blockLength++;
+					} else {
 						puzzle.colNonoNums[j].add(new NonoNum(blockLength, array[i][j]));
 						blockLength = 1;
 					}
 				}
 			}
-			if(!array[puzzle.getNonoPicRowSize()-1][j].equals(bgColor)) {
-				puzzle.colNonoNums[j].add(new NonoNum(blockLength, array[puzzle.getNonoPicRowSize()-1][j]));
+			if (!array[puzzle.getNonoPicRowSize()-1][j].equals(bgColor)) {
+				puzzle.colNonoNums[j].add(new NonoNum(blockLength, array[puzzle.getNonoPicRowSize() - 1][j]));
 			}
 			maxNonoNumColSize = Math.max(maxNonoNumColSize, puzzle.colNonoNums[j].size());
 		}
@@ -107,8 +106,6 @@ public class NonoPuzzle implements Serializable {
 		info.nonoNumColSize = maxNonoNumColSize;
 		return puzzle;
 	}
-
-
 
 	//--Getter Methods------------------------------------------------------------------------
 
@@ -241,8 +238,8 @@ public class NonoPuzzle implements Serializable {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("I'm a nonopuzzle!\n");
-		for(int i=0; i<getNonoPicRowSize(); i++) {
-			for(int j=0; j<getNonoPicColSize(); j++) {
+		for (int i = 0; i < getNonoPicRowSize(); i++) {
+			for (int j = 0; j < getNonoPicColSize(); j++) {
 				sb.append(nonoPicArr[i][j] + " ");
 			}
 			sb.append("\n");
@@ -259,19 +256,20 @@ public class NonoPuzzle implements Serializable {
 		System.out.println("\n\nPrinting a NonoPuzzle!");
 		System.out.println("---------------------------------------------------");
 		System.out.println("ID: " + getPuzzleID() + ",  Name: " + getPuzzleName());
-		System.out.println("Difficulty: " + getDifficulty() + "(" + getNonoPicRowSize() + " x " + getNonoPicColSize() + ")");
+		System.out.println("Difficulty: " + getDifficulty() + "(" + getNonoPicRowSize() +i
+                        " x " + getNonoPicColSize() + ")");
 		System.out.println();
 
 		// 2. Print puzzle (Column numbers)
 		int numWidth = 3;
 		NonoNum[][] colArray = getColNonoNumArray();
-		for(int i=0; i<colArray.length; i++) {
-			System.out.print(String.format("%"+ (numWidth*getNonoNumRowSize()+2) + "s", " "));
-			for(int j=0; j<colArray[0].length; j++) {
+		for (int i = 0; i < colArray.length; i++) {
+			System.out.print(String.format("%" + (numWidth * getNonoNumRowSize() + 2) + "s", " "));
+			for (int j = 0; j < colArray[0].length; j++) {
 				NonoNum num = colArray[i][j];
-				if(num != null) {
-					System.out.printf("%-"+numWidth+"d", num.number);
-				}else{
+				if (num != null) {
+					System.out.printf("%-" + numWidth + "d", num.number);
+				} else {
 					System.out.print("   ");
 				}
 			}
@@ -281,25 +279,25 @@ public class NonoPuzzle implements Serializable {
 
 		// 3. Print puzzle (Row numbers & Puzzle array)
 		NonoNum[][] rowArray = getRowNonoNumArray();
-		for(int i=0; i<rowArray.length; i++) {
+		for (int i = 0; i < rowArray.length; i++) {
 
 			// 3-a. Print Row NonoNums
-			for(int j=0; j<rowArray[0].length; j++) {
+			for (int j = 0; j < rowArray[0].length; j++) {
 				NonoNum num = rowArray[i][j];
-				if(num != null) {
-					System.out.printf("%-"+numWidth+"d", num.number);
-				}else{
+				if (num != null) {
+					System.out.printf("%-" + numWidth + "d", num.number);
+				} else {
 					System.out.print("   ");
 				}
 			}
 			System.out.print("  ");
 
 			// 3-b. Print Picture
-			for(int j=0; j<getNonoPicColSize(); j++) {
+			for (int j = 0; j < getNonoPicColSize(); j++) {
 				Integer color = nonoPicArr[i][j];
-				if(!isBackgroundColor(color)) {
+				if (!isBackgroundColor(color)) {
 					System.out.printf("%-3d", color);
-				}else{
+				} else {
 					System.out.printf("%-3s", ".");
 				}
 			}
@@ -311,12 +309,12 @@ public class NonoPuzzle implements Serializable {
 	// Returns array of column NonoNums
 	private NonoNum[][] getColNonoNumArray() {
 		NonoNum[][] colArray = new NonoNum[getNonoNumColSize()][getNonoPicColSize()];
-		for(int j=0; j<getNonoPicColSize(); j++) {
+		for (int j = 0; j < getNonoPicColSize(); j++) {
 			List<NonoNum> list = colNonoNums[j];
-			int i=getNonoNumColSize()-list.size();
-			for(NonoNum num : list) {
+			int i = getNonoNumColSize() - list.size();
+			for (NonoNum num : list) {
 				colArray[i][j] = num;
-				i ++;
+				i++;
 			}
 		}
 		return colArray;
@@ -325,18 +323,16 @@ public class NonoPuzzle implements Serializable {
 	// Returns array of row NonoNums
 	private NonoNum[][] getRowNonoNumArray() {
 		NonoNum[][] rowArray = new NonoNum[getNonoPicRowSize()][getNonoNumRowSize()];
-		for(int i=0; i<getNonoPicRowSize(); i++) {
+		for (int i = 0; i < getNonoPicRowSize(); i++) {
 			List<NonoNum> list = rowNonoNums[i];
-			int j=getNonoNumRowSize()-list.size();
-			for(NonoNum num : list) {
+			int j = getNonoNumRowSize() - list.size();
+			for (NonoNum num : list) {
 				rowArray[i][j] = num;
-				j ++;
+				j++;
 			}
 		}
 		return rowArray;
 	}
-
-
 
 	//--Nested classes------------------------------------------------------------------------
 
@@ -384,5 +380,5 @@ public class NonoPuzzle implements Serializable {
 			this.nonoNumColSize = numCol;
 		}
 	}
-
 }
+
