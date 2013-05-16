@@ -256,7 +256,7 @@ public class NonoPuzzle implements Serializable {
 		System.out.println("\n\nPrinting a NonoPuzzle!");
 		System.out.println("---------------------------------------------------");
 		System.out.println("ID: " + getPuzzleID() + ",  Name: " + getPuzzleName());
-		System.out.println("Difficulty: " + getDifficulty() + "(" + getNonoPicRowSize() +i
+		System.out.println("Difficulty: " + getDifficulty() + "(" + getNonoPicRowSize() +
                         " x " + getNonoPicColSize() + ")");
 		System.out.println();
 
