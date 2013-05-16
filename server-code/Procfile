@@ -1,1 +1,1 @@
-web:      java -cp target/classes:target/dependency/* NonoServer
+web:      java -cp target/classes:target/dependency/* uw.cse403.nonogramfun.network.NonoServer

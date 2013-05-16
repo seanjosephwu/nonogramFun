@@ -9,4 +9,4 @@ Command to build/compile:
 mvn clean install
 
 Command to run server:
-java -cp target/classes:target/dependency/* NonoServer
+java -cp target/classes:target/dependency/* uw.cse403.nonogramfun.network.NonoServer
