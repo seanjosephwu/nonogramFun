@@ -18,20 +18,20 @@ package uw.cse403.nonogramfun.enums;
  */
 public enum Difficulty {
 	EASY(5, 15, "Easy"), MEDIUM(15, 25, "Medium"), HARD(25, 50, "Hard"), 
-	INSANE(50, 100, "Insane"),  UNDEFINED(5, 100, "Undefined");
-	
+	INSANE(50, 100, "Insane"), UNDEFINED(5, 100, "Undefined"), INVALID(5, 100, "Invalid");
+
 	private final int minDim;  // Minimum dimension of this difficulty
 	private final int maxDim;  // Maximum dimension of this difficulty
 	private final String name; // Name of this difficulty
-	
-	
+
+
 	// Private constructor
 	private Difficulty(int minDim, int maxDim, String name) {
 		this.minDim = minDim;
 		this.maxDim = maxDim;
 		this.name = name;
 	}
-	
+
 	/**
 	 * @param numRows Number of rows of a NonoPuzzle.
 	 * @param numCols Number of columns of a NonoPuzzle.
@@ -45,7 +45,7 @@ public enum Difficulty {
 		}
 	    return Difficulty.UNDEFINED;
 	}
-	
+
 	/**
 	 * @param numRows Number of rows of a NonoPuzzle.
 	 * @param numCols Number of columns of a NonoPuzzle.
@@ -54,29 +54,32 @@ public enum Difficulty {
 	public boolean isInRange(int numRows, int numCols) {
 		int min = Math.min(numRows, numCols);
 		int max = Math.max(numRows, numCols);
-		
-		if(this != Difficulty.UNDEFINED) {
+
+		if(this == Difficulty.INVALID) {
+			return min < getMinDimension() || getMaxDimension() <= max;
+		}else if(this != Difficulty.UNDEFINED) {
 			return getMinDimension() <= min && max < getMaxDimension();
 		}else{
-			return !Difficulty.EASY.isInRange(numRows, numCols) && !Difficulty.MEDIUM.isInRange(numRows, numCols) &&
+			return (getMinDimension() <= min && max < getMaxDimension()) &&
+				   !Difficulty.EASY.isInRange(numRows, numCols) && !Difficulty.MEDIUM.isInRange(numRows, numCols) &&
 				   !Difficulty.HARD.isInRange(numRows, numCols) && !Difficulty.INSANE.isInRange(numRows, numCols);
 		}
 	}
-	
+
 	/**
 	 * @return The minimum possible dimension of this difficulty
 	 */
 	public int getMinDimension() {
 		return minDim;
 	}
-	
+
 	/**
 	 * @return The maximum possible dimension of this difficulty
 	 */
 	public int getMaxDimension() {
 		return maxDim;
 	}
-	
+
 	/**
 	 * Returns string representation of this difficulty
 	 */
