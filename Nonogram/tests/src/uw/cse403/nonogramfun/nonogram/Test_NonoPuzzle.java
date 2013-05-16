@@ -11,8 +11,11 @@ package uw.cse403.nonogramfun.test;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import java.util.Iterator;
 import junit.framework.TestCase;
 import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
+import uw.cse403.nonogramfun.nonogram.NonoPuzzle.NonoNum;
+import uw.cse403.nonogramfun.enums.Difficulty;
 
 /**
  * This class tests NonoPuzzle object
