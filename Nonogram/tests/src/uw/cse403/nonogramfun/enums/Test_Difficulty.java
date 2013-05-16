@@ -10,13 +10,14 @@ package uw.cse403.nonogramfun.test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import junit.framework.TestCase;
 import uw.cse403.nonogramfun.enums.Difficulty;
 
 
 /**
  * This class tests Difficulty (Enum)
  */
-public class Test_Difficulty {
+public class Test_Difficulty extends TestCase {
 	private static final int START_EASY = 5;
 	private static final int START_MED = 15;
 	private static final int START_HARD = 25;
