@@ -9,11 +9,6 @@ package uw.cse403.nonogramfun;
  */
 
 import uw.cse403.nonogramfun.network.NonoClient;
-import java.io.IOException;
-import java.net.UnknownHostException;
-
-import org.json.JSONException;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
