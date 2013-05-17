@@ -6,7 +6,7 @@
  * @since   Spring 2013 
  */
 
-package uw.cse403.nonogramfun.test;
+package uw.cse403.nonogramfun.tests.nonogram;
 
 import static org.junit.Assert.*;
 
