@@ -50,6 +50,6 @@
         android:layout_below="@+id/playgame"
         android:layout_marginTop="20dp"
         android:onClick="scoreBoardScreen"
-        android:text="@string/rankings_button" />
+        android:text="@string/scoreboard_button" />
 
 </RelativeLayout>
