@@ -11,6 +11,9 @@
     <string name="playgame_button">Play A Game</string>
     <string name="settings_button">Settings</string>
     <string name="scoreboard_button">Score Board</string>
+    <string name="title_activity_create_game_small">CreateGameSmall</string>
+    <string name="title_activity_create_game_medium">CreateGameMedium</string>
+    <string name="title_activity_create_game_large">CreateGameLarge</string>
     <string name="create_small_button">Small (5x5)</string>
     <string name="create_medium_button">Medium (10x10)</string>
     <string name="create_large_button">Large (14x14)</string>
