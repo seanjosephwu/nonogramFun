@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -99,7 +100,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 							try {
 								NonoClient.createPuzzle(gameArray, Integer.valueOf(Color.WHITE), "Puzzle 1");
 							} catch (Exception e) {
-								//e.printStackTrace();
+								Log.i("Test",e.getMessage());
 							}
 
 						}
