@@ -8,22 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="accessServer"
-        android:text="@string/access_button" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_below="@+id/button1"
-        android:ems="10"
-        android:inputType="textMultiLine" />
-
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
@@ -37,40 +21,35 @@
         android:id="@+id/howtoplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/editText1"
         android:layout_marginTop="20dp"
         android:onClick="howToPlayScreen"
         android:text="@string/howtoplay_button" />
-    
+
     <Button
         android:id="@+id/creategame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
         android:layout_below="@+id/howtoplay"
         android:layout_marginTop="20dp"
         android:onClick="createGameScreen"
         android:text="@string/creategame_button" />
-    
+
     <Button
         android:id="@+id/playgame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
         android:layout_below="@+id/creategame"
         android:layout_marginTop="20dp"
         android:onClick="playGameScreen"
         android:text="@string/playgame_button" />
-    
+
     <Button
-        android:id="@+id/settings"
+        android:id="@+id/rankings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
         android:layout_below="@+id/playgame"
         android:layout_marginTop="20dp"
-        android:onClick="settingsScreen"
-        android:text="@string/settings_button" />
+        android:onClick="scoreBoardScreen"
+        android:text="@string/rankings_button" />
 
 </RelativeLayout>

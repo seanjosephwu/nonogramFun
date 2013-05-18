@@ -1,2 +1,2 @@
-/home/wujsean/403/NonogramJenkinsTest/bin/AndroidManifest.xml : \
-/home/wujsean/403/NonogramJenkinsTest/AndroidManifest.xml \
+/Users/Angel/Documents/cse/cse403/gitRepo/nonogramFun/Nonogram/bin/AndroidManifest.xml : \
+/Users/Angel/Documents/cse/cse403/gitRepo/nonogramFun/Nonogram/AndroidManifest.xml \
