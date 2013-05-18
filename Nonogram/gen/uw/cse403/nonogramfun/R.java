@@ -25,7 +25,7 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000d;
+        public static final int action_settings=0x7f080018;
         public static final int button1=0x7f080000;
         public static final int button2=0x7f080001;
         public static final int button3=0x7f080002;
@@ -33,7 +33,18 @@ public final class R {
         public static final int editText1=0x7f080007;
         public static final int howtoplay=0x7f080009;
         public static final int imageView1=0x7f080008;
+        public static final int nonogram_gameboard=0x7f08000d;
         public static final int playgame=0x7f08000b;
+        public static final int playgamesubmit=0x7f08000e;
+        public static final int rank1=0x7f08000f;
+        public static final int rank2=0x7f080010;
+        public static final int rank3=0x7f080011;
+        public static final int rank4=0x7f080012;
+        public static final int rank5=0x7f080013;
+        public static final int rank6=0x7f080014;
+        public static final int scoreboard_screen_button1=0x7f080015;
+        public static final int scoreboard_screen_button2=0x7f080016;
+        public static final int scoreboard_screen_button3=0x7f080017;
         public static final int settings=0x7f08000c;
         public static final int tableRow1=0x7f080003;
         public static final int tableRow2=0x7f080004;
@@ -47,7 +58,9 @@ public final class R {
         public static final int activity_play_game_menu=0x7f030003;
         public static final int activity_play_game_screen=0x7f030004;
         public static final int how_to_play=0x7f030005;
-        public static final int settings=0x7f030006;
+        public static final int scoreboard_layout=0x7f030006;
+        public static final int scoreboard_screen=0x7f030007;
+        public static final int settings=0x7f030008;
     }
     public static final class menu {
         public static final int create_game_menu=0x7f070000;
@@ -71,6 +84,10 @@ public final class R {
         public static final int play_medium_button=0x7f050010;
         public static final int play_small_button=0x7f05000f;
         public static final int playgame_button=0x7f050007;
+        public static final int scoreboardLarge=0x7f050019;
+        public static final int scoreboard_acknowledgement=0x7f050016;
+        public static final int scoreboardmedium=0x7f050018;
+        public static final int scoreboardsmall=0x7f050017;
         public static final int settings_button=0x7f050008;
         public static final int title_activity_create_game_large=0x7f05000b;
         public static final int title_activity_create_game_medium=0x7f05000a;

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+        <TextView android:id="@+id/rank1"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="first" />
+    
+    <TextView android:id="@+id/rank2"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="second" />
+
+    <TextView android:id="@+id/rank3"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="third" />
+    
+    <TextView android:id="@+id/rank4"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="forth" />
+
+    <TextView android:id="@+id/rank5"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="fifth" />
+
+    <TextView android:id="@+id/rank6"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="six" />
+
+</LinearLayout>

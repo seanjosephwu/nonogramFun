@@ -8,11 +8,17 @@ package uw.cse403.nonogramfun;
  * @since   Spring 2013 
  */
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
+import org.json.JSONException;
+
 import uw.cse403.nonogramfun.network.NonoClient;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,97 +41,17 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 		Bundle bundle = getIntent().getExtras();
 		dimension = bundle.getInt("size");
 		
+		// Initialize a 2D array of buttons. First coordinate is row #, second coordinate is column # (so y,x instead of x,y)
 		buttons = new Button[dimension][dimension];
 
 		TableLayout layout = new TableLayout (this);
-		layout.setLayoutParams( new TableLayout.LayoutParams(dimension-1,dimension) );
-		
-		layout.setPadding(50,50,50,50);
-
-		for (int i = 0; i < dimension; i++) {
-			TableRow tr = new TableRow(this);
-			for (int j = 0; j < dimension; j++) {
-	        	buttons[i][j] = new Cell(this);
-	      
-	        	if((i % 2 == j % 2)){
-	        		buttons[i][j].setBackgroundColor(Color.LTGRAY);
-	        	}
-	        	else{
-	        		buttons[i][j].setBackgroundColor(Color.WHITE);
-	        	}
-	        	buttons[i][j].setOnClickListener(this);
-	        	tr.addView(buttons[i][j],50,50);
-			}
-			layout.addView(tr);
-		}
+		layout = createTable(layout);
 		
 		Button submitButton = new Button(this);
 		submitButton.setText("Submit");
-		submitButton.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-
-				final Integer[][] gameArray = new Integer[dimension][dimension];
-				boolean isEmpty = true;
-
-				for (int i = 0; i < dimension; i++) {
-					for (int j = 0; j < dimension; j++) {
-						if(buttons[i][j].getText().toString().equalsIgnoreCase("x")){
-							gameArray[i][j] = Color.WHITE;
-							isEmpty = false;
-						} else {
-							gameArray[i][j] = Color.BLACK;
-						}
-					}
-				}
-
-				if ( isEmpty ){
-					// Alert Dialog popup box
-					AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
-					alertDialog.setTitle("Error");
-					alertDialog.setMessage("Please do not submit an empty game");
-					// -1 = BUTTON_POSITIVE = a positive button?
-					alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							// do nothing
-						}
-					});
-					alertDialog.show();
-				} else {
-
-					Thread thread = new Thread(new Runnable(){
-						@Override
-						public void run() {
-							try {
-								NonoClient.createPuzzle(gameArray, Integer.valueOf(Color.WHITE), "Puzzle 1");
-							} catch (Exception e) {
-								Log.i("Test",e.getMessage());
-							}
-
-						}
-					});
-					thread.start();
-					try {
-						thread.join();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
-					alertDialog.setTitle("Submit Success");
-					alertDialog.setMessage("Puzzle Created!");
-					// -1 = BUTTON_POSITIVE = a positive button?
-					alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							// do nothing
-						}
-					});
-					alertDialog.show();
-				}
-			}
-		}); 
-		
+		submitButton.setOnClickListener(new SubmitButtonListener()); 
 		layout.addView(submitButton);
+		
 		super.setContentView(layout); 
 
 	}
@@ -152,24 +78,103 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 			
 		((Cell) arg0).setSelectVal();
 	}
-    
-    class Cell extends Button {
-    	private boolean select;
-		public Cell(Context context) {
-			super(context);
-			// TODO Auto-generated constructor stub
-			select = false;
+	
+	
+	private TableLayout createTable(TableLayout layout) {
+		layout.setLayoutParams( new TableLayout.LayoutParams(dimension-1,dimension) );
+		
+		layout.setPadding(50,50,50,50);
+
+		for (int i = 0; i < dimension; i++) {
+			TableRow tr = new TableRow(this);
+			for (int j = 0; j < dimension; j++) {
+	        	buttons[i][j] = new Cell(this);
+	      
+	        	if((i % 2 == j % 2)){
+	        		buttons[i][j].setBackgroundColor(Color.LTGRAY);
+	        	}
+	        	else{
+	        		buttons[i][j].setBackgroundColor(Color.WHITE);
+	        	}
+	        	buttons[i][j].setOnClickListener(this);
+	        	tr.addView(buttons[i][j],50,50);
+			}
+			layout.addView(tr);
 		}
-    	public void setSelectVal(){
-    		if(select)
-    			select = false;
-    		else
-    			select = true;
-    	}
-    	
-    	public boolean getSelectVal(){
-    		return select;
-    	}
-    	
-    }
+		
+		return layout;
+	}
+	
+	public void returnMainScreen(View view) {
+		Intent i = new Intent(this, MainActivity.class);
+		startActivity(i);
+	}
+	
+	private class SubmitButtonListener implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+
+			final Integer[][] gameArray = new Integer[dimension][dimension];
+			boolean isEmpty = true;
+
+			for (int i = 0; i < dimension; i++) {
+				for (int j = 0; j < dimension; j++) {
+					if(buttons[i][j].getText().toString().equalsIgnoreCase("x")){
+						gameArray[i][j] = Color.WHITE;
+						isEmpty = false;
+					} else {
+						gameArray[i][j] = Color.BLACK;
+					}
+				}
+			}
+
+			if ( isEmpty ) {
+				showAlertDialog(v, "Error", "Please do not submit an empty game");
+			} else {
+				Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							NonoClient.createPuzzle(gameArray, Integer.valueOf(Color.WHITE), "Puzzle 1");
+						} catch (UnknownHostException e) {
+							//e.printStackTrace();
+						} catch (IOException e) {
+							//e.printStackTrace();
+						} catch (JSONException e) {
+							//e.printStackTrace();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					}
+				});
+				thread.start();
+				try {
+					thread.join();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				showAlertDialog(v, "Submit Success", "Puzzle Created");
+			}
+			
+		}
+
+		
+		private void showAlertDialog(final View v, String title, String message){
+			AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
+			alertDialog.setTitle(title);
+			alertDialog.setMessage(message);
+			// -1 = BUTTON_POSITIVE = a positive button?
+			alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					returnMainScreen(v);
+				}
+			});
+			alertDialog.show();
+		}
+		
+	}
+    
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+
+   <Button android:id="@+id/scoreboard_screen_button1"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+  	   android:onClick="scoreSmall"
+       android:text="Scoreboard (Small)" />
+   
+   <Button android:id="@+id/scoreboard_screen_button2"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+  	   android:onClick="scoreMedium"
+       android:text="Scoreboard (Medium)" />
+
+   <Button android:id="@+id/scoreboard_screen_button3"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+  	   android:onClick="scoreLarge"
+       android:text="Scoreboard (Large)" />
+</LinearLayout>

@@ -23,5 +23,9 @@
     <string name="title_activity_create_game_screen">CreateGameScreen</string>
     <string name="title_activity_play_game_menu">PlayGameMenu</string>
     <string name="title_activity_play_game_screen">PlayGameScreen</string>
+    <string name="scoreboard_acknowledgement">ok</string>
+	<string name="scoreboardsmall">Score Board (Small)</string>
+	<string name="scoreboardmedium">Score Board (Medium)</string>
+	<string name="scoreboardLarge">Score Board (Large)</string>
 
 </resources>

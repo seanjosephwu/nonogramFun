@@ -10,13 +10,18 @@ package uw.cse403.nonogramfun;
  */
 
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
+import org.json.JSONException;
+
 import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.network.NonoClient;
 import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +36,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -47,6 +53,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	Handler timerHandle;
 	Runnable timerRun;
 	boolean stopTimer = false;
+//	private EditText editText;
 	
 	// IMPORTANT: X and Y axis are FLIPPED in both gameArray and buttons[][].
 	// For debugging purpose, given buttons[x][y], x denotes the ROW NUMBER, y denotes the COLUMN number
@@ -60,9 +67,17 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		dimension = bundle.getInt("size");
 		gameArray = new Integer[dimension][dimension];
 		
+		fetchPuzzle();
+		parseGameRow();
+		parseGameColumn();
+		
+		TableLayout layout = new TableLayout (this);
+		layout.setLayoutParams( new TableLayout.LayoutParams());
+		layout.setPadding(50,50,50,50);
+		
 		//timer 
 		starttime = System.currentTimeMillis();
-	    //this  posts a message to the main thread from our timertask and updates the textfield
+	    //this posts a message to the main thread from our timertask and updates the textfield
 	    timerHandle = new Handler();
 	    timerRun = new Runnable() {
 			@Override
@@ -72,202 +87,27 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	    };
 	   	timedisplay = new TextView(this);
 	   	timedisplay.setText("0:00");
-		
-		fetchPuzzle();
-		parseGameRow();
-		parseGameColumn();
+		layout.addView(timedisplay);
 		
 		// dimension + 1 for the number field at the top and left sides
 		buttons = new View[dimension + 1][dimension + 1];
-		
-		TableLayout layout = new TableLayout (this);
-		layout.setLayoutParams( new TableLayout.LayoutParams());
-		layout.setPadding(50,50,50,50);
-		
-		layout.addView(timedisplay);
-
-		//HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
-		
-		//create the empty game board with the number fields
-		for (int i = 0; i < dimension + 1; i++) {
-			TableRow tr = new TableRow(this);
-			for (int j = 0; j < dimension + 1; j++) {
-				
-				if (i == 0 || j == 0) 
-					buttons[i][j] = new TextView(this);
-				else
-					buttons[i][j] = new Cell(this);
-				
-				if(i == 0 && j == 0){
-					TextView textview = (TextView) buttons[i][j];
-					textview.setBackgroundColor(Color.TRANSPARENT);
-					tr.addView(buttons[i][j],50,50);
-				}
-				else if(j == 0){
-					// horizontal number field
-					TextView textview = (TextView) buttons[i][j];
-		        	textview.setBackgroundColor(Color.TRANSPARENT);
-		        	textview.setText(rowHint[i-1]);
-		        	textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-		        	tr.addView(buttons[i][j],150,50);
-				}else if(i == 0){
-					// vertical number field
-					TextView textview = (TextView) buttons[i][j];
-					textview.setBackgroundColor(Color.TRANSPARENT);
-					textview.setText(columnHint[j-1]);
-					textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-					textview.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
-					tr.addView(buttons[i][j],50,200);
-				}else{
-					Cell c = (Cell) buttons[i][j];
-					
-		        	if((i % 2 == j % 2)){
-		        		c.setOriginColor(Color.LTGRAY);
-		        		c.setColor(Color.LTGRAY);
-		        	}
-		        	else{
-		        		c.setOriginColor(Color.WHITE);
-		        		c.setColor(Color.WHITE);
-		        	}
-		        	
-		        	c.setOnClickListener(this);
-		        	tr.addView(buttons[i][j],50,50);
-				}
-				
-			}
-			layout.addView(tr);
-		}
-		/*
-		Button submitButton = (Button) findViewById(R.id.playgamesubmit);
-		
-		submitButton.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				//once click submit, stop the timer
-				boolean correct = true;
-				stopTimer = true;
-				for (int i = 0; i < dimension; i++) {
-					for (int j = 0; j < dimension; j++) {
-						// the solution
-						Integer sol = gameArray[i][j];
-						// the answer given by the user
-						int state = ((Cell)buttons[i + 1][j + 1]).getState();
-						if (state != 1 && sol.equals(Color.BLACK)) {
-							correct = false;
-							break;
-						}
-					}
-				}
-				if (correct) {
-					AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
-					alertDialog.setTitle("Correct Answer");
-					alertDialog.setMessage("Congratulations!");
-					// -1 = BUTTON_POSITIVE = a positive button?
-					alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							// do nothing
-						}
-					});
-					alertDialog.show();
-				} else {
-						AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
-						alertDialog.setTitle("Wrong anwser");
-						alertDialog.setMessage("You need to play the game again");
-						// -1 = BUTTON_POSITIVE = a positive button?
-						alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								// do nothing
-							}
-						});
-						alertDialog.show();
-					}
-			}
-		}); 
-		*/
+		layout = createGameTable(layout);
 		
 		Button hintButton = new Button(this);
-		layout.addView(hintButton);
 		hintButton.setText("Hint");
+		hintButton.setOnClickListener(new HintButtonListener()); 
+		layout.addView(hintButton);
 		
-		hintButton.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				boolean diff = false;
-				for (int i = 0; i < dimension; i++) {
-					for (int j = 0; j < dimension; j++) {
-						if(buttons[i+1][j+1] instanceof Cell){
-							int cellColor = ((Cell) buttons[i+1][j+1]).getColor();
-							Integer cellColor_sol = gameArray[i][j];
-							int cellState = ((Cell) buttons[i+1][j+1]).getState();
-							
-							// the solution doesn't match current cell when:
-							// 1. solution cell is black and current cell is not marked
-							// 2. solution cell is white and current cell is marked (black/question mark)
-							if ((cellState == 0 && cellColor_sol.equals(Color.BLACK)) || 
-								(cellState != 0 && cellColor_sol.equals(Color.WHITE))){
-								diff = true;
-							}
-							
-							// current cell color doesn't match the solution
-							if (diff) {
-								// cell flashes
-								final Animation animation = new AlphaAnimation(1, 0);
-								animation.setDuration(500);
-								animation.setInterpolator(new LinearInterpolator());
-								animation.setRepeatCount(1);
-								((Cell) buttons[i+1][j+1]).startAnimation(animation);
-								
-								hintActionListener listener = new hintActionListener(((Cell) buttons[i+1][j+1]), 
-										cellColor, cellColor_sol);
-								animation.setAnimationListener(listener);
-								break;
-							}
-						}
-					}
-					
-					if (diff){
-						break;
-					}
-				}
-			}
-		}); 
+		HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
+		scrollView.addView(layout);	
 		
-		//scrollView.addView(layout);	
+		Button submitButton = (Button) findViewById(R.id.playgamesubmit);
+		submitButton.setOnClickListener(new SubmitButtonListener()); 
+		
+//		editText = (EditText)findViewById(R.id.search);
+//		editText.setVisibility(View.INVISIBLE);
+		
 		timerRun.run();
-	}
-
-
-	// a listener class to give a hint, and set back to the original cell color after hint is given
-	private class hintActionListener implements AnimationListener {
-		Cell cell;
-		int cellState;
-		int cellState_sol;
-		
-		private hintActionListener(Cell cell, int cellState, int cellState_sol){
-			this.cell = cell;
-			this.cellState = cellState;
-			this.cellState_sol = cellState_sol;
-		}
-		
-		@Override
-		public void onAnimationEnd(Animation arg0) {
-			// set back to the original cell color
-			cell.setColor(cellState);	
-			cell.setEnabled(true);
-		}
-
-		@Override
-		public void onAnimationStart(Animation arg0) {
-			// gives the correct cell color as for the hint
-			cell.setColor(cellState_sol);
-			cell.setEnabled(false);
-		}
-
-		@Override
-		public void onAnimationRepeat(Animation animation) {
-			// nothing to do here
-		}
-		
 	}
 	
 	@Override
@@ -283,7 +123,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				Difficulty puzzleDifficulty;
-				Log.i("Test", "Trying to get puzzle?");
+				Log.i("Well....", "Does this exist?");
 				try {
 					if (dimension == 5){
 						puzzleDifficulty = Difficulty.EASY;
@@ -296,16 +136,23 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					}
 					
 					NonoPuzzle puzzle = NonoClient.getPuzzle(puzzleDifficulty);
-					Log.i("Test Column Size", String.valueOf(puzzle.getNonoPicColSize()));
-					Log.i("Test Row Size", String.valueOf(puzzle.getNonoPicRowSize()));
+					Log.i("??????", "Does it actually work?");	
 					for(int i = 0; i < puzzle.getNonoPicColSize(); i++){
 						for(int j = 0; j < puzzle.getNonoPicRowSize(); j++){
-							Log.i("gameArray[i][j]", String.valueOf(puzzle.getColor(i, j)));
+							Log.i("gameArrayLength", String.valueOf(gameArray[i].length));
 							gameArray[i][j] = puzzle.getColor(i, j);
+							Log.i("Is the Game Array Null?", gameArray[i][j].toString());
 						}
 					}	
+				} catch (UnknownHostException e) {
+					
+				} catch (IOException e) {
+					
+				} catch (JSONException e) {
+					
 				} catch (Exception e) {
-					Log.i("Test", "Did not get a puzzle??");
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 
 			}
@@ -326,6 +173,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			int count = 0;
 			for(int y = 0; y < dimension; y++){
 				// If the game cell is filled in...
+				Log.i("PlayAGameScreen",gameArray[x][y].toString());
 				if (gameArray[x][y].equals(Color.BLACK)){
 					emptyCell = false;
 					count++;
@@ -381,63 +229,62 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		}
 	}
 	
-	//inner class for cell, which has state that changes based on each click
-	class Cell extends Button {
-		
-		private int state;  
-		private int origin; 
-		private int current;
-		
-		public Cell(Context context) {
-			super(context);
-			state = 0; 
-			current = Color.WHITE;
-		}
-		
-		//set the state after a click
-		public void setState(){
-			if(state < 2){
-	    		state++;
-			} else {
-	    		state = 0;
+	
+	private TableLayout createGameTable(TableLayout layout) {
+		//create the empty game board with the number fields
+		for (int i = 0; i < dimension + 1; i++) {
+			TableRow tr = new TableRow(this);
+			for (int j = 0; j < dimension + 1; j++) {
+				
+				if (i == 0 || j == 0) {
+					buttons[i][j] = new TextView(this);
+				} else {
+					buttons[i][j] = new Cell(this);
+				}
+				
+				if (i == 0 && j == 0) {
+					TextView textview = (TextView) buttons[i][j];
+					textview.setBackgroundColor(Color.TRANSPARENT);
+					tr.addView(buttons[i][j],50,50);
+				} else if(j == 0) {
+					// horizontal number field
+					TextView textview = (TextView) buttons[i][j];
+		        	textview.setBackgroundColor(Color.TRANSPARENT);
+		        	textview.setText(rowHint[i-1]);
+		        	textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+		        	tr.addView(buttons[i][j],150,50);
+				} else if(i == 0) {
+					// vertical number field
+					TextView textview = (TextView) buttons[i][j];
+					textview.setBackgroundColor(Color.TRANSPARENT);
+					textview.setText(columnHint[j-1]);
+					textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+					textview.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
+					tr.addView(buttons[i][j],50,200);
+				} else {
+					Cell c = (Cell) buttons[i][j];
+					
+		        	if((i % 2 == j % 2)){
+		        		c.setOriginColor(Color.LTGRAY);
+		        		c.setColor(Color.LTGRAY);
+		        	}
+		        	else{
+		        		c.setOriginColor(Color.WHITE);
+		        		c.setColor(Color.WHITE);
+		        	}
+		        	
+		        	c.setOnClickListener(this);
+		        	tr.addView(buttons[i][j],50,50);
+				}
+				
 			}
+			layout.addView(tr);
 		}
 		
-		public int getState(){
-			return state;
-		}
+		return layout;
 		
-		public int getColor(){
-			return current;
-		}
-		
-		//store the origin cell color before any action
-		public void setOriginColor(int color){
-			origin = color;
-		}
-		
-		public void setStateColor(){
-			if(state == 0){
-				//0 : set to the original cell color (unmark)
-				this.setText("");
-				this.setColor(origin);
-			}else if(state == 1){
-				//1 : mark the cell black
-				this.setText("");
-				this.setColor(Color.BLACK);
-			}else{
-				//2 : leave a question mark on the cell
-				this.setColor(origin);
-				this.setText("?");
-				this.setTextColor(Color.BLUE);
-			}
-		}
-		
-		public void setColor(int color){
-			this.setBackgroundColor(color);
-			current = color;
-		}
-    }
+	}
+	
 	
 	@Override
 	public void onClick(View view) {
@@ -455,5 +302,147 @@ public class PlayGameScreen extends Activity implements OnClickListener{
         timedisplay.setText(String.format("%d:%02d", minutes, seconds));
         if (!stopTimer)
         	timerHandle.postDelayed(timerRun, 1000);
+	}
+	
+	
+	public void returnMainScreen(View view) {
+		Intent i = new Intent(this, MainActivity.class);
+		startActivity(i);
+	}
+	
+	
+	private class SubmitButtonListener implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			//once click submit, stop the timer
+			stopTimer = true;
+			boolean correctAnswer = compareSolution();
+			if (correctAnswer) {
+				showAlertDialog(v, "Congratulations!", "You've complete the puzzle correctly!", correctAnswer);
+			} else {
+				showAlertDialog(v, "Try Again", "Your answer doesn't match the solution.", correctAnswer);
+			}
+		}
+		
+		
+		private boolean compareSolution(){
+			for (int i = 0; i < dimension; i++) {
+				for (int j = 0; j < dimension; j++) {
+					// the solution
+					Integer sol = gameArray[i][j];
+					// the answer given by the user
+					int state = ((Cell)buttons[i + 1][j + 1]).getState();
+					if (state != 1 && sol.equals(Color.BLACK)) {
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+		
+		
+		private void showAlertDialog(final View v, String title, String message, final boolean answer){
+			final AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
+			
+			final EditText input = new EditText(v.getContext());
+			input.setHint("enter name");
+			alertDialog.setView(input);
+			input.setVisibility(View.INVISIBLE);
+			if (answer) {
+				input.setVisibility(View.VISIBLE);
+				String name = input.getText().toString();
+			}
+			
+			alertDialog.setTitle(title);
+			alertDialog.setMessage(message);
+			
+			// -1 = BUTTON_POSITIVE = a positive button?
+			alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					returnMainScreen(v);
+				}
+			});
+			alertDialog.show();
+		}
+		
+	}
+	
+	
+	private class HintButtonListener implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			boolean diff = false;
+			for (int i = 0; i < dimension; i++) {
+				for (int j = 0; j < dimension; j++) {
+					if(buttons[i+1][j+1] instanceof Cell){
+						int cellColor = ((Cell) buttons[i+1][j+1]).getColor();
+						Integer cellColor_sol = gameArray[i][j];
+						int cellState = ((Cell) buttons[i+1][j+1]).getState();
+						
+						// the solution doesn't match current cell when:
+						// 1. solution cell is black and current cell is not marked
+						// 2. solution cell is white and current cell is marked (black/question mark)
+						diff = (cellState == 0 && cellColor_sol.equals(Color.BLACK)) || (cellState != 0 && cellColor_sol.equals(Color.WHITE));
+						
+						// current cell color doesn't match the solution
+						if (diff) {
+							// cell flashes
+							flashCell(i, j, cellColor, cellColor_sol);
+							break;
+						}
+					}
+				}
+				
+				if (diff){
+					break;
+				}
+			}
+		}
+		
+		private void flashCell(int i, int j, int cellColor, Integer cellColor_sol) {
+			final Animation animation = new AlphaAnimation(1, 0);
+			animation.setDuration(500);
+			animation.setInterpolator(new LinearInterpolator());
+			animation.setRepeatCount(1);
+			((Cell) buttons[i+1][j+1]).startAnimation(animation);
+			
+			hintActionListener listener = new hintActionListener(((Cell) buttons[i+1][j+1]), cellColor, cellColor_sol);
+			animation.setAnimationListener(listener);
+			
+		}
+	}
+	
+	
+	// a listener class to give a hint, and set back to the original cell color after hint is given
+	private class hintActionListener implements AnimationListener {
+		Cell cell;
+		int cellState;
+		int cellState_sol;
+		
+		private hintActionListener(Cell cell, int cellState, int cellState_sol){
+			this.cell = cell;
+			this.cellState = cellState;
+			this.cellState_sol = cellState_sol;
+		}
+		
+		@Override
+		public void onAnimationEnd(Animation arg0) {
+			// set back to the original cell color
+			cell.setColor(cellState);	
+			cell.setEnabled(true);
+		}
+
+		@Override
+		public void onAnimationStart(Animation arg0) {
+			// gives the correct cell color as for the hint
+			cell.setColor(cellState_sol);
+			cell.setEnabled(false);
+		}
+
+		@Override
+		public void onAnimationRepeat(Animation animation) {
+			// nothing to do here
+		}
+		
 	}
 }
