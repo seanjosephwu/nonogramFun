@@ -18,7 +18,7 @@ package uw.cse403.nonogramfun.enums;
  */
 public enum Difficulty {
 	
-	EASY(0, 5, "Easy"), MEDIUM(5, 10, "Medium"), HARD(10, 15, "Hard"), 
+	EASY(0, 6, "Easy"), MEDIUM(6, 11, "Medium"), HARD(11, 16, "Hard"), 
 	INSANE(50, 100, "Insane"), UNDEFINED(5, 100, "Undefined"), INVALID(5, 100, "Invalid");
 
 	private final int minDim;  // Minimum dimension of this difficulty
