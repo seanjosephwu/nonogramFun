@@ -6,9 +6,7 @@
  * @since   Spring 2013
  */
 
-
 package uw.cse403.nonogramfun.utility;
-
 
 /**
  * ParameterPolice is a police officer that helps keeping state of other object
@@ -19,9 +17,7 @@ package uw.cse403.nonogramfun.utility;
  */
 public class ParameterPolice {
 
-
 	// An empty private constructor.
-		private ParameterPolice() { }
 
 
 	/**
@@ -45,9 +41,9 @@ public class ParameterPolice {
 	public static void checkIfValid2DArray(Object[][] array) {
 		checkIfNull(array, "Array");
 		for (int i=0; i<array.length; i++) {
-			for (int j=0; i<array[0].length; j++) {
+			for (int j=0; j<array[i].length; j++) {
 				checkIfNull(array[i][j], "Array Element at [" + i + "][" + j + "]");
-      }
+			}
 		}
 	}
 
