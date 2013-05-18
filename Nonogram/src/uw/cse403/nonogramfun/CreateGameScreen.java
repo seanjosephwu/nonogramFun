@@ -32,7 +32,7 @@ import android.widget.TableRow;
 
 public class CreateGameScreen extends Activity implements OnClickListener{
 	private Button[][] buttons;
-	private int dimension;
+	protected int dimension;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -176,5 +176,8 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 		}
 		
 	}
-    
+	
+	public int getDimension(){
+		return dimension;
+	}
 }
