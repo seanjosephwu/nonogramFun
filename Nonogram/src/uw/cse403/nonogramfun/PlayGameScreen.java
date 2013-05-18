@@ -20,6 +20,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -136,9 +137,9 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			}
 			layout.addView(tr);
 		}
-		
-		//Button submitButton = (Button) findViewById(R.id.playgamesubmit);
 		/*
+		Button submitButton = (Button) findViewById(R.id.playgamesubmit);
+		
 		submitButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -182,7 +183,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					}
 			}
 		}); 
-		 */
+		*/
 		
 		Button hintButton = new Button(this);
 		layout.addView(hintButton);
@@ -282,6 +283,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				Difficulty puzzleDifficulty;
+				Log.i("Test", "Trying to get puzzle?");
 				try {
 					if (dimension == 5){
 						puzzleDifficulty = Difficulty.EASY;
@@ -294,14 +296,16 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					}
 					
 					NonoPuzzle puzzle = NonoClient.getPuzzle(puzzleDifficulty);
-
+					Log.i("Test Column Size", String.valueOf(puzzle.getNonoPicColSize()));
+					Log.i("Test Row Size", String.valueOf(puzzle.getNonoPicRowSize()));
 					for(int i = 0; i < puzzle.getNonoPicColSize(); i++){
 						for(int j = 0; j < puzzle.getNonoPicRowSize(); j++){
+							Log.i("gameArray[i][j]", String.valueOf(puzzle.getColor(i, j)));
 							gameArray[i][j] = puzzle.getColor(i, j);
 						}
 					}	
 				} catch (Exception e) {
-					
+					Log.i("Test", "Did not get a puzzle??");
 				}
 
 			}
