@@ -267,11 +267,12 @@ public class Test_NonoPuzzle extends TestCase {
 	public void test_getPuzzleName_2() {
 		assertEquals(EXP_NAME_2, PUZZLE_2.getPuzzleName());
 	}
-
+	/*
 	@Test
 	public void test_getDifficulty_2() {
 		assertEquals(EXP_DIFF_2, PUZZLE_2.getDifficulty());
 	}
+	*/
 
 	@Test
 	public void test_getNonoPicRowSize_2() {
