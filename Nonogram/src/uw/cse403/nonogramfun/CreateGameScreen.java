@@ -93,15 +93,6 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 					alertDialog.show();
 				} else {
 
-					AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
-					alertDialog.setTitle("Submit Success");
-					alertDialog.setMessage("Puzzle Created!");
-					// -1 = BUTTON_POSITIVE = a positive button?
-					alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							// do nothing
-						}
-					});
 					Thread thread = new Thread(new Runnable(){
 						@Override
 						public void run() {
@@ -119,6 +110,15 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
+					alertDialog.setTitle("Submit Success");
+					alertDialog.setMessage("Puzzle Created!");
+					// -1 = BUTTON_POSITIVE = a positive button?
+					alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							// do nothing
+						}
+					});
 					alertDialog.show();
 				}
 			}

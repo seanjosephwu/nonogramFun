@@ -14,7 +14,9 @@ import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.network.NonoClient;
 import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +30,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -82,7 +85,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		
 		layout.addView(timedisplay);
 
-		// HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
+		//HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
 		
 		//create the empty game board with the number fields
 		for (int i = 0; i < dimension + 1; i++) {
@@ -179,7 +182,8 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					}
 			}
 		}); 
-		*/
+		 */
+		
 		Button hintButton = new Button(this);
 		layout.addView(hintButton);
 		hintButton.setText("Hint");
@@ -230,6 +234,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		//scrollView.addView(layout);	
 		timerRun.run();
 	}
+
 
 	// a listener class to give a hint, and set back to the original cell color after hint is given
 	private class hintActionListener implements AnimationListener {
