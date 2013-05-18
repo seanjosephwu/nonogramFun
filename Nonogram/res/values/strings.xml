@@ -9,7 +9,7 @@
     <string name="creategame_button">Create A Game</string>
     <string name="howtoplay_button">How To Play</string>
     <string name="playgame_button">Play A Game</string>
-    <string name="settings_button">Settings</string>
+    <string name="score_button">Scoreboard</string>
     <string name="title_activity_create_game_small">CreateGameSmall</string>
     <string name="title_activity_create_game_medium">CreateGameMedium</string>
     <string name="title_activity_create_game_large">CreateGameLarge</string>
