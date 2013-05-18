@@ -79,7 +79,9 @@ public class NonoClient {
 		// 2. Get server response and check if it is success or error
 		JSONObject responseJSON = network.readMessageJSON();
 		checkResponseError(responseJSON);
-		return NonoUtil.getNonoPuzzle(responseJSON);
+		NonoPuzzle ret = NonoUtil.getNonoPuzzle(responseJSON); 
+		network.close();
+		return ret;
 	}
 	
 	
