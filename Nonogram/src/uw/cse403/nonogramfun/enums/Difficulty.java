@@ -17,6 +17,7 @@ package uw.cse403.nonogramfun.enums;
  * difficulty levels are classified as undefined.
  */
 public enum Difficulty {
+	
 	EASY(5, 5, "Easy"), MEDIUM(10, 10, "Medium"), HARD(14, 14, "Hard"), 
 	INSANE(50, 100, "Insane"), UNDEFINED(5, 100, "Undefined"), INVALID(5, 100, "Invalid");
 
