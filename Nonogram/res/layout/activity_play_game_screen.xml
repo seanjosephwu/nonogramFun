@@ -1,28 +1,45 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="1.0"
     tools:context=".PlayGameScreen" >
     
-    <HorizontalScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity = "center"
-        android:id="@+id/nonogram_gameboard"
+   	    android:layout_height="wrap_content"
+   	    android:gravity = "center"
+   	    android:id="@+id/nonogram_vertical_board"
+   	    android:layout_weight=".80"
+   	    >
+   	    
+	    <HorizontalScrollView
+    	    android:layout_width="match_parent"
+    	    android:layout_height="wrap_content"
+    	    android:gravity = "center"
+    	    android:id="@+id/nonogram_gameboard"
         >
         
-    </HorizontalScrollView>
-    
-    <Button 
+		</HorizontalScrollView>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/playgamehint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/playgamesubmit"
-        android:layout_below="@id/nonogram_gameboard"
-        android:text= "Submit"
-        />
+        android:layout_weight=".10"
+        android:text="Hint" />
     
-</RelativeLayout>
+    <Button
+        android:id="@+id/playgamesubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".10"
+        android:text="Submit" />
+    
+</LinearLayout>
