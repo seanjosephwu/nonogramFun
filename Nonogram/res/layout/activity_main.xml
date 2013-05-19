@@ -47,6 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/creategame"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:onClick="playGameScreen"
         android:background="@drawable/button_yellow"
         android:text="@string/playgame_button" />
@@ -56,6 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/playgame"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginTop="20dp"
         android:onClick="scoreBoardScreen"
         android:background="@drawable/button_yellow"

@@ -5,3 +5,4 @@
 *.dex
 *.ap_
 .classpath
+dexedLibs

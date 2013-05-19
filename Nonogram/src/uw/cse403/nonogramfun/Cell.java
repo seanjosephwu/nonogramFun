@@ -16,6 +16,7 @@ public class Cell extends Button{
 		state = 0; 
 		current = Color.WHITE;
 	}
+	
 	public void setSelectVal(){
 		if(select)
 			select = false;
