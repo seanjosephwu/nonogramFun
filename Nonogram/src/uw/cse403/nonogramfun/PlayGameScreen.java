@@ -73,7 +73,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		
 		TableLayout layout = new TableLayout (this);
 		layout.setLayoutParams( new TableLayout.LayoutParams());
-		layout.setPadding(50,50,50,50);
+		//layout.setPadding(50,50,50,50);
 		
 		//timer 
 		starttime = System.currentTimeMillis();
@@ -92,14 +92,17 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		// dimension + 1 for the number field at the top and left sides
 		buttons = new View[dimension + 1][dimension + 1];
 		layout = createGameTable(layout);
-		
-		Button hintButton = new Button(this);
-		hintButton.setText("Hint");
-		hintButton.setOnClickListener(new HintButtonListener()); 
-		layout.addView(hintButton);
-		
+//		
+//		Button hintButton = new Button(this);
+//		hintButton.setText("Hint");
+//		hintButton.setOnClickListener(new HintButtonListener()); 
+//		layout.addView(hintButton);
+//		
 		HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
 		scrollView.addView(layout);	
+//		
+		Button hintButton = (Button) findViewById(R.id.playgamehint);
+		hintButton.setOnClickListener(new HintButtonListener()); 
 		
 		Button submitButton = (Button) findViewById(R.id.playgamesubmit);
 		submitButton.setOnClickListener(new SubmitButtonListener()); 
