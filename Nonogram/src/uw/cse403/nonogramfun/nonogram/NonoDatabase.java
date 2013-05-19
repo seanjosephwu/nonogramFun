@@ -155,11 +155,11 @@ public class NonoDatabase {
 		String sql = " SELECT " + PUZZLE_ID         +
 				     " FROM   " + PUZZLE_TABLE      +
 				     " WHERE  " + PUZZLE_DIFFICULTY + " = ?";
-		
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Integer> idList = new ArrayList<Integer>();
+		
 		try {
 			// 1. Get connection & set up SQL statement
 			conn = getConnection();
