@@ -24,6 +24,7 @@ import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 public class Test_NonoDatabase extends TestCase {
 	
 	private final int TIMEOUT = 20000;
+	
 	private static final Integer[][] EXP_ARR_1 = {{0, 1, 0, 1, 0},
 		  {1, 0, 1, 0, 1},
 		  {0, 1, 0, 1, 0},
