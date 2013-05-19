@@ -167,14 +167,7 @@ public class NonoServer {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	/*
 	// For testing  TODO: delete later
 	@SuppressWarnings("unused") 
 	private static void testJSON(NonoNetwork network, JSONObject requestJSON) throws JSONException, IOException {
@@ -196,6 +189,9 @@ public class NonoServer {
 		System.out.println("And I sent it to client!\n");
 		System.out.println("\n\n\n");
 	}
+	*/
+	
+	/*
 	// For testing  TODO: delete later
 	@SuppressWarnings("unused") 
 	private static void testSerer(NonoNetwork network) throws IOException, ClassNotFoundException {
@@ -206,6 +202,7 @@ public class NonoServer {
 		//Integer[][] arr = (Integer[][]) network.readMessageObject();
 		//network.sendMessage(NonoPuzzle.createNonoPuzzle(arr, Color.BLACK, "Test"));
 	}
+	*/
 	
 	
 }

@@ -112,6 +112,7 @@ public class NonoClient {
 			tcpHandler.close();
 		}
 	}
+	/*
 	// For testing  TODO: delete later
 	private static void testJSON() throws Exception {
 		System.out.println("I'm sending something to server!!");
@@ -156,5 +157,6 @@ public class NonoClient {
 		//testGetPuzzles();
 		//testClient();
 	}
+	*/
 }
 	
