@@ -22,23 +22,20 @@ import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
  * This class tests NonoPuzzle object
  */
 public class Test_NonoDatabase extends TestCase {
+	private final int TIMEOUT = 20000;
 	private int ZERO = 0;
+	private static final Integer[][] EXP_ARR_1 = {{0, 1, 0, 1, 0},
+		  {1, 0, 1, 0, 1},
+		  {0, 1, 0, 1, 0},
+		  {0, 1, 0, 1, 0},
+		  {0, 0, 1, 0, 0}};
+	private static final Integer EXP_BG_COLOR_1 = 0;
+	private static final String EXP_NAME_1 = "Ice Cream";
+	private static final NonoPuzzle PUZZLE_1 = NonoPuzzle.createNonoPuzzle(EXP_ARR_1, EXP_BG_COLOR_1, EXP_NAME_1);
 	
-
-	//--Test getPuzzleIDList ------------------------------------------------------------------------
-
-	@Test
-	public void test_getPuzzleIDList() {
-		List<Integer> idList = null;
-		try {
-			idList = NonoDatabase.getPuzzleIDList(Difficulty.EASY);
-			assert(idList != null);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	//--Test getPuzzle------------------------------------------------------------------------
 	
-	@Test
+	@Test(timeout=TIMEOUT)
 	public void test_getPuzzle() {
 		List<Integer> idList = null;
 		try {
@@ -58,6 +55,32 @@ public class Test_NonoDatabase extends TestCase {
 			}
 		}
 	}
+
+	//--Test getPuzzleIDList ------------------------------------------------------------------------
+	
+	@Test(timeout=TIMEOUT)
+	public void test_savePuzzle() {
+		try {
+			NonoDatabase.savePuzzle(PUZZLE_1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	//--Test getPuzzleIDList ------------------------------------------------------------------------
+
+	@Test(timeout=TIMEOUT)
+	public void test_getPuzzleIDList() {
+		List<Integer> idList = null;
+		try {
+			idList = NonoDatabase.getPuzzleIDList(Difficulty.EASY);
+			assert(idList != null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
 }
