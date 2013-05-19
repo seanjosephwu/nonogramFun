@@ -1,0 +1,24 @@
+[EMMA v2.0.5312 report, generated Sat May 18 17:49:23 PDT 2013]
+-------------------------------------------------------------------------------
+OVERALL COVERAGE SUMMARY:
+
+[class, %]	[method, %]	[block, %]	[line, %]	[name]
+75%  (24/32)!	57%  (120/209)!	59%  (2600/4416)!	55%  (517.2/937)!	all classes
+
+OVERALL STATS SUMMARY:
+
+total packages:	5
+total classes:	32
+total methods:	209
+total executable files:	20
+total executable lines:	937
+
+COVERAGE BREAKDOWN BY PACKAGE:
+
+[class, %]	[method, %]	[block, %]	[line, %]	[name]
+60%  (3/5)!	31%  (11/35)!	22%  (184/829)!	27%  (54.6/203)!	uw.cse403.nonogramfun.network
+100% (2/2)	38%  (11/29)!	26%  (84/324)!	33%  (24/72)!	uw.cse403.nonogramfun.utility
+76%  (13/17)!	61%  (54/88)!	65%  (1210/1859)!	64%  (271.3/422)!	uw.cse403.nonogramfun
+60%  (3/5)!	75%  (30/40)	75%  (778/1043)!	66%  (137/208)!	uw.cse403.nonogramfun.nonogram
+100% (3/3)	82%  (14/17)	95%  (344/361)	95%  (30.3/32)	uw.cse403.nonogramfun.enums
+-------------------------------------------------------------------------------

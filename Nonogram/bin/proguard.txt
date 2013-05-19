@@ -1,0 +1,60 @@
+# view AndroidManifest.xml #generated:40
+-keep class uw.cse403.nonogramfun.CreateGameMenu { <init>(...); }
+
+# view AndroidManifest.xml #generated:44
+-keep class uw.cse403.nonogramfun.CreateGameScreen { <init>(...); }
+
+# view AndroidManifest.xml #generated:28
+-keep class uw.cse403.nonogramfun.HowToPlay { <init>(...); }
+
+# view AndroidManifest.xml #generated:19
+-keep class uw.cse403.nonogramfun.MainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:32
+-keep class uw.cse403.nonogramfun.PlayGameMenu { <init>(...); }
+
+# view AndroidManifest.xml #generated:48
+-keep class uw.cse403.nonogramfun.PlayGameScreen { <init>(...); }
+
+# view AndroidManifest.xml #generated:36
+-keep class uw.cse403.nonogramfun.ScoreBoard { <init>(...); }
+
+# onClick res/layout/activity_create_game_menu.xml #generated:21
+-keepclassmembers class * { *** CreateGameLargeScreen(...); }
+
+# onClick res/layout/activity_create_game_menu.xml #generated:14
+-keepclassmembers class * { *** CreateGameMediumScreen(...); }
+
+# onClick res/layout/activity_create_game_menu.xml #generated:7
+-keepclassmembers class * { *** CreateGameSmallScreen(...); }
+
+# onClick res/layout/activity_play_game_menu.xml #generated:21
+-keepclassmembers class * { *** PlayGameLargeScreen(...); }
+
+# onClick res/layout/activity_play_game_menu.xml #generated:14
+-keepclassmembers class * { *** PlayGameMediumScreen(...); }
+
+# onClick res/layout/activity_play_game_menu.xml #generated:7
+-keepclassmembers class * { *** PlayGameSmallScreen(...); }
+
+# onClick res/layout/activity_main.xml #generated:28
+-keepclassmembers class * { *** createGameScreen(...); }
+
+# onClick res/layout/activity_main.xml #generated:20
+-keepclassmembers class * { *** howToPlayScreen(...); }
+
+# onClick res/layout/activity_main.xml #generated:37
+-keepclassmembers class * { *** playGameScreen(...); }
+
+# onClick res/layout/activity_main.xml #generated:46
+-keepclassmembers class * { *** scoreBoardScreen(...); }
+
+# onClick res/layout/scoreboard_screen.xml #generated:29
+-keepclassmembers class * { *** scoreLarge(...); }
+
+# onClick res/layout/scoreboard_screen.xml #generated:19
+-keepclassmembers class * { *** scoreMedium(...); }
+
+# onClick res/layout/scoreboard_screen.xml #generated:9
+-keepclassmembers class * { *** scoreSmall(...); }
+
