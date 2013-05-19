@@ -24,13 +24,14 @@ import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 public class Test_NonoDatabase extends TestCase {
 	
 	private final int TIMEOUT = 20000;
-	
-	private static final Integer[][] EXP_ARR_1 = {{0, 1, 0, 1, 0},
-		  {1, 0, 1, 0, 1},
-		  {0, 1, 0, 1, 0},
-		  {0, 1, 0, 1, 0},
-		  {0, 0, 1, 0, 0}};
-	private static final Integer EXP_BG_COLOR_1 = 0;
+	private static final Integer BLACK = -16777216;
+	private static final Integer WHITE = -1;
+	private static final Integer[][] EXP_ARR_1 = {{BLACK, BLACK, WHITE, BLACK, WHITE},
+												  {BLACK, WHITE, BLACK, WHITE, BLACK},
+												  {WHITE, BLACK, WHITE, BLACK, WHITE},
+												  {WHITE, BLACK, WHITE, BLACK, WHITE},
+												  {WHITE, WHITE, BLACK, WHITE, WHITE}};
+	private static final Integer EXP_BG_COLOR_1 = WHITE;
 	private static final String EXP_NAME_1 = "Ice Cream";
 	private static final NonoPuzzle PUZZLE_1 = NonoPuzzle.createNonoPuzzle(EXP_ARR_1, EXP_BG_COLOR_1, EXP_NAME_1);
 	
