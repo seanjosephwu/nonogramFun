@@ -12,8 +12,8 @@
   	   android:onClick="scoreSmall"
   	   android:background="@drawable/button_blue"
   	   android:layout_marginTop="20dp"
-  	   android:layout_marginLeft="30dp"
-  	   android:layout_marginRight="30dp"
+  	   android:layout_marginLeft="50dp"
+  	   android:layout_marginRight="50dp"
        android:text="Scoreboard (Small)" />
    
    <Button android:id="@+id/scoreboard_screen_button2"
@@ -22,8 +22,8 @@
   	   android:onClick="scoreMedium"
   	   android:background="@drawable/button_green"
   	   android:layout_marginTop="20dp"
-  	   android:layout_marginLeft="30dp"
-  	   android:layout_marginRight="30dp"
+  	   android:layout_marginLeft="50dp"
+  	   android:layout_marginRight="50dp"
        android:text="Scoreboard (Medium)" />
 
    <Button android:id="@+id/scoreboard_screen_button3"
@@ -32,7 +32,7 @@
   	   android:onClick="scoreLarge"
   	   android:background="@drawable/button_yellow"
   	   android:layout_marginTop="20dp"
-  	   android:layout_marginLeft="30dp"
-  	   android:layout_marginRight="30dp"
+  	   android:layout_marginLeft="50dp"
+  	   android:layout_marginRight="50dp"
        android:text="Scoreboard (Large)" />
 </LinearLayout>

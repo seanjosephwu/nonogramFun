@@ -73,7 +73,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		
 		TableLayout layout = new TableLayout (this);
 		layout.setLayoutParams( new TableLayout.LayoutParams());
-		layout.setPadding(50,50,50,50);
+		//layout.setPadding(50,50,50,50);
 		
 		//timer 
 		starttime = System.currentTimeMillis();
@@ -102,6 +102,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		scrollView.addView(layout);	
 		
 		Button submitButton = (Button) findViewById(R.id.playgamesubmit);
+		
 		submitButton.setOnClickListener(new SubmitButtonListener()); 
 		
 //		editText = (EditText)findViewById(R.id.search);

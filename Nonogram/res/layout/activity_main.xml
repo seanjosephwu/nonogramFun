@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg3"
     tools:context=".MainActivity" >
 
     <ImageView
@@ -22,7 +23,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:onClick="howToPlayScreen"
+        android:background="@drawable/button_yellow"
         android:text="@string/howtoplay_button" />
 
     <Button
@@ -31,7 +35,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/howtoplay"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:onClick="createGameScreen"
+        android:background="@drawable/button_yellow"
         android:text="@string/creategame_button" />
 
     <Button
@@ -41,15 +48,17 @@
         android:layout_below="@+id/creategame"
         android:layout_marginTop="20dp"
         android:onClick="playGameScreen"
+        android:background="@drawable/button_yellow"
         android:text="@string/playgame_button" />
 
     <Button
         android:id="@+id/rankings"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/playgame"
         android:layout_marginTop="20dp"
         android:onClick="scoreBoardScreen"
+        android:background="@drawable/button_yellow"
         android:text="@string/scoreboard_button" />
 
 
