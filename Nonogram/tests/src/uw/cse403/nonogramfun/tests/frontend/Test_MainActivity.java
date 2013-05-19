@@ -40,14 +40,14 @@ public class Test_MainActivity extends ActivityInstrumentationTestCase2<MainActi
 		solo.clickOnButton("Play A Game");
 		solo.assertCurrentActivity("Not PlayGame", PlayGameMenu.class);
 	}
-  /*	
+  
 	@Test
 	public void testScoreBoard(){
 		solo.assertCurrentActivity("Not MainActivity", MainActivity.class);
 		solo.clickOnButton("Scoreboard");
 		solo.assertCurrentActivity("Not Scoreboard", ScoreBoard.class);
 	}
-  */
+ 
 	
 	@Override
 	protected void tearDown() throws Exception {
