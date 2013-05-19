@@ -60,7 +60,7 @@ public class Test_NonoDatabase extends TestCase {
 		}
 	}
 
-	//--Test getPuzzleIDList ------------------------------------------------------------------------
+	//--Test savePuzzle ------------------------------------------------------------------------
 	
 	@Test(timeout=TIMEOUT)
 	public void test_savePuzzle() {
@@ -79,12 +79,9 @@ public class Test_NonoDatabase extends TestCase {
 		try {
 			idList = NonoDatabase.getPuzzleIDList(Difficulty.EASY);
 			assert(idList != null);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
 }
