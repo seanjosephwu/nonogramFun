@@ -22,8 +22,8 @@ import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
  * This class tests NonoPuzzle object
  */
 public class Test_NonoDatabase extends TestCase {
+	
 	private final int TIMEOUT = 20000;
-	private int ZERO = 0;
 	private static final Integer[][] EXP_ARR_1 = {{0, 1, 0, 1, 0},
 		  {1, 0, 1, 0, 1},
 		  {0, 1, 0, 1, 0},
@@ -32,6 +32,10 @@ public class Test_NonoDatabase extends TestCase {
 	private static final Integer EXP_BG_COLOR_1 = 0;
 	private static final String EXP_NAME_1 = "Ice Cream";
 	private static final NonoPuzzle PUZZLE_1 = NonoPuzzle.createNonoPuzzle(EXP_ARR_1, EXP_BG_COLOR_1, EXP_NAME_1);
+	
+	private int ZERO = 0;
+	
+	
 	
 	//--Test getPuzzle------------------------------------------------------------------------
 	
