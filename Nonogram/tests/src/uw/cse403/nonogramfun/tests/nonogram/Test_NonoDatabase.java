@@ -1,9 +1,10 @@
 /**
  * CSE 403 AA
  * Project Nonogram: Backend Test
- * @author  HyeIn Kim
+ * @author  Sean Wu
  * @version v1.0, University of Washington 
  * @since   Spring 2013 
+ * Tests NonoDatabase: Black Box
  */
 
 package uw.cse403.nonogramfun.tests.nonogram;
@@ -19,7 +20,7 @@ import uw.cse403.nonogramfun.nonogram.NonoDatabase;
 import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 
 /**
- * This class tests NonoPuzzle object
+ * This class tests NonoDatabase object
  */
 public class Test_NonoDatabase extends TestCase {
 	

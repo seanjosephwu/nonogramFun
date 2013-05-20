@@ -4,6 +4,7 @@
  * @author  HyeIn Kim
  * @version v1.0, University of Washington 
  * @since   Spring 2013 
+ * Tests Difficulty: WhiteBox
  */
 
 package uw.cse403.nonogramfun.tests.enums;
