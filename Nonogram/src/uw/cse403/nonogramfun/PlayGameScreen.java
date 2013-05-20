@@ -87,6 +87,8 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	    };
 	   	timedisplay = new TextView(this);
 	   	timedisplay.setText("0:00");
+	   	timedisplay.setTextSize(30);
+	   	timedisplay.setTextColor(Color.BLUE);
 		layout.addView(timedisplay);
 		
 		// dimension + 1 for the number field at the top and left sides

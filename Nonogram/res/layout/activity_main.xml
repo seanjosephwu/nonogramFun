@@ -26,7 +26,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:onClick="howToPlayScreen"
-        android:background="@drawable/button_yellow"
+        android:background="@drawable/button_red"
         android:text="@string/howtoplay_button" />
 
     <Button
@@ -50,7 +50,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:onClick="playGameScreen"
-        android:background="@drawable/button_yellow"
+        android:background="@drawable/button_green"
         android:text="@string/playgame_button" />
 
     <Button
@@ -62,7 +62,7 @@
         android:layout_marginRight="50dp"
         android:layout_marginTop="20dp"
         android:onClick="scoreBoardScreen"
-        android:background="@drawable/button_yellow"
+        android:background="@drawable/button_blue"
         android:text="@string/scoreboard_button" />
 
 

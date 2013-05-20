@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/nonogram_bg"
+    android:background="@drawable/bg3"
     android:orientation="vertical" >
     
 
@@ -10,7 +10,7 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
   	   android:onClick="scoreSmall"
-  	   android:background="@drawable/button_blue"
+  	   android:background="@drawable/button_red"
   	   android:layout_marginTop="20dp"
   	   android:layout_marginLeft="50dp"
   	   android:layout_marginRight="50dp"
@@ -20,7 +20,7 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
   	   android:onClick="scoreMedium"
-  	   android:background="@drawable/button_green"
+  	   android:background="@drawable/button_yellow"
   	   android:layout_marginTop="20dp"
   	   android:layout_marginLeft="50dp"
   	   android:layout_marginRight="50dp"
@@ -30,7 +30,7 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
   	   android:onClick="scoreLarge"
-  	   android:background="@drawable/button_yellow"
+  	   android:background="@drawable/button_green"
   	   android:layout_marginTop="20dp"
   	   android:layout_marginLeft="50dp"
   	   android:layout_marginRight="50dp"
