@@ -67,6 +67,14 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		dimension = bundle.getInt("size");
 		gameArray = new Integer[dimension][dimension];
 		
+		if(dimension == 5){
+			setTitle("Small (5x5)");
+		}else if(dimension == 10){
+			setTitle("Medium (10x10)");
+		}else if(dimension == 14){
+			setTitle("Large (14x14");
+		}
+		
 		fetchPuzzle();
 		parseGameRow();
 		parseGameColumn();

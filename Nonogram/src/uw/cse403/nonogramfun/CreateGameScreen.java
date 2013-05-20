@@ -40,6 +40,13 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 
 		Bundle bundle = getIntent().getExtras();
 		dimension = bundle.getInt("size");
+		if(dimension == 5){
+			setTitle("Small");
+		}else if (dimension == 10){
+			setTitle("Medium");
+		}else if (dimension == 14){
+			setTitle("Large");
+		}
 		
 		// Initialize a 2D array of buttons. First coordinate is row #, second coordinate is column # (so y,x instead of x,y)
 		buttons = new Button[dimension][dimension];

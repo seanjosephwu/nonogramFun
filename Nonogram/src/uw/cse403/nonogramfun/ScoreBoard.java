@@ -13,6 +13,7 @@ public class ScoreBoard extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.scoreboard_screen);
+		setTitle("Score Board");
 		Log.i("scoreboard.java", "on create");
 	}
     
