@@ -132,7 +132,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				Difficulty puzzleDifficulty;
-				Log.i("Well....", "Does this exist?");
 				try {
 					if (dimension == 5){
 						puzzleDifficulty = Difficulty.EASY;
@@ -145,12 +144,10 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					}
 					
 					NonoPuzzle puzzle = NonoClient.getPuzzle(puzzleDifficulty);
-					Log.i("??????", "Does it actually work?");	
 					for(int i = 0; i < puzzle.getNonoPicColSize(); i++){
 						for(int j = 0; j < puzzle.getNonoPicRowSize(); j++){
 							Log.i("gameArrayLength", String.valueOf(gameArray[i].length));
 							gameArray[i][j] = puzzle.getColor(i, j);
-							Log.i("Is the Game Array Null?", gameArray[i][j].toString());
 						}
 					}	
 				} catch (UnknownHostException e) {
@@ -331,6 +328,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			} else {
 				showAlertDialog(v, "Try Again", "Your answer doesn't match the solution.", correctAnswer);
 			}
+			finish();
 		}
 		
 		
@@ -380,10 +378,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			
 			alertDialog.setTitle(title);
 			alertDialog.setMessage(message);
-			
-			// -1 = BUTTON_POSITIVE = a positive button?
-			
-			
 			alertDialog.show();
 		}
 		
