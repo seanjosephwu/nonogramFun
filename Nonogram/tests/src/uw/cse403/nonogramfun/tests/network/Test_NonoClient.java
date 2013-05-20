@@ -1,3 +1,12 @@
+/**
+ * CSE 403 AA
+ * Project Nonogram: Backend Test
+ * @author  Sean Wu
+ * @version v1.0, University of Washington 
+ * @since   Spring 2013 
+ * Tests NonoClient: Black Box
+ */
+
 package uw.cse403.nonogramfun.tests.network;
 
 import junit.framework.TestCase;
@@ -10,12 +19,14 @@ import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 
 public class Test_NonoClient extends TestCase {
 
-	private static final Integer[][] EXP_ARR_1 = {{0, 1, 0, 1, 0},
-		  {1, 0, 1, 0, 1},
-		  {0, 1, 0, 1, 0},
-		  {0, 1, 0, 1, 0},
-		  {0, 0, 1, 0, 0}};
-	private static final Integer EXP_BG_COLOR_1 = 0;
+	private static final Integer BLACK = -16777216;
+	private static final Integer WHITE = -1;
+	private static final Integer[][] EXP_ARR_1 = {{BLACK, BLACK, WHITE, BLACK, WHITE},
+												  {BLACK, WHITE, BLACK, WHITE, BLACK},
+												  {WHITE, BLACK, WHITE, BLACK, WHITE},
+												  {WHITE, BLACK, WHITE, BLACK, WHITE},
+												  {WHITE, WHITE, BLACK, WHITE, WHITE}};
+	private static final Integer EXP_BG_COLOR_1 = WHITE;
 	private static final String EXP_NAME_1 = "Ice Cream";
 	
 	public void test_createPuzle() {

@@ -20,6 +20,7 @@ public class PlayGameMenu extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_play_game_menu);
+		setTitle("Play A Game");
 	}
 
 	@Override

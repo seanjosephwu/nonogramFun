@@ -20,6 +20,7 @@ public class HowToPlay extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.how_to_play);
 		Log.i("create a game", "on create");
+		setTitle("How To Play");
 	}
 	
     

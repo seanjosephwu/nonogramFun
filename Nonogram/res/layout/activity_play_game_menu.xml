@@ -2,27 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg3"
     android:orientation="vertical" >
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="PlayGameSmallScreen"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center"
+        android:background="@drawable/button_red"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="@string/play_small_button" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="PlayGameMediumScreen"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:background="@drawable/button_yellow"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="@string/play_medium_button" />
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="PlayGameLargeScreen"
+        android:background="@drawable/button_green"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="@string/play_large_button" />
 
 </LinearLayout>

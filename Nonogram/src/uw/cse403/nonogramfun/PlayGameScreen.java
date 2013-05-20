@@ -67,6 +67,14 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		dimension = bundle.getInt("size");
 		gameArray = new Integer[dimension][dimension];
 		
+		if(dimension == 5){
+			setTitle("Small (5x5)");
+		}else if(dimension == 10){
+			setTitle("Medium (10x10)");
+		}else if(dimension == 14){
+			setTitle("Large (14x14");
+		}
+		
 		fetchPuzzle();
 		parseGameRow();
 		parseGameColumn();
@@ -87,20 +95,17 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	    };
 	   	timedisplay = new TextView(this);
 	   	timedisplay.setText("0:00");
+	   	timedisplay.setTextSize(30);
+	   	timedisplay.setTextColor(Color.BLUE);
 		layout.addView(timedisplay);
 		
 		// dimension + 1 for the number field at the top and left sides
 		buttons = new View[dimension + 1][dimension + 1];
 		layout = createGameTable(layout);
-//		
-//		Button hintButton = new Button(this);
-//		hintButton.setText("Hint");
-//		hintButton.setOnClickListener(new HintButtonListener()); 
-//		layout.addView(hintButton);
-//		
+
 		HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
 		scrollView.addView(layout);	
-//		
+	
 		Button hintButton = (Button) findViewById(R.id.playgamehint);
 		hintButton.setOnClickListener(new HintButtonListener()); 
 		
@@ -127,7 +132,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				Difficulty puzzleDifficulty;
-				Log.i("Well....", "Does this exist?");
 				try {
 					if (dimension == 5){
 						puzzleDifficulty = Difficulty.EASY;
@@ -140,12 +144,10 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					}
 					
 					NonoPuzzle puzzle = NonoClient.getPuzzle(puzzleDifficulty);
-					Log.i("??????", "Does it actually work?");	
 					for(int i = 0; i < puzzle.getNonoPicColSize(); i++){
 						for(int j = 0; j < puzzle.getNonoPicRowSize(); j++){
 							Log.i("gameArrayLength", String.valueOf(gameArray[i].length));
 							gameArray[i][j] = puzzle.getColor(i, j);
-							Log.i("Is the Game Array Null?", gameArray[i][j].toString());
 						}
 					}	
 				} catch (UnknownHostException e) {
@@ -322,10 +324,11 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			stopTimer = true;
 			boolean correctAnswer = compareSolution();
 			if (correctAnswer) {
-				showAlertDialog(v, "Congratulations!", "You've complete the puzzle correctly!", correctAnswer);
+				showAlertDialog(v, "Congratulations!", "You've complete the puzzle correctly! Would you like to submit your time?", correctAnswer);
 			} else {
 				showAlertDialog(v, "Try Again", "Your answer doesn't match the solution.", correctAnswer);
 			}
+			finish();
 		}
 		
 		
@@ -355,17 +358,26 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			if (answer) {
 				input.setVisibility(View.VISIBLE);
 				String name = input.getText().toString();
+				alertDialog.setButton(-2, "Yes", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						returnMainScreen(v);
+					}
+				});
+				alertDialog.setButton(-1, "No", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						returnMainScreen(v);
+					}
+				});
+			} else {
+				alertDialog.setButton(-3, "Okay", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						//do nothing
+					}
+				});
 			}
 			
 			alertDialog.setTitle(title);
 			alertDialog.setMessage(message);
-			
-			// -1 = BUTTON_POSITIVE = a positive button?
-			alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					returnMainScreen(v);
-				}
-			});
 			alertDialog.show();
 		}
 		
