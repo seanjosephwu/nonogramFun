@@ -328,7 +328,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			} else {
 				showAlertDialog(v, "Try Again", "Your answer doesn't match the solution.", correctAnswer);
 			}
-			finish();
+			//finish();
 		}
 		
 		
@@ -371,7 +371,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			} else {
 				alertDialog.setButton(-3, "Okay", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						//do nothing
+						returnMainScreen(v);
 					}
 				});
 			}
