@@ -28,6 +28,7 @@ import android.graphics.Color;
  */
 public class NonoClient {
 	
+	private static NonoNetwork mockNet = null;
 	
 	// Private constructor
 	private NonoClient() {}
@@ -45,7 +46,12 @@ public class NonoClient {
 		ParameterPolice.checkIfValid2DArray(cArray);
 		
 		// 1. Send request: Create & Save puzzle in database
-		NonoNetwork network = NonoConfig.getNonoNetwork();
+		NonoNetwork network = null;
+		if (mockNet != null) {
+			network = mockNet;
+		} else {
+			network = NonoConfig.getNonoNetwork();
+		}
 		JSONObject requestJSON = new JSONObject();
 		NonoUtil.putClientRequest(requestJSON, ClientRequest.CREATE_PUZZLE);
 		NonoUtil.putColorArray(requestJSON, cArray);
@@ -70,7 +76,12 @@ public class NonoClient {
 		ParameterPolice.checkIfNull(difficulty, "Difficulty");
 		
 		// 1. Send request: Create & Save puzzle in database
-		NonoNetwork network = NonoConfig.getNonoNetwork();
+		NonoNetwork network = null;
+		if (mockNet != null) {
+			network = mockNet;
+		} else {
+			network = NonoConfig.getNonoNetwork();
+		}
 		JSONObject requestJSON = new JSONObject();
 		NonoUtil.putClientRequest(requestJSON, ClientRequest.GET_PUZZLE);
 		NonoUtil.putDifficulty(requestJSON, difficulty);
@@ -84,6 +95,10 @@ public class NonoClient {
 		return ret;
 	}
 	
+	public static void setNetwork(NonoNetwork network) {
+		mockNet = network;
+	}
+	
 	
 	// Throws IOException if server responds with error message.
 	private static void checkResponseError(JSONObject responseJSON) throws Exception {
@@ -91,10 +106,7 @@ public class NonoClient {
 			//throw new IOException("Error: " + NonoUtil.getErrorMsg(responseJSON));
 		}
 	}
-	
-	
-	
-	
+
 	// For testing  TODO: delete later
 	@SuppressWarnings("unused")
 	private static void testClient() throws Exception {
@@ -112,51 +124,5 @@ public class NonoClient {
 			tcpHandler.close();
 		}
 	}
-	/*
-	// For testing  TODO: delete later
-	private static void testJSON() throws Exception {
-		System.out.println("I'm sending something to server!!");
-		Integer[][] cArray = {{ Color.BLACK, Color.BLACK }, { Color.BLUE, Color.BLUE } };
-		Integer bgColor = Color.BLACK;
-		createPuzzle(cArray, bgColor, "NOmmmmmmmmmmmmmmmmmmmmm");
-		InetAddress inetAddress = InetAddress.getByName(NonoConfig.SERVER_NAME);
-		System.out.println(inetAddress.getHostAddress());
-		NonoNetwork network = new NonoNetwork(new Socket(inetAddress.getHostAddress(), NonoConfig.BASE_PORT));
-		JSONObject requestJSON = new JSONObject();
-		NonoUtil.putClientRequest(requestJSON, ClientRequest.CREATE_PUZZLE);
-		NonoUtil.putColorArray(requestJSON, cArray);
-		NonoUtil.putColor(requestJSON, bgColor);
-		NonoUtil.putString(requestJSON, "NONONONONONONONONONONO");
-		System.out.println(requestJSON.getString(NonoUtil.JSON_STRING_TAG));
-		network.sendMessage(requestJSON);
-		
-		JSONObject responseJSON = network.readMessageJSON();
-		checkResponseError(responseJSON);
-		System.out.println(responseJSON);
-		String success = responseJSON.getString("JSON_Header");
-		//ServerResponse puzzle = NonoUtil.getServerResponse(responseJSON);
-		if (!success.equals("\"SUCCESS\"")) {
-			System.out.println(success);
-			System.out.println("Transaction failed");
-		}
-		System.out.println("I got a response puzzle from server!!");
-		//System.out.println(puzzle);
-		System.out.println("\n\n\n");
-	}
-	
-	private static void testGetPuzzles() throws Exception {
-		System.out.println("I'm trying to get from the server!!");
-		NonoPuzzle puzzle = getPuzzle(Difficulty.EASY);
-		System.out.println("Got Puzzle!");
-		System.out.println(puzzle);
-	}
-	// For testing  TODO: delete later
-	public static void main(String[] args) throws Exception {
-		System.out.println("Running NonoClient");
-		testJSON();
-		//testGetPuzzles();
-		//testClient();
-	}
-	*/
 }
 	
