@@ -5,6 +5,7 @@
  * @version v1.0, University of Washington 
  * @since   Spring 2013 
  * Tests NonoClient: Black Box
+ * Mock Test
  */
 
 package uw.cse403.nonogramfun.tests.network;
