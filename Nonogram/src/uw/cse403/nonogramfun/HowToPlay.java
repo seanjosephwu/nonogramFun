@@ -38,4 +38,9 @@ public class HowToPlay extends Activity {
 		Intent i = new Intent(this, HowTwoPlay2.class);
 		startActivity(i);
 	}
+	
+	public void skip(View view) {
+		Intent i = new Intent(this, PlayGameMenu.class);
+		startActivity(i);
+	}
 }
