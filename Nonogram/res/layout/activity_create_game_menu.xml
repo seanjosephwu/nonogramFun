@@ -5,6 +5,16 @@
     android:background="@drawable/bg3"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose a Puzzle Size:"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <Button
         android:id="@+id/button1"
         android:layout_width ="fill_parent"
@@ -14,7 +24,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/button_red"
         android:onClick="CreateGameSmallScreen"
-        android:text="@string/create_small_button" />
+        android:text="@string/small_button" />
 
     <Button
         android:id="@+id/button2"
@@ -25,7 +35,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/button_yellow"
         android:onClick="CreateGameMediumScreen"
-        android:text="@string/create_medium_button" />
+        android:text="@string/medium_button" />
 
     <Button
         android:id="@+id/button3"
@@ -36,6 +46,6 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/button_green"
         android:onClick="CreateGameLargeScreen"
-        android:text="@string/create_large_button" />
+        android:text="@string/large_button" />
 
 </LinearLayout>
