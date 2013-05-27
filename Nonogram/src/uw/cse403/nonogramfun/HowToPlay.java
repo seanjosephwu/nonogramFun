@@ -31,8 +31,8 @@ public class HowToPlay extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
         	// Inflate the menu; this adds items to the action bar if it is present.
         	getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+        	return true;
+	}
 	
 	public void next(View view) {
 		Intent i = new Intent(this, HowTwoPlay2.class);
