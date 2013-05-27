@@ -50,6 +50,16 @@
             android:background="@drawable/button_red"
             android:onClick="next"
             android:text="@string/next" />
+            
+        <Button
+            android:id="@+id/skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_red"
+            android:onClick="skip"
+            android:text="skip" />
     </RelativeLayout>
 
 </LinearLayout>
