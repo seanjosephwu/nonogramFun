@@ -29,7 +29,9 @@ import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 import uw.cse403.nonogramfun.utility.NonoUtil;
 
 
-public class Test_NonoClientMock extends TestCase {
+//public class Test_NonoClientMock extends TestCase {
+
+public class Test_NonoClientMock {
 
 	private static final Difficulty EASY = Difficulty.EASY;
 	private static final Integer BLACK = -16777216;

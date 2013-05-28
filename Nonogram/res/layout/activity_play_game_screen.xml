@@ -34,13 +34,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight=".10"
-        android:text="Hint" />
+        android:text="@string/hint_button" />
     
     <Button
         android:id="@+id/playgamesubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight=".10"
-        android:text="Submit" />
+        android:text="@string/submit_button" />
     
 </LinearLayout>

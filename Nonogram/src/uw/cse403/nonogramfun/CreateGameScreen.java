@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -50,15 +51,16 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 		buttons = new Button[dimension][dimension];
 
 		TableLayout layout = new TableLayout (this);
+		layout.setLayoutParams( new TableLayout.LayoutParams() );
+		//layout.setPadding(50,50,50,50);
 		layout = createTable(layout);
 		
-		Button submitButton = new Button(this);
-		submitButton.setText("Submit");
+		Button submitButton = (Button) findViewById(R.id.creategamesubmit);
 		submitButton.setOnClickListener(new SubmitButtonListener()); 
-		layout.addView(submitButton);
 		
-		super.setContentView(layout); 
-
+		//super.setContentView(layout); 
+		HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
+		scrollView.addView(layout);	
 	}
 
     
@@ -72,7 +74,6 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 		if(((Cell)arg0).getSelectVal()){
 			((Cell) arg0).setText("");	
 		}
@@ -86,10 +87,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 	
 	
 	private TableLayout createTable(TableLayout layout) {
-		layout.setLayoutParams( new TableLayout.LayoutParams(dimension-1,dimension) );
 		
-		layout.setPadding(50,50,50,50);
-
 		for (int i = 0; i < dimension; i++) {
 			TableRow tr = new TableRow(this);
 			for (int j = 0; j < dimension; j++) {
