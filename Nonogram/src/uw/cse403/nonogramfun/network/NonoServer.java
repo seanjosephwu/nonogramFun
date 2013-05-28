@@ -8,17 +8,12 @@
 
 
 package uw.cse403.nonogramfun.network;
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.SocketTimeoutException;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import uw.cse403.nonogramfun.enums.ClientRequest;
 import uw.cse403.nonogramfun.enums.ServerResponse;
-import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 import uw.cse403.nonogramfun.nonogram.Nonogram;
 import uw.cse403.nonogramfun.utility.NonoUtil;
 import uw.cse403.nonogramfun.utility.ParameterPolice;
@@ -134,18 +129,12 @@ public class NonoServer {
 			case GET_PUZZLE:
 				NonoUtil.putNonoPuzzle(responseJSON, Nonogram.getPuzzle(requestJSON));
 				break;
-			case SAVE_RESULT:
-				throw new UnsupportedOperationException();
-				//break;
-			case CREATE_USER:
-				throw new UnsupportedOperationException();
-				//break;
-			case LOG_IN:
-				throw new UnsupportedOperationException();
-				//break;
-			case LOG_OUT:
-				throw new UnsupportedOperationException();
-				//break;
+			case SAVE_SCORE:
+				Nonogram.saveScore(requestJSON);
+				break;
+			case GET_SCORE_BOARD:
+				NonoUtil.putScoreBoard(requestJSON, Nonogram.getScoreBoard(requestJSON));
+				break;
 			default:
 				throw new UnsupportedOperationException();
 		}

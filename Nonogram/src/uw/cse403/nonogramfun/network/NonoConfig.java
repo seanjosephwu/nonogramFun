@@ -38,8 +38,8 @@ public class NonoConfig {
 	 * @return A NonoNetwork object with default configuration (Default server IP & port)
 	 * @throws IOException if there is an error in the underlying protocol, such as a TCP error.
 	 */
-	public static NonoNetwork getNonoNetwork() throws IOException {
-		return new NonoNetwork(new Socket(getServerIP(), BASE_PORT));
+	public static NonoNetwork getNonoNetwork(int port) throws IOException {
+		return new NonoNetwork(new Socket(getServerIP(), BASE_PORT + port));
 	}
 	
 	/**

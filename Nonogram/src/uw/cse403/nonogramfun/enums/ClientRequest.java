@@ -13,6 +13,6 @@ package uw.cse403.nonogramfun.enums;
  *
  */
 public enum ClientRequest {
-	CREATE_PUZZLE, GET_PUZZLE, SAVE_RESULT,
-	CREATE_USER, LOG_IN, LOG_OUT;
+	CREATE_PUZZLE, GET_PUZZLE, SAVE_SCORE,
+	GET_SCORE_BOARD;
 }
