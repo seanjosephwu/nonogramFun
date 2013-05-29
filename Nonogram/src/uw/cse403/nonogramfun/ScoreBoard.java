@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 import uw.cse403.nonogramfun.enums.Difficulty;
-import uw.cse403.nonogramfun.nonogram.NonoDatabase;
+import uw.cse403.nonogramfun.network.NonoClient;
 import uw.cse403.nonogramfun.nonogram.NonoScore;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -45,7 +45,7 @@ public class ScoreBoard extends Activity {
 	    
 	    List<NonoScore> nonoScores;
 		try {
-			nonoScores = NonoDatabase.getScoreBoard(Difficulty.EASY);
+			nonoScores = NonoClient.getScoreBoard(Difficulty.EASY);
 		    if(nonoScores != null){
 		    	
 		    	//***printing to console
@@ -94,7 +94,7 @@ public class ScoreBoard extends Activity {
 	    builder.create();
 	    List<NonoScore> nonoScores;
 		try {
-			nonoScores = NonoDatabase.getScoreBoard(Difficulty.MEDIUM);
+			nonoScores = NonoClient.getScoreBoard(Difficulty.MEDIUM);
 		    if(nonoScores != null){
 		    	
 		    	//***printing to console
@@ -143,7 +143,7 @@ public class ScoreBoard extends Activity {
 	    builder.create();
 	    List<NonoScore> nonoScores;
 		try {
-			nonoScores = NonoDatabase.getScoreBoard(Difficulty.HARD);
+			nonoScores = NonoClient.getScoreBoard(Difficulty.HARD);
 		    if(nonoScores != null){
 		    	
 		    	//***printing to console
