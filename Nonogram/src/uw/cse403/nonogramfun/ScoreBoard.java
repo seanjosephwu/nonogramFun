@@ -59,19 +59,23 @@ public class ScoreBoard extends Activity {
 		    	}
 		    	
 		    	for(int i = 0; i < 3; i++){
+		    		//remove the one with the least score(in seconds) 
 		    		NonoScore ns = queue.remove();
 		    		String viewIdName = "rank_name" + i;
 		    		int resID_1 = getResources().getIdentifier(viewIdName, "id", null);
 		    		TextView tv1 = (TextView) this.findViewById(resID_1);
 		    		tv1.setText(ns.playerName);
+		    		
 		    		String viewIdScore = "rank_score" + i;
 		    		int resID_2 = getResources().getIdentifier(viewIdScore, "id", null);
 		    		TextView tv2 = (TextView) this.findViewById(resID_2);
-		    		tv2.setText(Integer.toString(ns.score));
+		    		int score = ns.score;
+		    		int min = score / 60;
+		    		int sec = score % 60;
+		    		tv2.setText(min + ";" + sec);
 		    	}
-		    }else{
-		    	Log.i("ScoreBoard73","nonoScores return null");
 		    }
+		    
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
