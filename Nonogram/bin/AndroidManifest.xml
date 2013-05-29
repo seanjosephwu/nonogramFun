@@ -57,6 +57,11 @@
             android:name="uw.cse403.nonogramfun.HowToPlay3"
             android:label="@string/title_activity_how_to_play3" >
         </activity>
+        
+        <service
+            android:name="MusicService"
+            android:enabled="true" >
+        </service> 
     </application>
 
 </manifest>

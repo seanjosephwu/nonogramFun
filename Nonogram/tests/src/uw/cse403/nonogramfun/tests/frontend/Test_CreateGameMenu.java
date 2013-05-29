@@ -2,8 +2,6 @@ package uw.cse403.nonogramfun.tests.frontend;
 
 import junit.framework.Assert;
 import uw.cse403.nonogramfun.*;
-import android.app.Activity;
-import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.jayway.android.robotium.solo.Solo;

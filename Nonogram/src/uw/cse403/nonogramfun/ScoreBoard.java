@@ -69,7 +69,8 @@ public class ScoreBoard extends Activity {
 		    		TextView tv2 = (TextView) this.findViewById(resID_2);
 		    		tv2.setText(Integer.toString(ns.score));
 		    	}
-		    	
+		    }else{
+		    	Log.i("ScoreBoard73","nonoScores return null");
 		    }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
