@@ -12,6 +12,7 @@ import java.net.Socket;
 import java.util.List;
 
 import org.json.JSONObject;
+
 import uw.cse403.nonogramfun.enums.ClientRequest;
 import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.enums.ServerResponse;

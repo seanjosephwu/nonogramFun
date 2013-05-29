@@ -11,7 +11,9 @@ package uw.cse403.nonogramfun.network;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.SocketTimeoutException;
+
 import org.json.JSONObject;
+
 import uw.cse403.nonogramfun.enums.ClientRequest;
 import uw.cse403.nonogramfun.enums.ServerResponse;
 import uw.cse403.nonogramfun.nonogram.Nonogram;

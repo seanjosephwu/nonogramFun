@@ -8,10 +8,14 @@ package uw.cse403.nonogramfun;
  * @since   Spring 2013 
  */
 
-import android.os.Bundle;
-
-import android.content.Intent;
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.os.IBinder;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -19,11 +23,14 @@ import android.widget.Button;
 public class MainActivity extends Activity {
 
     public Button b;
-	
+    private MediaPlayer mPlayer;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mPlayer = MediaPlayer.create(this, R.raw.humoresque);
+        mPlayer.start();
     }
 
     
@@ -55,6 +62,12 @@ public class MainActivity extends Activity {
 	public void scoreBoardScreen(View view) {
 		Intent i = new Intent(this, ScoreBoard.class);
 		startActivity(i);
+	}
+	
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+		mPlayer.release();
 	}
 }
 

@@ -39,4 +39,8 @@ public class Test_CreateGameScreen extends ActivityInstrumentationTestCase2<Crea
 		//TableRow tr1 = (TableRow)activity.findViewById(uw.cse403.nonogramfun.R.id.tableRow1);
 		//assertNotNull(tr1);
 	}
+	
+	public void testSubmitButton(){
+		//test alert box
+	}
 }
