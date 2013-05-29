@@ -36,7 +36,7 @@ public final class R {
         public static final int screenshot2=0x7f02000c;
     }
     public static final class id {
-        public static final int action_settings=0x7f09001e;
+        public static final int action_settings=0x7f09002c;
         public static final int button1=0x7f090001;
         public static final int button2=0x7f090002;
         public static final int button3=0x7f090003;
@@ -53,18 +53,32 @@ public final class R {
         public static final int playgamesubmit=0x7f090012;
         public static final int prev=0x7f09000a;
         public static final int rank_name1=0x7f090015;
+        public static final int rank_name10=0x7f090027;
         public static final int rank_name2=0x7f090017;
         public static final int rank_name3=0x7f090019;
+        public static final int rank_name4=0x7f09001b;
+        public static final int rank_name5=0x7f09001d;
+        public static final int rank_name6=0x7f09001f;
+        public static final int rank_name7=0x7f090021;
+        public static final int rank_name8=0x7f090023;
+        public static final int rank_name9=0x7f090025;
         public static final int rank_score1=0x7f090016;
+        public static final int rank_score10=0x7f090028;
         public static final int rank_score2=0x7f090018;
         public static final int rank_score3=0x7f09001a;
+        public static final int rank_score4=0x7f09001c;
+        public static final int rank_score5=0x7f09001e;
+        public static final int rank_score6=0x7f090020;
+        public static final int rank_score7=0x7f090022;
+        public static final int rank_score8=0x7f090024;
+        public static final int rank_score9=0x7f090026;
         public static final int ranking_score_title=0x7f090014;
         public static final int ranking_user_title=0x7f090013;
         public static final int rankings=0x7f090010;
         public static final int relativeLayout1=0x7f090009;
-        public static final int scoreboard_screen_button1=0x7f09001b;
-        public static final int scoreboard_screen_button2=0x7f09001c;
-        public static final int scoreboard_screen_button3=0x7f09001d;
+        public static final int scoreboard_screen_button1=0x7f090029;
+        public static final int scoreboard_screen_button2=0x7f09002a;
+        public static final int scoreboard_screen_button3=0x7f09002b;
         public static final int skip=0x7f09000c;
         public static final int textView1=0x7f090000;
     }
