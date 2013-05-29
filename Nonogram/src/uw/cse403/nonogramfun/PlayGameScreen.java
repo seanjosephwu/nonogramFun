@@ -53,7 +53,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	Handler timerHandle;
 	Runnable timerRun;
 	boolean stopTimer = false;
-//	private EditText editText;
+	Difficulty puzzleDifficulty;
 	
 	// IMPORTANT: X and Y axis are FLIPPED in both gameArray and buttons[][].
 	// For debugging purpose, given buttons[x][y], x denotes the ROW NUMBER, y denotes the COLUMN number
@@ -131,7 +131,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		Thread thread = new Thread(new Runnable(){
 			@Override
 			public void run() {
-				Difficulty puzzleDifficulty;
+				
 				try {
 					if (dimension == 5){
 						puzzleDifficulty = Difficulty.EASY;
@@ -157,8 +157,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				} catch (JSONException e) {
 					
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+
 				}
 
 			}
@@ -328,9 +327,8 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			} else {
 				showAlertDialog(v, "Try Again", "Your answer doesn't match the solution.", correctAnswer);
 			}
-			//finish();
+
 		}
-		
 		
 		private boolean compareSolution(){
 			for (int i = 0; i < dimension; i++) {
@@ -357,9 +355,24 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			input.setVisibility(View.INVISIBLE);
 			if (answer) {
 				input.setVisibility(View.VISIBLE);
-				String name = input.getText().toString();
+				final String name = input.getText().toString();
+				
+				// get the time in second, as for score
+				String time = (String) timedisplay.getText();
+				String[] splitTime = time.split(":");
+				int minToSec = 60 * Integer.parseInt(splitTime[0]);
+				final int score = minToSec + Integer.parseInt(splitTime[1]);
+				
 				alertDialog.setButton(-2, "Yes", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
+						// submit score
+						try {
+							NonoClient.saveScore(name, puzzleDifficulty, score);
+						} catch (Exception e) {
+							
+						}
+						// dialog: show score submitted
+						
 						returnMainScreen(v);
 					}
 				});
