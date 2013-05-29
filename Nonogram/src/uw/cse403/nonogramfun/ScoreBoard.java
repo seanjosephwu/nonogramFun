@@ -1,5 +1,11 @@
 package uw.cse403.nonogramfun;
 
+import java.util.List;
+import java.util.PriorityQueue;
+
+import uw.cse403.nonogramfun.enums.Difficulty;
+import uw.cse403.nonogramfun.nonogram.NonoDatabase;
+import uw.cse403.nonogramfun.nonogram.NonoScore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -7,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 public class ScoreBoard extends Activity {
 	@Override
@@ -35,6 +42,42 @@ public class ScoreBoard extends Activity {
 	    	   .setTitle("Score Board (Small Puzzle)")
 	           .setNeutralButton(R.string.scoreboard_acknowledgement, null);
 	    builder.create();
+	    
+	    List<NonoScore> nonoScores;
+		try {
+			nonoScores = NonoDatabase.getScoreBoard(Difficulty.EASY);
+		    if(nonoScores != null){
+		    	
+		    	//***printing to console
+		    	for(int i = 0; i < nonoScores.size(); i++){
+		    		Log.i("scoreSmall", "" + nonoScores.get(i).score);
+		    	}
+		    	
+		    	PriorityQueue<NonoScore> queue = new PriorityQueue<NonoScore>(nonoScores.size());
+		    	for(int i = 0; i < nonoScores.size(); i++){
+		    		queue.add(nonoScores.get(i));
+		    	}
+		    	
+		    	for(int i = 0; i < 3; i++){
+		    		NonoScore ns = queue.remove();
+		    		String viewIdName = "rank_name" + i;
+		    		int resID_1 = getResources().getIdentifier(viewIdName, "id", null);
+		    		TextView tv1 = (TextView) this.findViewById(resID_1);
+		    		tv1.setText(ns.playerName);
+		    		String viewIdScore = "rank_score" + i;
+		    		int resID_2 = getResources().getIdentifier(viewIdScore, "id", null);
+		    		TextView tv2 = (TextView) this.findViewById(resID_2);
+		    		tv2.setText(Integer.toString(ns.score));
+		    	}
+		    	
+		    }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+
 	    builder.show();
 	}
 	

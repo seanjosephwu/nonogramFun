@@ -15,7 +15,7 @@ import java.io.Serializable;
  * 
  *
  */
-public class NonoScore implements Serializable {
+public class NonoScore implements Serializable, Comparable<NonoScore> {
 	private static final long serialVersionUID = 1L;
 	public String playerName;
 	public String difficulty;
@@ -25,5 +25,14 @@ public class NonoScore implements Serializable {
 		this.playerName = playerName;
 		this.difficulty = difficulty;
 		this.score = score;
+	}
+	
+	public int compareTo(NonoScore other){
+		if (other.score > this.score)
+			return -1;
+		else if (other.score < this. score)
+			return 1;
+		else 
+			return 0;
 	}
 }
