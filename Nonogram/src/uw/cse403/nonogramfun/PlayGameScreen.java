@@ -268,14 +268,16 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					tr.addView(buttons[i][j],50,200);
 				} else {
 					Cell c = (Cell) buttons[i][j];
-					
+					c.setText(Integer.toString(i)+Integer.toString(j));
 		        	if((i % 2 == j % 2)){
 		        		c.setOriginColor(Color.LTGRAY);
 		        		c.setColor(Color.LTGRAY);
+		        		//c.setTextColor(Color.LTGRAY);
 		        	}
 		        	else{
 		        		c.setOriginColor(Color.WHITE);
 		        		c.setColor(Color.WHITE);
+		        		//c.setTextColor(Color.WHITE);
 		        	}
 		        	
 		        	c.setOnClickListener(this);
@@ -493,6 +495,16 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			public void run() {
 				
 				try {
+					if (dimension == 5){
+						puzzleDifficulty = Difficulty.EASY;
+					} else if (dimension == 10) {
+						puzzleDifficulty = Difficulty.MEDIUM;
+					} else if (dimension == 14) {
+						puzzleDifficulty = Difficulty.HARD;
+					} else {
+						puzzleDifficulty = Difficulty.UNDEFINED;
+					}
+					
 					NonoClient.saveScore(name, puzzleDifficulty, score);
 					
 				} catch (UnknownHostException e) {

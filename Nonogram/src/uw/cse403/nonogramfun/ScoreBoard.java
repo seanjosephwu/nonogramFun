@@ -52,7 +52,7 @@ public class ScoreBoard extends Activity {
 		try {
 			getScore();
 		    if(nonoScores != null){
-		    	
+		    	/*
 		    	PriorityQueue<NonoScore> queue = new PriorityQueue<NonoScore>(nonoScores.size());
 		    	for(int i = 0; i < nonoScores.size(); i++){
 		    		queue.add(nonoScores.get(i));
@@ -74,7 +74,9 @@ public class ScoreBoard extends Activity {
 		    		int sec = score % 60;
 		    		tv2.setText(min + ";" + sec);
 		    	}
-		    }
+		    	*/
+		    	Log.i("done", "");
+		}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
