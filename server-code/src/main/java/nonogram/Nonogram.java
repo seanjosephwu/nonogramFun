@@ -61,5 +61,31 @@ public class Nonogram {
 		int puzzleID = puzzleIDList.get(index);
 		return NonoDatabase.getPuzzle(puzzleID);
 	}
+	
+	/**
+	 * 
+	 * @param requestJSON
+	 * @throws Exception
+	 */
+	public static void saveScore(JSONObject requestJSON) throws Exception {
+		ParameterPolice.checkIfNull(requestJSON, "JSON Object");
+		
+		String playerName = NonoUtil.getString(requestJSON);
+		Difficulty difficulty = NonoUtil.getDifficulty(requestJSON);
+		int score = NonoUtil.getScore(requestJSON);
+		NonoDatabase.saveScore(playerName, difficulty, score);
+	}
 
+	/**
+	 * 
+	 * @param requestJSON
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<NonoScore> getScoreBoard(JSONObject requestJSON) throws Exception {
+		ParameterPolice.checkIfNull(requestJSON, "JSON Object");
+		
+		Difficulty difficulty = NonoUtil.getDifficulty(requestJSON);
+		return NonoDatabase.getScoreBoard(difficulty);
+	}
 }

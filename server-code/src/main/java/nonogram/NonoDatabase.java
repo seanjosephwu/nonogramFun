@@ -41,6 +41,7 @@ public class NonoDatabase {
 	private static final String PUZZLE_ID = "id";
 	private static final String PUZZLE_DIFFICULTY = "difficulty";
 	private static final String PUZZLE_OBJECT = "puzzle";
+	private static final String SCORE_TABLE = "scores";
 
 	
 	
@@ -72,19 +73,35 @@ public class NonoDatabase {
 				     " WHERE  " + PUZZLE_ID     + " = ?";
 		
 		// 1. Get connection & set up SQL statement
-		Connection conn = getConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setInt(1, puzzleID);
-		
-		// 2. Execute statement & get result
-		ResultSet rs = ps.executeQuery();
-		if (!rs.isBeforeFirst()) { return null; }
-		rs.next(); 
-		NonoPuzzle puzzle = (NonoPuzzle) NonoUtil.byteToObject(rs.getBytes(PUZZLE_OBJECT)); //TODO ClassNotFoundException
-		
-		// 3. Clean up & return the result
-		rs.close();
-		conn.close();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		NonoPuzzle puzzle = null;
+		try {
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, puzzleID);
+			
+			// 2. Execute statement & get result
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { return null; }
+			rs.next(); 
+			puzzle = (NonoPuzzle) NonoUtil.byteToObject(rs.getBytes(PUZZLE_OBJECT)); //TODO ClassNotFoundException
+			
+			// 3. Clean up & return the result
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
 		return puzzle;
 	}
 	
@@ -97,23 +114,34 @@ public class NonoDatabase {
 	public static void savePuzzle(NonoPuzzle puzzle) throws Exception {
 		String sql = " INSERT INTO " + PUZZLE_TABLE +
 				     " VALUES (?, ?, ?)";
-		
-		// 1. Get connection & set up SQL statement
-		Connection conn = getConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setInt(1, puzzle.getPuzzleID());
-		ps.setString(2, puzzle.getDifficulty().toString());
-		ps.setObject(3, NonoUtil.objecToByte(puzzle));
-		
-		System.out.println(puzzle);
-		System.out.println(puzzle.getPuzzleID());
-		System.out.println(puzzle.getDifficulty());
-		System.out.println(NonoUtil.objecToByte(puzzle));
-		System.out.println(ps.toString());
-		
-		// 2. Execute statement & clean up
-		ps.executeUpdate();
-		conn.close();
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			// 1. Get connection & set up SQL statement
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, puzzle.getPuzzleID());
+			ps.setString(2, puzzle.getDifficulty().toString());
+			ps.setObject(3, NonoUtil.objecToByte(puzzle));
+			
+			System.out.println(puzzle);
+			System.out.println(puzzle.getPuzzleID());
+			System.out.println(puzzle.getDifficulty());
+			System.out.println(ps.toString());
+			// 2. Execute statement 
+			ps.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			// 3. Clean up
+			if (conn != null) {
+				conn.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
 	}
 	
 	
@@ -128,28 +156,140 @@ public class NonoDatabase {
 		String sql = " SELECT " + PUZZLE_ID         +
 				     " FROM   " + PUZZLE_TABLE      +
 				     " WHERE  " + PUZZLE_DIFFICULTY + " = ?";
-		
-		// 1. Get connection & set up SQL statement
-		Connection conn = getConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setString(1, diff.toString());
-		
-		// 2. Execute statement & get result
-		ResultSet rs = ps.executeQuery();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		List<Integer> idList = new ArrayList<Integer>();
-		while(rs.next()) {
-			idList.add(rs.getInt(1));
-		}
 		
+		try {
+			// 1. Get connection & set up SQL statement
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, diff.toString());
+			
+			// 2. Execute statement & get result
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				idList.add(rs.getInt(1));
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {	
 		// 3. Clean up & return the result
-		rs.close();
-		conn.close();
+			if (rs != null) {
+				rs.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
 		return idList;
 	}
 
 	
+	public static List<NonoScore> getScoreBoard(Difficulty diff) throws Exception {
+		String sql = " SELECT " + "*"               +
+				     " FROM   " + SCORE_TABLE       +
+				     " WHERE  " + PUZZLE_DIFFICULTY + " = ?";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<NonoScore> scoreList = new ArrayList<NonoScore>();
+		
+		try {
+			// 1. Get connection & set up SQL statement
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, diff.toString());
+			
+			// 2. Execute statement & get result
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				scoreList.add(new NonoScore(rs.getString(1), rs.getString(2), rs.getInt(3)));
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {	
+			// 3. Clean up & return the result
+			if (rs != null) {
+				rs.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
+		return scoreList;
+	}
+
 	
+	public static void saveScore(String playerName, Difficulty difficulty, int score) throws Exception {
+		String sql = " INSERT INTO " + SCORE_TABLE +
+				     " VALUES (?, ?, ?)";
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			// 1. Get connection & set up SQL statement
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, playerName);
+			ps.setString(2, difficulty.toString());
+			ps.setInt(3, score);
+			
+			// 2. Execute statement 
+			ps.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			// 3. Clean up
+			if (conn != null) {
+				conn.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+		}
+	}
 	
+	public static int getStartPuzzleID() {
+		String sql = " SELECT MAX(" + PUZZLE_ID     + ")" +
+			         " FROM   "     + PUZZLE_TABLE;    
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			
+			// 2. Execute statement & get result
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { return 0; }
+			rs.next(); 
+			return rs.getInt(1) + 1;
+			// 3. Clean up & return the result
+		} catch (Exception e) {
+			return 0;
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+			}catch(Exception e) {}
+		}
+	}
 	
 	// TODO: Remove later. For connection testing
 	public static void main(String[] args) throws Exception {
