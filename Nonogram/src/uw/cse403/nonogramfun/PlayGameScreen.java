@@ -493,16 +493,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			public void run() {
 				
 				try {
-					if (dimension == 5){
-						puzzleDifficulty = Difficulty.EASY;
-					} else if (dimension == 10) {
-						puzzleDifficulty = Difficulty.MEDIUM;
-					} else if (dimension == 14) {
-						puzzleDifficulty = Difficulty.HARD;
-					} else {
-						puzzleDifficulty = Difficulty.UNDEFINED;
-					}
-					
 					NonoClient.saveScore(name, puzzleDifficulty, score);
 					
 				} catch (UnknownHostException e) {

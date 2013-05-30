@@ -31,9 +31,8 @@ public final class R {
         public static final int ic_launcher=0x7f020007;
         public static final int main_background=0x7f020008;
         public static final int nonogram_bg=0x7f020009;
-        public static final int nonogram_bg2=0x7f02000a;
-        public static final int screenshot=0x7f02000b;
-        public static final int screenshot2=0x7f02000c;
+        public static final int screenshot=0x7f02000a;
+        public static final int screenshot2=0x7f02000b;
     }
     public static final class id {
         public static final int action_settings=0x7f09002c;

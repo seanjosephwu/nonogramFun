@@ -1,7 +1,11 @@
 package uw.cse403.nonogramfun;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.PriorityQueue;
+
+import org.json.JSONException;
 
 import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.network.NonoClient;
@@ -16,6 +20,8 @@ import android.view.View;
 import android.widget.TextView;
 
 public class ScoreBoard extends Activity {
+	List<NonoScore> nonoScores;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,10 +48,9 @@ public class ScoreBoard extends Activity {
 	    	   .setTitle("Score Board (Small Puzzle)")
 	           .setNeutralButton(R.string.scoreboard_acknowledgement, null);
 	    builder.create();
-	    
-	    List<NonoScore> nonoScores;
+
 		try {
-			nonoScores = NonoClient.getScoreBoard(Difficulty.EASY);
+			getScore();
 		    if(nonoScores != null){
 		    	
 		    	//***printing to console
@@ -92,7 +97,7 @@ public class ScoreBoard extends Activity {
 	    	   .setTitle("Score Board (Medium Puzzle)")
 	           .setNeutralButton(R.string.scoreboard_acknowledgement, null);
 	    builder.create();
-	    List<NonoScore> nonoScores;
+	    //List<NonoScore> nonoScores;
 		try {
 			nonoScores = NonoClient.getScoreBoard(Difficulty.MEDIUM);
 		    if(nonoScores != null){
@@ -141,9 +146,9 @@ public class ScoreBoard extends Activity {
 	    	   .setTitle("Score Board (Large Puzzle)")
 	           .setNeutralButton(R.string.scoreboard_acknowledgement, null);
 	    builder.create();
-	    List<NonoScore> nonoScores;
+	    
 		try {
-			nonoScores = NonoClient.getScoreBoard(Difficulty.HARD);
+			getScore();
 		    if(nonoScores != null){
 		    	
 		    	//***printing to console
@@ -177,5 +182,32 @@ public class ScoreBoard extends Activity {
 			e.printStackTrace();
 		}
 	    builder.show();
+	}
+	
+	private void getScore(){
+		Thread thread = new Thread(new Runnable(){
+			@Override
+			public void run() {
+				
+				try {
+					nonoScores = NonoClient.getScoreBoard(Difficulty.EASY);
+				} catch (UnknownHostException e) {
+					
+				} catch (IOException e) {
+					
+				} catch (JSONException e) {
+					
+				} catch (Exception e) {
+
+				}
+
+			}
+		});
+		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			
+		}
 	}
 }
