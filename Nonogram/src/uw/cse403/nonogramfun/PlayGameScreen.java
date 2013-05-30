@@ -312,6 +312,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	
 	public void returnMainScreen(View view) {
 		Intent i = new Intent(this, MainActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 	}
 	
