@@ -35,4 +35,8 @@ public class NonoScore implements Serializable, Comparable<NonoScore> {
 		else 
 			return 0;
 	}
+	
+	public String toString(){
+		return playerName+difficulty+Integer.toString(score);
+	}
 }
