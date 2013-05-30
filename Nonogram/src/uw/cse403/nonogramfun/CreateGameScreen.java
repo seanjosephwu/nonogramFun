@@ -92,7 +92,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 			TableRow tr = new TableRow(this);
 			for (int j = 0; j < dimension; j++) {
 	        	buttons[i][j] = new Cell(this);
-	      
+	        	buttons[i][j].setText(Integer.toString(i)+""+Integer.toString(j));
 	        	if((i % 2 == j % 2)){
 	        		buttons[i][j].setBackgroundColor(Color.LTGRAY);
 	        	}
