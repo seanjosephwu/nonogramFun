@@ -135,7 +135,7 @@ public class NonoServer {
 				Nonogram.saveScore(requestJSON);
 				break;
 			case GET_SCORE_BOARD:
-				NonoUtil.putScoreBoard(requestJSON, Nonogram.getScoreBoard(requestJSON));
+				NonoUtil.putScoreBoard(responseJSON, Nonogram.getScoreBoard(requestJSON));
 				break;
 			default:
 				throw new UnsupportedOperationException();

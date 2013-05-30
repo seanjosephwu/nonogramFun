@@ -9,6 +9,8 @@
 
 package uw.cse403.nonogramfun.enums;
 
+import java.io.Serializable;
+
 
 /**
  * Difficulty represents difficulty of a NonoPuzzle. The difficulty is classified
@@ -16,8 +18,9 @@ package uw.cse403.nonogramfun.enums;
  * levels: Easy, Medium, Hard and Insane. The dimensions that doesn't fit in the 4
  * difficulty levels are classified as undefined.
  */
-public enum Difficulty {
-	EASY(5, 15, "Easy"), MEDIUM(15, 25, "Medium"), HARD(25, 50, "Hard"), 
+public enum Difficulty implements Serializable {
+	
+	EASY(5, 6, "Easy"), MEDIUM(10, 11, "Medium"), HARD(14, 15, "Hard"), 
 	INSANE(50, 100, "Insane"), UNDEFINED(5, 100, "Undefined"), INVALID(5, 100, "Invalid");
 
 	private final int minDim;  // Minimum dimension of this difficulty

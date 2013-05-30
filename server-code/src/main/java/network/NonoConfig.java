@@ -23,8 +23,8 @@ import uw.cse403.nonogramfun.utility.ParameterPolice;
  */
 public class NonoConfig {
 	public static final String SERVER_NAME = "cubist.cs.washington.edu";
-	// public static final String SERVER_NAME = "localhost";
-	public static final int BASE_PORT = 1024;
+	//public static final String SERVER_NAME = "localhost";
+	public static final int BASE_PORT = 1027;
 	public static final int SOCKET_TIMEOUT = 5000;
 	public static final int MAX_READ_LENGTH = 1234567;
 
@@ -38,8 +38,8 @@ public class NonoConfig {
 	 * @return A NonoNetwork object with default configuration (Default server IP & port)
 	 * @throws IOException if there is an error in the underlying protocol, such as a TCP error.
 	 */
-	public static NonoNetwork getNonoNetwork() throws IOException {
-		return new NonoNetwork(new Socket(getServerIP(), BASE_PORT));
+	public static NonoNetwork getNonoNetwork(int port) throws IOException {
+		return new NonoNetwork(new Socket(getServerIP(), BASE_PORT + port));
 	}
 	
 	/**
