@@ -27,12 +27,13 @@ public final class R {
         public static final int button_purple=0x7f020003;
         public static final int button_red=0x7f020004;
         public static final int button_yellow=0x7f020005;
-        public static final int huskysoftlogo=0x7f020006;
-        public static final int ic_launcher=0x7f020007;
-        public static final int main_background=0x7f020008;
-        public static final int nonogram_bg=0x7f020009;
-        public static final int screenshot=0x7f02000a;
-        public static final int screenshot2=0x7f02000b;
+        public static final int htp1=0x7f020006;
+        public static final int htp2=0x7f020007;
+        public static final int htp3=0x7f020008;
+        public static final int huskysoftlogo=0x7f020009;
+        public static final int ic_launcher=0x7f02000a;
+        public static final int main_background=0x7f02000b;
+        public static final int nonogram_bg=0x7f02000c;
     }
     public static final class id {
         public static final int action_settings=0x7f09002c;
@@ -41,9 +42,9 @@ public final class R {
         public static final int button3=0x7f090003;
         public static final int creategame=0x7f09000e;
         public static final int creategamesubmit=0x7f090006;
-        public static final int editText1=0x7f090007;
+        public static final int gallery1=0x7f090008;
         public static final int howtoplay=0x7f09000d;
-        public static final int imageView1=0x7f090008;
+        public static final int imageView1=0x7f090007;
         public static final int next=0x7f09000b;
         public static final int nonogram_gameboard=0x7f090005;
         public static final int nonogram_vertical_board=0x7f090004;
@@ -84,8 +85,8 @@ public final class R {
     public static final class layout {
         public static final int activity_create_game_menu=0x7f030000;
         public static final int activity_create_game_screen=0x7f030001;
-        public static final int activity_how_to_play3=0x7f030002;
-        public static final int activity_how_two_play2=0x7f030003;
+        public static final int activity_how_to_play2=0x7f030002;
+        public static final int activity_how_to_play3=0x7f030003;
         public static final int activity_main=0x7f030004;
         public static final int activity_play_game_menu=0x7f030005;
         public static final int activity_play_game_screen=0x7f030006;
@@ -97,8 +98,8 @@ public final class R {
     public static final class menu {
         public static final int create_game_menu=0x7f080000;
         public static final int create_game_screen=0x7f080001;
-        public static final int how_to_play3=0x7f080002;
-        public static final int how_two_play2=0x7f080003;
+        public static final int how_to_play2=0x7f080002;
+        public static final int how_to_play3=0x7f080003;
         public static final int main=0x7f080004;
         public static final int play_game_menu=0x7f080005;
         public static final int play_game_screen=0x7f080006;
