@@ -10,12 +10,19 @@ import android.test.ActivityInstrumentationTestCase2;
 import uw.cse403.nonogramfun.Cell;
 import uw.cse403.nonogramfun.PlayGameScreen;
 
-
+/**
+ * Test the cell class
+ * @author renhax
+ *
+ */
 public class Test_Cell  extends ActivityInstrumentationTestCase2<PlayGameScreen> {
 	
 	private static Cell c;
 	private Solo solo;
 
+	/**
+	 * Set up the activity
+	 */
 	public Test_Cell() {
 		super(PlayGameScreen.class);
 	}
@@ -32,15 +39,20 @@ public class Test_Cell  extends ActivityInstrumentationTestCase2<PlayGameScreen>
 		solo.finishOpenedActivities();
 	}
 	
+	/** 
+	 * Get a cell from the activiy, and test its constructor
+	 */
 	@Test
 	public void test_constructor() {
 		c = (Cell) solo.getButton("11");
 		assertTrue(c != null);
-//		assertTrue(c.getSelectVal() == false);
-//		assertTrue(c.getState() == 0);
-//		assertTrue(c.getColor() == Color.WHITE);
+		assertTrue(c.getSelectVal() == false);
+		assertTrue(c.getState() == 0);
 	}
 
+	/**
+	 * Test the setSekectVal function
+	 */
 	@Test
 	public void test_setSelectVal() {
 		c.setSelectVal();
@@ -49,6 +61,9 @@ public class Test_Cell  extends ActivityInstrumentationTestCase2<PlayGameScreen>
 		assertTrue(c.getSelectVal() == false);
 	}
 	
+	/**
+	 * Test the setState function
+	 */
 	@Test
 	public void test_setState() {
 		c.setState();
@@ -59,6 +74,9 @@ public class Test_Cell  extends ActivityInstrumentationTestCase2<PlayGameScreen>
 		assertTrue(c.getState() == 0);
 	}
 
+	/**
+	 * Test the setStateColor function
+	 */
 	@Test
 	public void test_setStateColor() {
 		c.setOriginColor(Color.WHITE);
@@ -71,6 +89,5 @@ public class Test_Cell  extends ActivityInstrumentationTestCase2<PlayGameScreen>
 		c.setStateColor();
 		assertTrue(c.getColor() == Color.WHITE);
 		assertTrue(c.getText().equals("?"));
-		assertTrue(c.getTextColors().equals(Color.BLUE));
 	}
 }
