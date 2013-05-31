@@ -32,7 +32,7 @@ public class HowTwoPlay2 extends Activity {
 	}
 	
 	public void skip(View view) {
-		Intent i = new Intent(this, PlayGameMenu.class);
+		Intent i = new Intent(this, MainActivity.class);
 		startActivity(i);
 	}
 }
