@@ -16,7 +16,7 @@ import java.io.Serializable;
  * It is a tiny struct like class that holds playerName, difficulty of
  * the game the player accomplished, and the score of the game together.
  */
-public class NonoScore implements Serializable {
+public class NonoScore implements Serializable, Comparable<NonoScore> {
 	private static final long serialVersionUID = 1L;
 	public String playerName;
 	public String difficulty;
@@ -31,6 +31,15 @@ public class NonoScore implements Serializable {
 		this.score = score;
 	}
 	
+	public int compareTo(NonoScore other){
+		if (other.score > this.score)
+			return -1;
+		else if (other.score < this. score)
+			return 1;
+		else 
+			return 0;
+	}
+
 	/**
 	 * Returns a string representation of NonoScore
 	 */
