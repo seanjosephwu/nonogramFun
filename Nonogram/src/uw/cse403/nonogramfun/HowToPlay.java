@@ -35,7 +35,7 @@ public class HowToPlay extends Activity {
     }
 	
 	public void next(View view) {
-		Intent i = new Intent(this, HowTwoPlay2.class);
+		Intent i = new Intent(this, HowToPlay2.class);
 		startActivity(i);
 	}
 	

@@ -7,7 +7,7 @@
  * Tests Difficulty: WhiteBox
  */
 
-package uw.cse403.nonogramfun.enums;
+package uw.cse403.nonogramfun.tests.enums;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import junit.framework.TestCase;
