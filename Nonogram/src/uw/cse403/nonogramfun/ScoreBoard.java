@@ -2,16 +2,14 @@ package uw.cse403.nonogramfun;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.Iterator;
 
 import org.json.JSONException;
-
-import com.google.gson.internal.LinkedHashTreeMap;
 
 import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.network.NonoClient;
 import uw.cse403.nonogramfun.nonogram.NonoScore;
+import uw.cse403.nonogramfun.nonogram.NonoScoreBoard;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -19,10 +17,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.widget.TextView;
 
 public class ScoreBoard extends Activity {
-	List<LinkedHashTreeMap> nonoScores;
+	NonoScoreBoard nonoScoreBoard;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +50,7 @@ public class ScoreBoard extends Activity {
 
 		try {
 			getScore();
-		    if(nonoScores != null){
+		    if(nonoScoreBoard != null){
 		    	/*
 		    	PriorityQueue<NonoScore> queue = new PriorityQueue<NonoScore>(nonoScores.size());
 		    	for(int i = 0; i < nonoScores.size(); i++){
@@ -98,8 +95,8 @@ public class ScoreBoard extends Activity {
 	    builder.create();
 	    //List<NonoScore> nonoScores;
 		try {
-			nonoScores = (List) NonoClient.getScoreBoard(Difficulty.MEDIUM);
-		    if(nonoScores != null){
+			nonoScoreBoard = NonoClient.getScoreBoard(Difficulty.MEDIUM);
+		    if(nonoScoreBoard != null){
 		    /*
 		    	PriorityQueue<NonoScore> queue = new PriorityQueue<NonoScore>(nonoScores.size());
 		    	for(int i = 0; i < nonoScores.size(); i++){
@@ -144,7 +141,7 @@ public class ScoreBoard extends Activity {
 	    
 		try {
 			getScore();
-		    if(nonoScores != null){
+		    if(nonoScoreBoard != null){
 		    	/*
 		    	PriorityQueue<NonoScore> queue = new PriorityQueue<NonoScore>(nonoScores.size());
 		    	for(int i = 0; i < nonoScores.size(); i++){
@@ -183,22 +180,17 @@ public class ScoreBoard extends Activity {
 				
 				try {
 					Log.i("getScoreBoard", "start");
-					nonoScores = (List)NonoClient.getScoreBoard(Difficulty.EASY);
+					nonoScoreBoard = NonoClient.getScoreBoard(Difficulty.EASY);
 					Log.i("getScoreBoard", "end");
-					Log.i("getScoreBoard", Integer.toString(nonoScores.size()));
+					Log.i("getScoreBoard", nonoScoreBoard.toString());
 					//***printing to console
-					
-			    	for(int i = 0; i < nonoScores.size(); i++){
-			    		if (nonoScores.get(i) != null){
-			    			Log.i("getScoreBoard", "in the loop");
-			    			//Log.i("nonoScore", nonoScores.get(i).getClass().getName());
-			    		Log.i("scoreSmall", (String) nonoScores.get(i).get("difficulty"));
-			    		Log.i("scoreSmall", (String) nonoScores.get(i).get("playerName"));
-			    		System.out.println(nonoScores.get(i).get("score"));
-			    		}
-
-			    	}
-
+					Iterator<NonoScore> scoreIter = nonoScoreBoard.getIterator();
+					while(scoreIter.hasNext()) {
+						NonoScore next = scoreIter.next();
+						Log.i("scoreSmall", next.difficulty);
+						Log.i("scoreSmall", next.playerName);
+						Log.i("scoreSmall", String.valueOf(next.score));
+					}
 				} catch (UnknownHostException e) {
 					
 				} catch (IOException e) {
