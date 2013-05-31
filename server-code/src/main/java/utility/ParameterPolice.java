@@ -18,7 +18,7 @@ package uw.cse403.nonogramfun.utility;
 public class ParameterPolice {
 
 	// An empty private constructor.
-
+	//private ParameterPolice {}
 
 	/**
 	 * Accepts an object as a parameter and throws an

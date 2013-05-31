@@ -8,14 +8,8 @@
 
 
 package uw.cse403.nonogramfun.nonogram;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
+import java.sql.*;
+import java.util.*;
 import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.utility.NonoUtil;
 
@@ -42,8 +36,7 @@ public class NonoDatabase {
 	private static final String PUZZLE_DIFFICULTY = "difficulty";
 	private static final String PUZZLE_OBJECT = "puzzle";
 	private static final String SCORE_TABLE = "scores";
-
-	
+	private static final String SCORE = "score";
 	
 	// Private constructor
 	private NonoDatabase() {}
@@ -68,41 +61,28 @@ public class NonoDatabase {
 	 * @throws Exception if connection or database problem occurs
 	 */
 	public static NonoPuzzle getPuzzle(int puzzleID) throws Exception { 
+		Connection conn = null; PreparedStatement ps = null; ResultSet rs = null;
+		
 		String sql = " SELECT " + PUZZLE_OBJECT + 
 				     " FROM   " + PUZZLE_TABLE  + 
 				     " WHERE  " + PUZZLE_ID     + " = ?";
 		
-		// 1. Get connection & set up SQL statement
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		NonoPuzzle puzzle = null;
 		try {
+			// 1. Get connection & set up SQL statement
 			conn = getConnection();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, puzzleID);
 			
 			// 2. Execute statement & get result
-			rs = ps.executeQuery();
-			if (!rs.isBeforeFirst()) { return null; }
-			rs.next(); 
-			puzzle = (NonoPuzzle) NonoUtil.byteToObject(rs.getBytes(PUZZLE_OBJECT)); //TODO ClassNotFoundException
-			
-			// 3. Clean up & return the result
+			rs = ps.executeQuery();  rs.next();
+			if (!rs.isFirst()) { return null; }
+			NonoPuzzle puzzle = (NonoPuzzle) NonoUtil.byteToObject(rs.getBytes(PUZZLE_OBJECT)); 
+			return puzzle;
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			if (rs != null) {
-				rs.close();
-			}
-			if (conn != null) {
-				conn.close();
-			}
-			if (ps != null) {
-				ps.close();
-			}
+			closeResources(conn, ps, rs);
 		}
-		return puzzle;
 	}
 	
 	
@@ -112,11 +92,11 @@ public class NonoDatabase {
 	 * @throws Exception if connection or database problem occurs
 	 */
 	public static void savePuzzle(NonoPuzzle puzzle) throws Exception {
+		Connection conn = null; PreparedStatement ps = null;
+		
 		String sql = " INSERT INTO " + PUZZLE_TABLE +
 				     " VALUES (?, ?, ?)";
-		Connection conn = null;
-		PreparedStatement ps = null;
-
+		
 		try {
 			// 1. Get connection & set up SQL statement
 			conn = getConnection();
@@ -125,22 +105,12 @@ public class NonoDatabase {
 			ps.setString(2, puzzle.getDifficulty().toString());
 			ps.setObject(3, NonoUtil.objecToByte(puzzle));
 			
-			System.out.println(puzzle);
-			System.out.println(puzzle.getPuzzleID());
-			System.out.println(puzzle.getDifficulty());
-			System.out.println(ps.toString());
 			// 2. Execute statement 
 			ps.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			// 3. Clean up
-			if (conn != null) {
-				conn.close();
-			}
-			if (ps != null) {
-				ps.close();
-			}
+			closeResources(conn, ps, null);
 		}
 	}
 	
@@ -153,13 +123,11 @@ public class NonoDatabase {
 	 * @throws Exception if connection or database problem occurs
 	 */
 	public static List<Integer> getPuzzleIDList(Difficulty diff) throws Exception {
+		Connection conn = null; PreparedStatement ps = null; ResultSet rs = null;
+		
 		String sql = " SELECT " + PUZZLE_ID         +
 				     " FROM   " + PUZZLE_TABLE      +
 				     " WHERE  " + PUZZLE_DIFFICULTY + " = ?";
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		List<Integer> idList = new ArrayList<Integer>();
 		
 		try {
 			// 1. Get connection & set up SQL statement
@@ -169,35 +137,30 @@ public class NonoDatabase {
 			
 			// 2. Execute statement & get result
 			rs = ps.executeQuery();
-			while(rs.next()) {
-				idList.add(rs.getInt(1));
-			}
+			List<Integer> idList = new ArrayList<Integer>();
+			while(rs.next()) { idList.add(rs.getInt(1)); }
+			return idList;
 		} catch (Exception e) {
 			throw e;
 		} finally {	
-		// 3. Clean up & return the result
-			if (rs != null) {
-				rs.close();
-			}
-			if (conn != null) {
-				conn.close();
-			}
-			if (ps != null) {
-				ps.close();
-			}
+			closeResources(conn, ps, rs);
 		}
-		return idList;
 	}
 
 	
-	public static List<NonoScore> getScoreBoard(Difficulty diff) throws Exception {
-		String sql = " SELECT " + "*"               +
-				     " FROM   " + SCORE_TABLE       +
-				     " WHERE  " + PUZZLE_DIFFICULTY + " = ?";
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		List<NonoScore> scoreList = new ArrayList<NonoScore>();
+	/**
+	 * Returns a list that represents score board of the games with given difficulty.
+	 * @param difficulty Difficulty of the games this score board will present.
+	 * @return A list that represents score board of the given difficulty.
+	 * @throws Exception if connection or database problem occurs.
+	 */
+	public static NonoScoreBoard getScoreBoard(Difficulty diff) throws Exception {
+		Connection conn = null; PreparedStatement ps = null; ResultSet rs = null;
+		
+		String sql = " SELECT   " + "*"               +
+				     " FROM     " + SCORE_TABLE       +
+				     " WHERE    " + PUZZLE_DIFFICULTY + " = ?" +
+				     " ORDER BY " + SCORE;
 		
 		try {
 			// 1. Get connection & set up SQL statement
@@ -207,33 +170,30 @@ public class NonoDatabase {
 			
 			// 2. Execute statement & get result
 			rs = ps.executeQuery();
-			while(rs.next()) {
-				scoreList.add(new NonoScore(rs.getString(1), rs.getString(2), rs.getInt(3)));
-			}
+			NonoScoreBoard scoreBoard = new NonoScoreBoard();
+			while(rs.next()) { scoreBoard.add(new NonoScore(rs.getString(1), rs.getString(2), rs.getInt(3))); }
+			return scoreBoard;
 		} catch (Exception e) {
 			throw e;
 		} finally {	
-			// 3. Clean up & return the result
-			if (rs != null) {
-				rs.close();
-			}
-			if (conn != null) {
-				conn.close();
-			}
-			if (ps != null) {
-				ps.close();
-			}
+			closeResources(conn, ps, rs);
 		}
-		return scoreList;
 	}
-
 	
+	
+	/**
+	 * Saves the score for the given player.
+	 * @param playerName Name of the player whose score is being saved. Can be null.
+	 * @param difficulty Difficulty of the game.
+	 * @param score Score of the game.
+	 * @throws Exception if connection or database problem occurs
+	 */
 	public static void saveScore(String playerName, Difficulty difficulty, int score) throws Exception {
+		Connection conn = null; PreparedStatement ps = null;
+		
 		String sql = " INSERT INTO " + SCORE_TABLE +
 				     " VALUES (?, ?, ?)";
-		Connection conn = null;
-		PreparedStatement ps = null;
-
+		
 		try {
 			// 1. Get connection & set up SQL statement
 			conn = getConnection();
@@ -247,49 +207,53 @@ public class NonoDatabase {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			// 3. Clean up
-			if (conn != null) {
-				conn.close();
-			}
-			if (ps != null) {
-				ps.close();
-			}
+			closeResources(conn, ps, null);
 		}
 	}
 	
+	
+	/**
+	 * Returns the maximum value of puzzle ID that is currently stored in database, 
+	 * such that no puzzle with duplicate ID will be stored in the database.
+	 * @return The maximum value of puzzle ID that is currently stored in database.
+	 */
 	public static int getStartPuzzleID() {
+		Connection conn = null; PreparedStatement ps = null; ResultSet rs = null;
+		
 		String sql = " SELECT MAX(" + PUZZLE_ID     + ")" +
 			         " FROM   "     + PUZZLE_TABLE;    
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		
+
 		try {
+			// 1. Get connection & set up SQL statement
 			conn = getConnection();
 			ps = conn.prepareStatement(sql);
 			
 			// 2. Execute statement & get result
-			rs = ps.executeQuery();
-			if (!rs.isBeforeFirst()) { return 0; }
-			rs.next(); 
+			rs = ps.executeQuery();  rs.next(); 
+			if (!rs.isFirst()) { return 0; }
 			return rs.getInt(1) + 1;
-			// 3. Clean up & return the result
 		} catch (Exception e) {
 			return 0;
 		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-				if (ps != null) {
-					ps.close();
-				}
-			}catch(Exception e) {}
+			closeResources(conn, ps, null);
 		}
 	}
+	
+	
+	// Closes all the resources used for database operations.
+	private static void closeResources(Connection conn, PreparedStatement ps, ResultSet rs) {
+		try {
+			if (rs != null)   { rs.close();   }
+			if (conn != null) { conn.close(); }
+			if (ps != null)   { ps.close();   }
+		}catch(SQLException e ) {
+			System.out.println("Error: Problem in closing rsources! \n");
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	
 	// TODO: Remove later. For connection testing
 	public static void main(String[] args) throws Exception {

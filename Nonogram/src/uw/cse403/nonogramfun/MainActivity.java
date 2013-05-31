@@ -29,8 +29,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mPlayer = MediaPlayer.create(this, R.raw.humoresque);
-        mPlayer.start();
+        startMusicPlayer();
     }
 
     
@@ -41,6 +40,12 @@ public class MainActivity extends Activity {
         return true;
     }
 	
+	private void startMusicPlayer(){
+		mPlayer = MediaPlayer.create(this, R.raw.humoresque);
+        mPlayer.setLooping(true);
+    	mPlayer.setVolume(100,100);
+        mPlayer.start();
+	}
 	
 	public void howToPlayScreen(View view) {
 		Intent i = new Intent(this, HowToPlay.class);
@@ -67,7 +72,9 @@ public class MainActivity extends Activity {
 	@Override
 	public void onDestroy(){
 		super.onDestroy();
+		mPlayer.stop();
 		mPlayer.release();
+		mPlayer = null;
 	}
 }
 

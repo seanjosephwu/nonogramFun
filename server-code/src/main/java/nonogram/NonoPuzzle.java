@@ -9,10 +9,7 @@
 
 package uw.cse403.nonogramfun.nonogram;
 import java.io.Serializable;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
+import java.util.*;
 import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.utility.ParameterPolice;
 
@@ -23,7 +20,7 @@ import uw.cse403.nonogramfun.utility.ParameterPolice;
  */
 public class NonoPuzzle implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private static int ID_COUNTER = 0;
+	private static int ID_COUNTER = NonoDatabase.getStartPuzzleID();  //TODO ok?
 	private List<NonoNum>[] rowNonoNums;
 	private List<NonoNum>[] colNonoNums;
 	private Integer[][] nonoPicArr;

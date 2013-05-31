@@ -8,20 +8,11 @@
 
 
 package uw.cse403.nonogramfun.network;
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.SocketTimeoutException;
-
-import org.json.JSONException;
+import java.net.*;
 import org.json.JSONObject;
-
-import uw.cse403.nonogramfun.enums.ClientRequest;
-import uw.cse403.nonogramfun.enums.ServerResponse;
-import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
+import uw.cse403.nonogramfun.enums.*;
 import uw.cse403.nonogramfun.nonogram.Nonogram;
-import uw.cse403.nonogramfun.utility.NonoUtil;
-import uw.cse403.nonogramfun.utility.ParameterPolice;
+import uw.cse403.nonogramfun.utility.*;
 
 
 /**
@@ -29,13 +20,16 @@ import uw.cse403.nonogramfun.utility.ParameterPolice;
  * It has a main method that runs the server and a method that tells status of a server socket.
  */
 public class NonoServer {
-	private static final int NUM_PORTS = 4;
 	private static final String SERVER_IP = NonoConfig.getServerIP();
-	
+	private static boolean STUB = false;
 	
 	// Private constructor
 	private NonoServer() {}
 	
+	/**
+	 * If true, use stub class for network. If false, use actual network.
+	 */
+	public static void setStub(boolean stub) { STUB = stub; }
 
 	/**
 	 * The main method that runs this server
@@ -53,7 +47,6 @@ public class NonoServer {
 	 */
 	public static String dumpServerState(ServerSocket serverSock) {
 		ParameterPolice.checkIfNull(serverSock, "Server Socket");
-		
 		StringBuilder sb = new StringBuilder();
 		if(serverSock != null){
 			sb.append("\nListening on: " + serverSock.toString());
@@ -64,17 +57,13 @@ public class NonoServer {
 		return sb.toString();
 	}
 	
-	
 	// Runs the server, by opening the ports
 	private static void runServer() throws Exception {
-		if (SERVER_IP == null) {
-			throw new Exception("Error: Server cannot find its IP address!");
-		}
-		for(int i=0; i<NUM_PORTS; i++) {
+		if (SERVER_IP == null) { throw new Exception("Error: Server cannot find the IP address!"); }
+		for(int i=0; i<NonoConfig.MAX_PORT; i++) {
 			openPort(i);
 		}
 	}
-	
 		
 	// Opens a port
 	private static synchronized void openPort(final int portID) {
@@ -83,7 +72,6 @@ public class NonoServer {
 			public void run() {
 				ServerSocket serverSock = null;
 				try {
-					
 					// 1. Set up a server socket for this port
 					serverSock = new ServerSocket();
 					serverSock.bind(new InetSocketAddress(NonoConfig.SERVER_NAME, NonoConfig.BASE_PORT + portID));
@@ -92,13 +80,12 @@ public class NonoServer {
 					
 					// 2. Wait for connection & process request. Retry if times out.
 					while(true) {
-						NonoNetwork network = null;
+						Network network = null;
 						try {
-							network = new NonoNetwork(serverSock.accept());
+							network = NonoConfig.getNetwork(serverSock.accept(), STUB);
 							JSONObject requestJSON = network.readMessageJSON();
 							JSONObject responseJSON = processRequest(requestJSON);
 							network.sendMessage(responseJSON);
-							//testSerer(network);
 						}catch(SocketTimeoutException ste) {
 							System.out.println("Socket timed out");
 						}catch(Exception e) {
@@ -107,7 +94,6 @@ public class NonoServer {
 							if(network != null) try { network.close(); network = null; }catch(Exception e) {}
 						}
 					}
-					
 				}catch(Exception e){
 					e.printStackTrace();
 				}finally{
@@ -122,40 +108,35 @@ public class NonoServer {
 	// Accepts a JSON Object that represents a client request, processes the request and 
 	// returns a JSON Object that represents a server response to the client request.
 	private static JSONObject processRequest(JSONObject requestJSON) throws Exception {
-		ClientRequest request = NonoUtil.getClientRequest(requestJSON);
+		ClientRequest request = ClientRequest.TEST;
+		if(!STUB) { request = NonoUtil.getClientRequest(requestJSON); }
 		JSONObject responseJSON = new JSONObject();
-		NonoUtil.putServerResponse(responseJSON, ServerResponse.SUCCESS);
-		
+		if(!STUB) { NonoUtil.putServerResponse(responseJSON, ServerResponse.SUCCESS); }
 		switch (request) {
 			case CREATE_PUZZLE:
-				//testJSON(network, requestJSON);
 				Nonogram.createPuzzle(requestJSON);
 				break;
 			case GET_PUZZLE:
 				NonoUtil.putNonoPuzzle(responseJSON, Nonogram.getPuzzle(requestJSON));
 				break;
-			case SAVE_RESULT:
-				throw new UnsupportedOperationException();
-				//break;
-			case CREATE_USER:
-				throw new UnsupportedOperationException();
-				//break;
-			case LOG_IN:
-				throw new UnsupportedOperationException();
-				//break;
-			case LOG_OUT:
-				throw new UnsupportedOperationException();
-				//break;
+			case SAVE_SCORE:
+				Nonogram.saveScore(requestJSON);
+				break;
+			case GET_SCORE_BOARD:
+				NonoUtil.putScoreBoard(responseJSON, Nonogram.getScoreBoard(requestJSON));
+				break;
+			case TEST:
+				responseJSON.put("TEST", request);
+				break;
 			default:
 				throw new UnsupportedOperationException();
 		}
-		
 		return responseJSON;
 	}
 	
 	
 	// When error occurs while processing client request, sends the error to client
-	private static void sendErrorJSON(NonoNetwork network, Exception e) {
+	private static void sendErrorJSON(Network network, Exception e) {
 		try {
 			e.printStackTrace();
 			JSONObject errorJSON = new JSONObject();
@@ -166,46 +147,4 @@ public class NonoServer {
 			ex.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// For testing  TODO: delete later
-	@SuppressWarnings("unused") 
-	private static void testJSON(NonoNetwork network, JSONObject requestJSON) throws JSONException, IOException {
-		System.out.println("Client sent me something!\n");	
-		System.out.println(requestJSON);
-		Integer[][] cArray = NonoUtil.getColorArray(requestJSON);
-		Integer bgColor = NonoUtil.getColor(requestJSON);
-		String name = NonoUtil.getString(requestJSON);
-		NonoPuzzle puzzle = NonoPuzzle.createNonoPuzzle(cArray, bgColor, name);
-		System.out.println("So I made a puzzle out of it!!");
-		System.out.println(puzzle);
-		System.out.println("\n");
-		
-		JSONObject responseJSON = new JSONObject();
-		NonoUtil.putServerResponse(responseJSON, ServerResponse.SUCCESS);
-		NonoUtil.putNonoPuzzle(responseJSON, puzzle);
-
-		network.sendMessage(responseJSON);
-		System.out.println("And I sent it to client!\n");
-		System.out.println("\n\n\n");
-	}
-	// For testing  TODO: delete later
-	@SuppressWarnings("unused") 
-	private static void testSerer(NonoNetwork network) throws IOException, ClassNotFoundException {
-		//String request = network.readMessageString();
-		//System.out.println("Client said: " + request);
-		//network.sendMessage("Hi, Client. I'm server!");
-		
-		//Integer[][] arr = (Integer[][]) network.readMessageObject();
-		//network.sendMessage(NonoPuzzle.createNonoPuzzle(arr, Color.BLACK, "Test"));
-	}
-	
-	
 }

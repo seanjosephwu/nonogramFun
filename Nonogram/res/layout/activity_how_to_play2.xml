@@ -10,20 +10,29 @@
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1.00"
-        android:src="@drawable/htp1" />
+        android:layout_weight="0.99"
+        android:src="@drawable/htp2" />
 
     <Gallery
         android:id="@+id/gallery1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1.00" />
+        android:layout_weight="0.99" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/black" >
+
+        <Button
+            android:id="@+id/prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/button_red"
+            android:onClick="prev"
+            android:text="@string/prev" />
 
         <Button
             android:id="@+id/next"
@@ -44,6 +53,5 @@
             android:onClick="skip"
             android:text="skip" />
     </RelativeLayout>
-
 
 </LinearLayout>

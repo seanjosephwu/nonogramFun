@@ -268,14 +268,16 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					tr.addView(buttons[i][j],50,200);
 				} else {
 					Cell c = (Cell) buttons[i][j];
-					
+					c.setText(Integer.toString(i)+Integer.toString(j));
 		        	if((i % 2 == j % 2)){
 		        		c.setOriginColor(Color.LTGRAY);
 		        		c.setColor(Color.LTGRAY);
+		        		//c.setTextColor(Color.LTGRAY);
 		        	}
 		        	else{
 		        		c.setOriginColor(Color.WHITE);
 		        		c.setColor(Color.WHITE);
+		        		//c.setTextColor(Color.WHITE);
 		        	}
 		        	
 		        	c.setOnClickListener(this);
@@ -312,6 +314,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	
 	public void returnMainScreen(View view) {
 		Intent i = new Intent(this, MainActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 	}
 	
@@ -367,7 +370,17 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					public void onClick(DialogInterface dialog, int which) {
 						// submit score
 						try {
-							NonoClient.saveScore(name, puzzleDifficulty, score);
+							if (dimension == 5){
+								puzzleDifficulty = Difficulty.EASY;
+							} else if (dimension == 10) {
+								puzzleDifficulty = Difficulty.MEDIUM;
+							} else if (dimension == 14) {
+								puzzleDifficulty = Difficulty.HARD;
+							} else {
+								puzzleDifficulty = Difficulty.UNDEFINED;
+							}
+							saveScore(name, score);
+							//NonoClient.saveScore(name, puzzleDifficulty, score);
 						} catch (Exception e) {
 							
 						}
@@ -474,4 +487,44 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		}
 		
 	}
+	
+	
+	private void saveScore(final String name, final int score){
+		Thread thread = new Thread(new Runnable(){
+			@Override
+			public void run() {
+				
+				try {
+					if (dimension == 5){
+						puzzleDifficulty = Difficulty.EASY;
+					} else if (dimension == 10) {
+						puzzleDifficulty = Difficulty.MEDIUM;
+					} else if (dimension == 14) {
+						puzzleDifficulty = Difficulty.HARD;
+					} else {
+						puzzleDifficulty = Difficulty.UNDEFINED;
+					}
+					
+					NonoClient.saveScore(name, puzzleDifficulty, score);
+					
+				} catch (UnknownHostException e) {
+					
+				} catch (IOException e) {
+					
+				} catch (JSONException e) {
+					
+				} catch (Exception e) {
+
+				}
+
+			}
+		});
+		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			
+		}
+	}
+	
 }

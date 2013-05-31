@@ -8,25 +8,12 @@
 
 
 package uw.cse403.nonogramfun.utility;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.nio.BufferUnderflowException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import uw.cse403.nonogramfun.enums.ClientRequest;
-import uw.cse403.nonogramfun.enums.Difficulty;
-import uw.cse403.nonogramfun.enums.ServerResponse;
-import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import java.io.*;
+import java.nio.*;
+import org.json.*;
+import uw.cse403.nonogramfun.enums.*;
+import uw.cse403.nonogramfun.nonogram.*;
+import com.google.gson.*;
 
 
 /**
@@ -42,6 +29,8 @@ public class NonoUtil {
 	public static final String JSON_NONOPUZZLE_TAG = "JSON_NonoPuzzle";
 	public static final String JSON_DIFFICULTY_TAG = "JSON_Difficulty";
 	public static final String JSON_STRING_TAG = "JSON_String";
+	public static final String JSON_INT_TAG = "JSON_Integer";
+	public static final String JSON_SCORE_BOARD_TAG = "JSON_ScoreBoard";
 	private static final Gson JSON = new Gson();
 
 
@@ -107,10 +96,10 @@ public class NonoUtil {
 		ParameterPolice.checkIfNull(byteArray, "Byte Array");
 
 		ByteArrayInputStream biStream = new ByteArrayInputStream(byteArray);
-    ObjectInputStream oiStream = new ObjectInputStream(biStream);
-    Object object = oiStream.readObject();
-    oiStream.close();
-    return object;
+	    ObjectInputStream oiStream = new ObjectInputStream(biStream);
+	    Object object = oiStream.readObject();
+	    oiStream.close();
+	    return object;
 	}
 	
 	/**
@@ -154,9 +143,18 @@ public class NonoUtil {
 		requestJSON.put(JSON_STRING_TAG, NonoUtil.objectToJSON(s));
 	}
 
+	public static void putScore(JSONObject requestJSON, int score) throws JsonSyntaxException, JSONException {
+		requestJSON.put(JSON_INT_TAG, score);
+	}
+	
+	public static void putScoreBoard(JSONObject requestJSON, NonoScoreBoard scoreBoard) throws JsonSyntaxException, JSONException {
+		requestJSON.put(JSON_SCORE_BOARD_TAG, NonoUtil.objectToJSON(scoreBoard));
+	}
+	
 	public static void putObject(JSONObject requestJSON, String key, Object val) throws JSONException {
 		requestJSON.put(key, NonoUtil.objectToJSON(val));
 	}
+	
 	
 	//--Wrapper functions (Getting result from JSON Object)-----------------------------------------------------
 	
@@ -188,6 +186,14 @@ public class NonoUtil {
 		return responseJSON.getString(JSON_STRING_TAG);
 	}
 
+	public static int getScore(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
+		return responseJSON.getInt(JSON_INT_TAG);
+	}
+	
+	public static NonoScoreBoard getScoreBoard(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
+		return JSON.fromJson(responseJSON.getString(JSON_SCORE_BOARD_TAG), NonoScoreBoard.class);
+	}
+	
 	public static StackTraceElement[] getErrorMsg(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
 		return JSON.fromJson(responseJSON.getString(JSON_ERROR_MSG_TAG), StackTraceElement[].class);
 	}

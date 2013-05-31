@@ -9,8 +9,7 @@
 package uw.cse403.nonogramfun.enums;
 
 /**
- * 
- *
+ * A simple enum that represents types of sever responses.
  */
 public enum ServerResponse {
 	SUCCESS, ERROR;

@@ -8,7 +8,6 @@
 
 
 package uw.cse403.nonogramfun.enums;
-
 import java.io.Serializable;
 
 
@@ -20,7 +19,7 @@ import java.io.Serializable;
  */
 public enum Difficulty implements Serializable {
 	
-	EASY(5, 6, "Easy"), MEDIUM(10, 11, "Medium"), HARD(14, 15, "Hard"), 
+	EASY(5, 10, "Easy"), MEDIUM(10, 14, "Medium"), HARD(14, 50, "Hard"), 
 	INSANE(50, 100, "Insane"), UNDEFINED(5, 100, "Undefined"), INVALID(5, 100, "Invalid");
 
 	private final int minDim;  // Minimum dimension of this difficulty

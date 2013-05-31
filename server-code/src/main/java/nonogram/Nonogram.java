@@ -8,13 +8,10 @@
 
 
 package uw.cse403.nonogramfun.nonogram;
-import java.util.List;
-
+import java.util.*;
 import org.json.JSONObject;
-
 import uw.cse403.nonogramfun.enums.Difficulty;
-import uw.cse403.nonogramfun.utility.NonoUtil;
-import uw.cse403.nonogramfun.utility.ParameterPolice;
+import uw.cse403.nonogramfun.utility.*;
 
 
 /**
@@ -46,8 +43,10 @@ public class Nonogram {
 		NonoDatabase.savePuzzle(puzzle);
 	}
 	
+	
 	/**
-	 * Accepts a JSON Object containing client request for getting a puzzle with given difficulty.
+	 * Accepts a JSON Object containing client request for getting a puzzle with given difficulty
+	 * and returns a randomly chosen puzzle with the given difficulty.
 	 * @param requestJSON A JSON Object containing client request for getting a puzzle
 	 * @return A randomly chosen NonoPuzzle that has requested difficulty 
 	 * @throws Exception if given JSON object is not valid or any error in getting puzzle.
@@ -61,5 +60,33 @@ public class Nonogram {
 		int puzzleID = puzzleIDList.get(index);
 		return NonoDatabase.getPuzzle(puzzleID);
 	}
+	
+	
+	/**
+	 * A JSON Object containing client request for saving the score, and saves it into the score board.
+	 * @param requestJSON A JSON Object containing client request for saving the score.
+	 * @throws Exception if given JSON object is not valid or any error in saving the score.
+	 */
+	public static void saveScore(JSONObject requestJSON) throws Exception {
+		ParameterPolice.checkIfNull(requestJSON, "JSON Object");
+		
+		String playerName = NonoUtil.getString(requestJSON);
+		Difficulty difficulty = NonoUtil.getDifficulty(requestJSON);
+		int score = NonoUtil.getScore(requestJSON);
+		NonoDatabase.saveScore(playerName, difficulty, score);
+	}
 
+	
+	/**
+	 * Returns a NonoScoreBoard that represents score board of the games with given difficulty.
+	 * @param requestJSON A JSON Object containing client request for getting a score board.
+	 * @return NonoScoreBoard that represents score board of the games with given difficulty.
+	 * @throws Exception if given JSON object is not valid or any error in getting the score board.
+	 */
+	public static NonoScoreBoard getScoreBoard(JSONObject requestJSON) throws Exception {
+		ParameterPolice.checkIfNull(requestJSON, "JSON Object");
+		
+		Difficulty difficulty = NonoUtil.getDifficulty(requestJSON);
+		return NonoDatabase.getScoreBoard(difficulty);
+	}
 }
