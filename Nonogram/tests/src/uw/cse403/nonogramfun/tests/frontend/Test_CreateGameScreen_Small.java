@@ -2,17 +2,11 @@ package uw.cse403.nonogramfun.tests.frontend;
 
 import com.jayway.android.robotium.solo.Solo;
 
-import uw.cse403.nonogramfun.CreateGameMenu;
 import uw.cse403.nonogramfun.CreateGameScreen;
-import android.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TableRow;
-
-import com.jayway.android.robotium.solo.Solo;
 
 public class Test_CreateGameScreen_Small extends ActivityInstrumentationTestCase2<CreateGameScreen> {
 	private Activity activity;
@@ -27,6 +21,7 @@ public class Test_CreateGameScreen_Small extends ActivityInstrumentationTestCase
 		super.setUp();
 		Intent i = new Intent();
 		i.putExtra("size", SIZE_SMALL);
+		i.putExtra("test", true);
 		setActivityIntent(i);
 		activity = getActivity();
 		solo = new Solo(getInstrumentation(),activity);

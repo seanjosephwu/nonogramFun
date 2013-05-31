@@ -33,18 +33,21 @@ public class PlayGameMenu extends Activity {
 	public void PlayGameSmallScreen(View view) {
 		Intent i = new Intent(this, PlayGameScreen.class);
 		i.putExtra("size", 5);
+		i.putExtra("test", false);
 		startActivity(i);
 	}
 
 	public void PlayGameMediumScreen(View view) {
 		Intent i = new Intent(this, PlayGameScreen.class);
 		i.putExtra("size", 10);
+		i.putExtra("test", false);
 		startActivity(i);
 	}
 
 	public void PlayGameLargeScreen(View view) {
 		Intent i = new Intent(this, PlayGameScreen.class);
 		i.putExtra("size", 14);
+		i.putExtra("test", false);
 		startActivity(i);
 	}
 	

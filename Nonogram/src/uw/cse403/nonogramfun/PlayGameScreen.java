@@ -54,6 +54,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	Runnable timerRun;
 	boolean stopTimer = false;
 	Difficulty puzzleDifficulty;
+	private boolean test;
 	
 	// IMPORTANT: X and Y axis are FLIPPED in both gameArray and buttons[][].
 	// For debugging purpose, given buttons[x][y], x denotes the ROW NUMBER, y denotes the COLUMN number
@@ -65,8 +66,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		
 		Bundle bundle = getIntent().getExtras();
 		dimension = bundle.getInt("size");
-		gameArray = new Integer[dimension][dimension];
-		
+		test = bundle.getBoolean("test");
 		if(dimension == 5){
 			setTitle("Small (5x5)");
 		}else if(dimension == 10){
@@ -75,13 +75,14 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			setTitle("Large (14x14");
 		}
 		
+		gameArray = new Integer[dimension][dimension];
+		
 		fetchPuzzle();
 		parseGameRow();
 		parseGameColumn();
 		
 		TableLayout layout = new TableLayout (this);
 		layout.setLayoutParams( new TableLayout.LayoutParams());
-		//layout.setPadding(50,50,50,50);
 		
 		//timer 
 		starttime = System.currentTimeMillis();
@@ -110,11 +111,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		hintButton.setOnClickListener(new HintButtonListener()); 
 		
 		Button submitButton = (Button) findViewById(R.id.playgamesubmit);
-		
 		submitButton.setOnClickListener(new SubmitButtonListener()); 
-		
-//		editText = (EditText)findViewById(R.id.search);
-//		editText.setVisibility(View.INVISIBLE);
 		
 		timerRun.run();
 	}
@@ -268,16 +265,17 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					tr.addView(buttons[i][j],50,200);
 				} else {
 					Cell c = (Cell) buttons[i][j];
-					c.setText(Integer.toString(i)+Integer.toString(j));
+					if (test){
+		        		//test scenario
+						c.setText(Integer.toString(i)+Integer.toString(j));
+					}
 		        	if((i % 2 == j % 2)){
 		        		c.setOriginColor(Color.LTGRAY);
 		        		c.setColor(Color.LTGRAY);
-		        		//c.setTextColor(Color.LTGRAY);
 		        	}
 		        	else{
 		        		c.setOriginColor(Color.WHITE);
 		        		c.setColor(Color.WHITE);
-		        		//c.setTextColor(Color.WHITE);
 		        	}
 		        	
 		        	c.setOnClickListener(this);
