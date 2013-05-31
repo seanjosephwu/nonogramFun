@@ -9,22 +9,24 @@ import android.app.Activity;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableRow;
 
 import com.jayway.android.robotium.solo.Solo;
 
-public class Test_CreateGameScreen extends ActivityInstrumentationTestCase2<CreateGameScreen> {
+public class Test_CreateGameScreen_Small extends ActivityInstrumentationTestCase2<CreateGameScreen> {
 	private Activity activity;
 	private Solo solo;
+	final int SIZE_SMALL = 5;
 	
-	public Test_CreateGameScreen() {
+	public Test_CreateGameScreen_Small() {
 		super(CreateGameScreen.class);
 	}
 
 	protected void setUp() throws Exception {
 		super.setUp();
 		Intent i = new Intent();
-		i.putExtra("size", 5);
+		i.putExtra("size", SIZE_SMALL);
 		setActivityIntent(i);
 		activity = getActivity();
 		solo = new Solo(getInstrumentation(),activity);
@@ -34,10 +36,25 @@ public class Test_CreateGameScreen extends ActivityInstrumentationTestCase2<Crea
 		super.tearDown();
 	}
 
+	/*
+	 * White Box Tests
+	 * Test if the gameboard buttons are all created in the view, and if clicking the
+	 * buttons will mark the buttons
+	 */
 	public void testViewsCreated(){
 		solo.assertCurrentActivity("Not CreateGameScreen", CreateGameScreen.class);
-		//TableRow tr1 = (TableRow)activity.findViewById(uw.cse403.nonogramfun.R.id.tableRow1);
-		//assertNotNull(tr1);
+		String text;
+		for(int i = 0; i < SIZE_SMALL; i++){
+			for (int j = 0; j < SIZE_SMALL; j++){
+				
+				text = Integer.toString(i)+Integer.toString(j);
+				assertEquals(true, solo.searchButton(text));
+				
+				Button button = solo.getButton(text);
+				solo.clickOnButton(text);
+				assertEquals("X", button.getText());
+			}
+		}
 	}
 	
 	public void testSubmitButton(){
