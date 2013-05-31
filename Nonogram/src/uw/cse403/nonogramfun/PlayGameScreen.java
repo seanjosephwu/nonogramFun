@@ -93,11 +93,11 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				timeHasPassed();
 			}
 	    };
-	   	timedisplay = new TextView(this);
+	   	timedisplay = (TextView) findViewById(R.id.timer);
 	   	timedisplay.setText("0:00");
 	   	timedisplay.setTextSize(30);
 	   	timedisplay.setTextColor(Color.BLUE);
-		layout.addView(timedisplay);
+		//layout.addView(timedisplay);
 		
 		// dimension + 1 for the number field at the top and left sides
 		buttons = new View[dimension + 1][dimension + 1];
@@ -359,7 +359,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			if (answer) {
 				input.setVisibility(View.VISIBLE);
 				final String name = input.getText().toString();
-				
 				// get the time in second, as for score
 				String time = (String) timedisplay.getText();
 				String[] splitTime = time.split(":");
@@ -368,25 +367,43 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				
 				alertDialog.setButton(-2, "Yes", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						// submit score
-						try {
-							if (dimension == 5){
-								puzzleDifficulty = Difficulty.EASY;
-							} else if (dimension == 10) {
-								puzzleDifficulty = Difficulty.MEDIUM;
-							} else if (dimension == 14) {
-								puzzleDifficulty = Difficulty.HARD;
+						if (name.length() == 0 || name.length() >= 20) {
+							final AlertDialog invalidName = new AlertDialog.Builder(v.getContext()).create();
+							invalidName.setButton(-1, "OK", new DialogInterface.OnClickListener() {						
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									// TODO Auto-generated method stub
+									
+								}
+							});
+							invalidName.setTitle("Error");
+							if (name.length() == 0) {
+								invalidName.setMessage("Name cannot be empty");
 							} else {
-								puzzleDifficulty = Difficulty.UNDEFINED;
+								invalidName.setMessage("Name cannot be longer than 20 characters");
 							}
-							saveScore(name, score);
-							//NonoClient.saveScore(name, puzzleDifficulty, score);
-						} catch (Exception e) {
+							invalidName.show();
+						} else {
+							// submit score
+							try {
+								if (dimension == 5){
+									puzzleDifficulty = Difficulty.EASY;
+								} else if (dimension == 10) {
+									puzzleDifficulty = Difficulty.MEDIUM;
+								} else if (dimension == 14) {
+									puzzleDifficulty = Difficulty.HARD;
+								} else {
+									puzzleDifficulty = Difficulty.UNDEFINED;
+								}
+								saveScore(name, score);
+								//NonoClient.saveScore(name, puzzleDifficulty, score);
+							} catch (Exception e) {
+								
+							}
+							// dialog: show score submitted
 							
+							returnMainScreen(v);
 						}
-						// dialog: show score submitted
-						
-						returnMainScreen(v);
 					}
 				});
 				alertDialog.setButton(-1, "No", new DialogInterface.OnClickListener() {

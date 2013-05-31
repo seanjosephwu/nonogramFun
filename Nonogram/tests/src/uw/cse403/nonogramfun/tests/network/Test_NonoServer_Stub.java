@@ -1,3 +1,4 @@
+package uw.cse403.nonogramfun.tests.network;
 /**
  * CSE 403 AA
  * Project Nonogram: Backend
