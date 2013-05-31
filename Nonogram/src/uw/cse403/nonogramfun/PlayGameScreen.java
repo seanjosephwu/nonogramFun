@@ -418,6 +418,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					public void onClick(DialogInterface dialog, int which) {
 						alertDialog.cancel();
 						returnMainScreen(v);
+						// Don't do anything. Just close the dialogue box
 					}
 				});
 			}
