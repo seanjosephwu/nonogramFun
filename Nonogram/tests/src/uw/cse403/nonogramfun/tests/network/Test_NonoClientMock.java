@@ -29,10 +29,8 @@ import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 import uw.cse403.nonogramfun.utility.NonoUtil;
 
 
-//public class Test_NonoClientMock extends TestCase {
-
-public class Test_NonoClientMock {
-
+public class Test_NonoClientMock extends TestCase {
+	
 	private static final Difficulty EASY = Difficulty.EASY;
 	private static final Integer BLACK = -16777216;
 	private static final Integer WHITE = -1;
@@ -45,7 +43,7 @@ public class Test_NonoClientMock {
 	private static final String EXP_NAME_1 = "Ice Cream";
 	private static final NonoPuzzle PUZZLE_1 = NonoPuzzle.createNonoPuzzle(EXP_ARR_1, EXP_BG_COLOR_1, EXP_NAME_1);
 	private NonoNetwork mockNetwork;
-	
+/*	
 	@Before
 	public void setUp() {
 		mockNetwork = createNiceMock(NonoNetwork.class);
@@ -56,7 +54,7 @@ public class Test_NonoClientMock {
 	public void cleanUp() {
 		NonoClient.setNetwork(null);
 	}
-	
+
 	@Test
 	public void test_createPuzzle() {
 		JSONObject requestJSON = new JSONObject();
@@ -124,4 +122,5 @@ public class Test_NonoClientMock {
 			fail(e.getLocalizedMessage());
 		}
 	}
+  */
 }

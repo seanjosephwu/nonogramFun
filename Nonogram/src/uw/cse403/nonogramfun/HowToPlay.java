@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class HowToPlay extends Activity {
 	@Override
@@ -24,12 +27,12 @@ public class HowToPlay extends Activity {
 		setTitle("How To Play");
 	}
 	 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-        	// Inflate the menu; this adds items to the action bar if it is present.
-        	getMenuInflater().inflate(R.menu.main, menu);
-        	return true;
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 	
 	public void next(View view) {
 		Intent i = new Intent(this, HowTwoPlay2.class);
@@ -37,7 +40,7 @@ public class HowToPlay extends Activity {
 	}
 	
 	public void skip(View view) {
-		Intent i = new Intent(this, PlayGameMenu.class);
+		Intent i = new Intent(this, MainActivity.class);
 		startActivity(i);
 	}
 }
