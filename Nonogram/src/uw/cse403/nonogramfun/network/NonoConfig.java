@@ -20,8 +20,8 @@ import uw.cse403.nonogramfun.utility.ParameterPolice;
  * and NonoNetwork object with default configuration.
  */
 public class NonoConfig {
-	//public static final String SERVER_NAME = "cubist.cs.washington.edu";
-	public static final String SERVER_NAME = "localhost";  // For testing 
+	public static final String SERVER_NAME = "cubist.cs.washington.edu";
+	//public static final String SERVER_NAME = "localhost";  // For testing 
 	public static final int BASE_PORT = 1027;
 	public static final int MAX_PORT = 10;
 	public static final int SOCKET_TIMEOUT = 5000;
