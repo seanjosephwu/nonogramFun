@@ -42,7 +42,7 @@ public class Test_CreateGameScreen_Small extends ActivityInstrumentationTestCase
 		for(int i = 0; i < SIZE_SMALL; i++){
 			for (int j = 0; j < SIZE_SMALL; j++){
 				
-				text = Integer.toString(i)+Integer.toString(j);
+				text = Integer.toString(i)+""+Integer.toString(j);
 				assertEquals(true, solo.searchButton(text));
 				
 				Button button = solo.getButton(text);
