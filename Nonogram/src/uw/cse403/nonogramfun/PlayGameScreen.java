@@ -412,7 +412,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			} else {
 				alertDialog.setButton(-3, "Okay", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						returnMainScreen(v);
+						// Don't do anything. Just close the dialogue box
 					}
 				});
 			}
