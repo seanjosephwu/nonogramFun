@@ -8,18 +8,11 @@
 
 
 package uw.cse403.nonogramfun.network;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.net.SocketException;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.*;
+import java.net.*;
+import org.json.*;
 import uw.cse403.nonogramfun.utility.NonoUtil;
 import uw.cse403.nonogramfun.utility.ParameterPolice;
-
 
 
 /**
@@ -27,7 +20,7 @@ import uw.cse403.nonogramfun.utility.ParameterPolice;
  * It sends and receives a message over an established TCP connection, and provides
  * methods for easy client - server communication.
  */
-public class NonoNetwork {
+public class NonoNetwork implements Network {
 	private static final int LENGTH_BYTE = 4;
 	private Socket tcpSocket;
 	private OutputStream outStrm;
@@ -124,7 +117,7 @@ public class NonoNetwork {
 	
 	
 	// Reads incoming message into a byte array
-	public byte[] readMessageBytes() throws IOException {
+	private byte[] readMessageBytes() throws IOException {
 	
 		// 1. Read the length field
 		byte[] lenBuf = new byte[LENGTH_BYTE];

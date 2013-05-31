@@ -9,9 +9,7 @@
 
 package uw.cse403.nonogramfun.network;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 
 import uw.cse403.nonogramfun.utility.ParameterPolice;
 
@@ -22,9 +20,10 @@ import uw.cse403.nonogramfun.utility.ParameterPolice;
  * and NonoNetwork object with default configuration.
  */
 public class NonoConfig {
-	public static final String SERVER_NAME = "cubist.cs.washington.edu";
-	//public static final String SERVER_NAME = "localhost";
+	//public static final String SERVER_NAME = "cubist.cs.washington.edu";
+	public static final String SERVER_NAME = "localhost";  // For testing 
 	public static final int BASE_PORT = 1027;
+	public static final int MAX_PORT = 10;
 	public static final int SOCKET_TIMEOUT = 5000;
 	public static final int MAX_READ_LENGTH = 1234567;
 
@@ -35,11 +34,30 @@ public class NonoConfig {
 	
 	/**
 	 * Returns a NonoNetwork object with default configuration for client - server communication.
+	 * MockNet is for mock testing. If given mockNet is not null, return itself. else return new NonoNetwork.
 	 * @return A NonoNetwork object with default configuration (Default server IP & port)
 	 * @throws IOException if there is an error in the underlying protocol, such as a TCP error.
 	 */
-	public static NonoNetwork getNonoNetwork(int port) throws IOException {
-		return new NonoNetwork(new Socket(getServerIP(), BASE_PORT + port));
+	public static NonoNetwork getNonoNetwork(int port, NonoNetwork mockNet) throws IOException {
+		if(mockNet != null) {
+			return mockNet;
+		}else{
+			return new NonoNetwork(new Socket(getServerIP(), BASE_PORT + port));
+		}
+	}
+	
+	/**
+	 * Returns a Network object for server side. The boolean stub is for stub testing.
+	 * If stub is true, return a stub (fake) network. else return new NonoNetwork.
+	 * @return A Network object used at the server side.
+	 * @throws IOException if there is an error in the underlying protocol, such as a TCP error.
+	 */
+	public static Network getNetwork(Socket sock, boolean stub) throws IOException {
+		if(stub) {
+			return new NetworkStub();
+		}else{
+			return new NonoNetwork(sock);
+		}
 	}
 	
 	/**
@@ -69,5 +87,4 @@ public class NonoConfig {
 		}
 		return inetAddress.getHostAddress();
 	}
-
 }

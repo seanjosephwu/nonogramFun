@@ -22,12 +22,12 @@ public class HowToPlay3 extends Activity {
 	}
 
 	public void next(View view) {
-		Intent i = new Intent(this, PlayGameMenu.class);
+		Intent i = new Intent(this, MainActivity.class);
 		startActivity(i);
 	}
 	
 	public void prev(View view) {
-		Intent i = new Intent(this, HowToPlay.class);
+		Intent i = new Intent(this, HowToPlay2.class);
 		startActivity(i);
 	}
 }

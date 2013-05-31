@@ -8,13 +8,9 @@
  */
 
 package uw.cse403.nonogramfun.tests.nonogram;
-
 import java.util.List;
-
 import junit.framework.TestCase;
-
 import org.junit.Test;
-
 import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.nonogram.NonoDatabase;
 import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
@@ -57,7 +53,6 @@ public class Test_NonoDatabase extends TestCase {
 				assert(puzzle != null);
 				assert(puzzle.getPuzzleID() == id);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

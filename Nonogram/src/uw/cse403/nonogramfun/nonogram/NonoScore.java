@@ -12,8 +12,9 @@ import java.io.Serializable;
 
 
 /**
- * 
- *
+ * NonoScore class represents a score for a Nonogram game.
+ * It is a tiny struct like class that holds playerName, difficulty of
+ * the game the player accomplished, and the score of the game together.
  */
 public class NonoScore implements Serializable, Comparable<NonoScore> {
 	private static final long serialVersionUID = 1L;
@@ -21,6 +22,9 @@ public class NonoScore implements Serializable, Comparable<NonoScore> {
 	public String difficulty;
 	public int score;
 	
+	/**
+	 * Constructs a new NonoScore object
+	 */
 	public NonoScore(String playerName, String difficulty, int score) {
 		this.playerName = playerName;
 		this.difficulty = difficulty;
@@ -35,8 +39,11 @@ public class NonoScore implements Serializable, Comparable<NonoScore> {
 		else 
 			return 0;
 	}
-	
-	public String toString(){
-		return playerName+difficulty+Integer.toString(score);
+
+	/**
+	 * Returns a string representation of NonoScore
+	 */
+	public String toString() {
+		return playerName + " (" + difficulty + "): " + score; 
 	}
 }
