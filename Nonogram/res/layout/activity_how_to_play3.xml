@@ -6,27 +6,21 @@
     android:gravity="bottom"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.01"
-        android:ems="1"
-        android:clickable="false" 
-        android:cursorVisible="false" 
-        android:focusable="false" 
-        android:focusableInTouchMode="false"
-        android:text="The numbers are a form of discrete tomography--measures how many unbroken lines of filled-in cells there are in any given row or column" />
+    <requestFocus
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
 
-        <requestFocus
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+    <Gallery
+        android:id="@+id/gallery1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.92" />
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/screenshot2" />
+        android:src="@drawable/htp3" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
@@ -50,7 +44,7 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/button_red"
             android:onClick="next"
-            android:text="@string/play" />
+            android:text="done" />
     </RelativeLayout>
 
 </LinearLayout>
