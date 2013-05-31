@@ -31,8 +31,9 @@ public final class R {
         public static final int ic_launcher=0x7f020007;
         public static final int main_background=0x7f020008;
         public static final int nonogram_bg=0x7f020009;
-        public static final int screenshot=0x7f02000a;
-        public static final int screenshot2=0x7f02000b;
+        public static final int nonogram_bg2=0x7f02000a;
+        public static final int screenshot=0x7f02000b;
+        public static final int screenshot2=0x7f02000c;
     }
     public static final class id {
         public static final int action_settings=0x7f09002c;
@@ -91,8 +92,9 @@ public final class R {
         public static final int activity_play_game_screen=0x7f030006;
         public static final int how_to_play=0x7f030007;
         public static final int scoreboard_layout=0x7f030008;
-        public static final int scoreboard_screen=0x7f030009;
-        public static final int settings=0x7f03000a;
+        public static final int scoreboard_menu=0x7f030009;
+        public static final int scoreboard_screen=0x7f03000a;
+        public static final int settings=0x7f03000b;
     }
     public static final class menu {
         public static final int create_game_menu=0x7f080000;
@@ -110,6 +112,8 @@ public final class R {
         public static final int access_button=0x7f060004;
         public static final int access_database=0x7f060003;
         public static final int action_settings=0x7f060001;
+        public static final int activity_scoreboard_menu=0x7f060019;
+        public static final int activity_scoreboard_screen=0x7f06001a;
         public static final int app_name=0x7f060000;
         public static final int creategame_button=0x7f060005;
         public static final int hello_world=0x7f060002;
@@ -124,6 +128,9 @@ public final class R {
         public static final int scoreboard_acknowledgement=0x7f06000e;
         public static final int scoreboard_button=0x7f060009;
         public static final int settings_button=0x7f060008;
+        public static final int show_large_scoreboard=0x7f06001d;
+        public static final int show_medium_scoreboard=0x7f06001c;
+        public static final int show_small_scoreboard=0x7f06001b;
         public static final int small_button=0x7f060014;
         public static final int submit_button=0x7f060017;
         public static final int title_activity_create_game_menu=0x7f06000a;

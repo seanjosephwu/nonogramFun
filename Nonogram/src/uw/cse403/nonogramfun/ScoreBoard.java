@@ -2,7 +2,10 @@ package uw.cse403.nonogramfun;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.PriorityQueue;
 
 import org.json.JSONException;
 
@@ -17,9 +20,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
+/*
 public class ScoreBoard extends Activity {
 	NonoScoreBoard nonoScoreBoard;
+	List<NonoScore> nonoScores = new ArrayList<NonoScore>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +57,35 @@ public class ScoreBoard extends Activity {
 		try {
 			getScore();
 		    if(nonoScoreBoard != null){
-		    	/*
+				Iterator<NonoScore> scoreIter = nonoScoreBoard.getIterator();
+				while(scoreIter.hasNext()) {
+					NonoScore next = scoreIter.next();
+					//System.out.println("Small add nonoScore to arraylist");
+					//Log.i("scoreSmall", next.difficulty);
+					//Log.i("scoreSmall", next.playerName);
+					//Log.i("scoreSmall", String.valueOf(next.score));
+					nonoScores.add(next);
+					//System.out.println(next);
+				}
 		    	PriorityQueue<NonoScore> queue = new PriorityQueue<NonoScore>(nonoScores.size());
 		    	for(int i = 0; i < nonoScores.size(); i++){
 		    		queue.add(nonoScores.get(i));
 		    	}
 		    	
-		    	for(int i = 0; i < 3; i++){
+		    	for(int i = 0; i < 10; i++){
 		    		//remove the one with the least score(in seconds) 
 		    		NonoScore ns = queue.remove();
 		    		String viewIdName = "rank_name" + i;
-		    		int resID_1 = getResources().getIdentifier(viewIdName, "id", null);
+		    		//int resID_1 = getResources().getIdentifier(viewIdName, "id", null);
+		    		int resID_1 = getResources().getIdentifier(getPackageName()+"id/"+viewIdName, null, null);
+		    		System.out.println("resID_1 = " + resID_1);
+		    		//TextView tv1 = (TextView) this.findViewById(resID_1);
+		    		System.out.println("R.id.rank_name1 = " + R.id.rank_name1);
 		    		TextView tv1 = (TextView) this.findViewById(resID_1);
+		    		if(tv1 == null){
+		    			System.out.println("tv1 is null");
+		    		}
+		    		System.out.println("playerName = " + ns.playerName);
 		    		tv1.setText(ns.playerName);
 		    		
 		    		String viewIdScore = "rank_score" + i;
@@ -71,9 +94,11 @@ public class ScoreBoard extends Activity {
 		    		int score = ns.score;
 		    		int min = score / 60;
 		    		int sec = score % 60;
-		    		tv2.setText(min + ";" + sec);
+		    		System.out.println("min = " + min);
+		    		System.out.println("sec = " + sec);
+		    		//tv2.setText(min + ";" + sec);
 		    	}
-		    	*/
+		    	
 		    	Log.i("done", "");
 		}
 		} catch (Exception e) {
@@ -97,7 +122,7 @@ public class ScoreBoard extends Activity {
 		try {
 			nonoScoreBoard = NonoClient.getScoreBoard(Difficulty.MEDIUM);
 		    if(nonoScoreBoard != null){
-		    /*
+		    
 		    	PriorityQueue<NonoScore> queue = new PriorityQueue<NonoScore>(nonoScores.size());
 		    	for(int i = 0; i < nonoScores.size(); i++){
 		    		queue.add(nonoScores.get(i));
@@ -119,7 +144,7 @@ public class ScoreBoard extends Activity {
 		    		int sec = score % 60;
 		    		tv2.setText(min + ";" + sec);
 		    	}
-		    	*/
+		    	
 		    }
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,7 +167,7 @@ public class ScoreBoard extends Activity {
 		try {
 			getScore();
 		    if(nonoScoreBoard != null){
-		    	/*
+		    	
 		    	PriorityQueue<NonoScore> queue = new PriorityQueue<NonoScore>(nonoScores.size());
 		    	for(int i = 0; i < nonoScores.size(); i++){
 		    		queue.add(nonoScores.get(i));
@@ -164,7 +189,7 @@ public class ScoreBoard extends Activity {
 		    		int sec = score % 60;
 		    		tv2.setText(min + ";" + sec);
 		    	}
-		    	*/
+		    	
 		    }
 		    
 		} catch (Exception e) {
@@ -179,17 +204,15 @@ public class ScoreBoard extends Activity {
 			public void run() {
 				
 				try {
-					Log.i("getScoreBoard", "start");
 					nonoScoreBoard = NonoClient.getScoreBoard(Difficulty.EASY);
-					Log.i("getScoreBoard", "end");
-					Log.i("getScoreBoard", nonoScoreBoard.toString());
-					//***printing to console
+					
+					
 					Iterator<NonoScore> scoreIter = nonoScoreBoard.getIterator();
 					while(scoreIter.hasNext()) {
 						NonoScore next = scoreIter.next();
-						Log.i("scoreSmall", next.difficulty);
-						Log.i("scoreSmall", next.playerName);
-						Log.i("scoreSmall", String.valueOf(next.score));
+						//Log.i("scoreSmall", next.difficulty);
+						//Log.i("scoreSmall", next.playerName);
+						//Log.i("scoreSmall", String.valueOf(next.score));
 					}
 				} catch (UnknownHostException e) {
 					
@@ -210,4 +233,4 @@ public class ScoreBoard extends Activity {
 			
 		}
 	}
-}
+}*/

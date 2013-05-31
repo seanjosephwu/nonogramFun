@@ -31,6 +31,12 @@ public class NonoScore implements Serializable, Comparable<NonoScore> {
 		this.score = score;
 	}
 	
+	/**
+	 * Compare NonoScore y score
+	 * return -1 is this NonoScore is less than other
+	 * return 0 for equal
+	 * return 1 for greater
+	 */
 	public int compareTo(NonoScore other){
 		if (other.score > this.score)
 			return -1;
@@ -44,6 +50,6 @@ public class NonoScore implements Serializable, Comparable<NonoScore> {
 	 * Returns a string representation of NonoScore
 	 */
 	public String toString() {
-		return playerName + " (" + difficulty + "): " + score; 
+		return playerName + "**" + difficulty + "**" + score; 
 	}
 }
