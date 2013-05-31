@@ -358,7 +358,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			input.setVisibility(View.INVISIBLE);
 			if (answer) {
 				input.setVisibility(View.VISIBLE);
-				final String name = input.getText().toString();
 				// get the time in second, as for score
 				String time = (String) timedisplay.getText();
 				String[] splitTime = time.split(":");
@@ -367,12 +366,13 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				
 				alertDialog.setButton(-2, "Yes", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
+						final String name = input.getText().toString();
 						if (name.length() == 0 || name.length() >= 20) {
 							final AlertDialog invalidName = new AlertDialog.Builder(v.getContext()).create();
 							invalidName.setButton(-1, "OK", new DialogInterface.OnClickListener() {						
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
-									// TODO Auto-generated method stub
+									invalidName.cancel();
 									
 								}
 							});
@@ -396,24 +396,27 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 									puzzleDifficulty = Difficulty.UNDEFINED;
 								}
 								saveScore(name, score, v);
+								showDialog("Success", "Upload the score", v);
 								//NonoClient.saveScore(name, puzzleDifficulty, score);
 							} catch (Exception e) {
 								
 							}
 							// dialog: show score submitted
 							
-							returnMainScreen(v);
+//							returnMainScreen(v);
 						}
 					}
 				});
 				alertDialog.setButton(-1, "No", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
+						alertDialog.cancel();
 						returnMainScreen(v);
 					}
 				});
 			} else {
 				alertDialog.setButton(-3, "Okay", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
+						alertDialog.cancel();
 						returnMainScreen(v);
 					}
 				});
@@ -512,17 +515,13 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			public void run() {
 				
 				try {
-//					if (dimension == 5){
-//						puzzleDifficulty = Difficulty.EASY;
-//					} else if (dimension == 10) {
-//						puzzleDifficulty = Difficulty.MEDIUM;
-//					} else if (dimension == 14) {
-//						puzzleDifficulty = Difficulty.HARD;
-//					} else {
-//						puzzleDifficulty = Difficulty.UNDEFINED;
-//					}
 					NonoClient.saveScore(name, puzzleDifficulty, score);
-					showDialog("Success", "Upload the score", v);		
+//					runOnUiThread(new Runnable() {
+//						@Override
+//						public void run() {
+//							showDialog("Success", "Upload the score", v);
+//						}
+//					});
 				} catch (UnknownHostException e) {
 					showDialog("Error", "Error in connection", v);
 				} catch (IOException e) {
@@ -544,17 +543,18 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	}
 	
 	private void showDialog(String title, String message, final View v) {
-		final AlertDialog submmitScore = new AlertDialog.Builder(v.getContext()).create();
-		submmitScore.setButton(-1, "OK", new DialogInterface.OnClickListener() {						
+		final AlertDialog uploadScore = new AlertDialog.Builder(v.getContext()).create();
+		uploadScore.setButton(-1, "OK", new DialogInterface.OnClickListener() {						
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
+				uploadScore.cancel();
 				
 			}
 		});
-		submmitScore.setTitle("title");
-		submmitScore.setMessage("message");
-		submmitScore.show();
+		uploadScore.setTitle(title);
+		uploadScore.setMessage(message);
+		uploadScore.show();
 	}
 	
 }
