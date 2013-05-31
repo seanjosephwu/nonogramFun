@@ -30,6 +30,7 @@ import uw.cse403.nonogramfun.utility.NonoUtil;
 
 
 public class Test_NonoClientMock extends TestCase {
+	
 	private static final Difficulty EASY = Difficulty.EASY;
 	private static final Integer BLACK = -16777216;
 	private static final Integer WHITE = -1;
