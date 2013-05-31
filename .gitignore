@@ -5,4 +5,5 @@
 *.dex
 *.ap_
 .classpath
+jarlist.cache
 dexedLibs
