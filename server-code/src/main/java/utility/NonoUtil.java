@@ -8,27 +8,12 @@
 
 
 package uw.cse403.nonogramfun.utility;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.nio.BufferUnderflowException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import uw.cse403.nonogramfun.enums.ClientRequest;
-import uw.cse403.nonogramfun.enums.Difficulty;
-import uw.cse403.nonogramfun.enums.ServerResponse;
-import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
-import uw.cse403.nonogramfun.nonogram.NonoScore;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import java.io.*;
+import java.nio.*;
+import org.json.*;
+import uw.cse403.nonogramfun.enums.*;
+import uw.cse403.nonogramfun.nonogram.*;
+import com.google.gson.*;
 
 
 /**
@@ -162,7 +147,7 @@ public class NonoUtil {
 		requestJSON.put(JSON_INT_TAG, score);
 	}
 	
-	public static void putScoreBoard(JSONObject requestJSON, List<NonoScore> scoreBoard) throws JsonSyntaxException, JSONException {
+	public static void putScoreBoard(JSONObject requestJSON, NonoScoreBoard scoreBoard) throws JsonSyntaxException, JSONException {
 		requestJSON.put(JSON_SCORE_BOARD_TAG, NonoUtil.objectToJSON(scoreBoard));
 	}
 	
@@ -205,9 +190,8 @@ public class NonoUtil {
 		return responseJSON.getInt(JSON_INT_TAG);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public static List<NonoScore> getScoreBoard(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
-		return (List<NonoScore>) JSON.fromJson(responseJSON.getString(JSON_SCORE_BOARD_TAG), List.class);
+	public static NonoScoreBoard getScoreBoard(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
+		return JSON.fromJson(responseJSON.getString(JSON_SCORE_BOARD_TAG), NonoScoreBoard.class);
 	}
 	
 	public static StackTraceElement[] getErrorMsg(JSONObject responseJSON) throws JsonSyntaxException, JSONException {
