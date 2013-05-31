@@ -5,5 +5,5 @@
 *.dex
 *.ap_
 .classpath
-*.cache
+R.java
 dexedLibs
