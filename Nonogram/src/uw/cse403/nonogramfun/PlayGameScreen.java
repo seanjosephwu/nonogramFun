@@ -395,7 +395,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 								} else {
 									puzzleDifficulty = Difficulty.UNDEFINED;
 								}
-								saveScore(name, score);
+								saveScore(name, score, v);
 								//NonoClient.saveScore(name, puzzleDifficulty, score);
 							} catch (Exception e) {
 								
@@ -506,32 +506,31 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	}
 	
 	
-	private void saveScore(final String name, final int score){
+	private void saveScore(final String name, final int score, final View v){
 		Thread thread = new Thread(new Runnable(){
 			@Override
 			public void run() {
 				
 				try {
-					if (dimension == 5){
-						puzzleDifficulty = Difficulty.EASY;
-					} else if (dimension == 10) {
-						puzzleDifficulty = Difficulty.MEDIUM;
-					} else if (dimension == 14) {
-						puzzleDifficulty = Difficulty.HARD;
-					} else {
-						puzzleDifficulty = Difficulty.UNDEFINED;
-					}
-					
+//					if (dimension == 5){
+//						puzzleDifficulty = Difficulty.EASY;
+//					} else if (dimension == 10) {
+//						puzzleDifficulty = Difficulty.MEDIUM;
+//					} else if (dimension == 14) {
+//						puzzleDifficulty = Difficulty.HARD;
+//					} else {
+//						puzzleDifficulty = Difficulty.UNDEFINED;
+//					}
 					NonoClient.saveScore(name, puzzleDifficulty, score);
-					
+					showDialog("Success", "Upload the score", v);		
 				} catch (UnknownHostException e) {
-					
+					showDialog("Error", "Error in connection", v);
 				} catch (IOException e) {
-					
+					showDialog("Error", "Error in connection", v);					
 				} catch (JSONException e) {
-					
+					showDialog("Error", "Error in connection", v);					
 				} catch (Exception e) {
-
+					showDialog("Error", "Error in connection", v);
 				}
 
 			}
@@ -542,6 +541,20 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		} catch (InterruptedException e) {
 			
 		}
+	}
+	
+	private void showDialog(String title, String message, final View v) {
+		final AlertDialog submmitScore = new AlertDialog.Builder(v.getContext()).create();
+		submmitScore.setButton(-1, "OK", new DialogInterface.OnClickListener() {						
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		submmitScore.setTitle("title");
+		submmitScore.setMessage("message");
+		submmitScore.show();
 	}
 	
 }
