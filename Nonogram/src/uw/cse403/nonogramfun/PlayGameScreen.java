@@ -403,7 +403,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 							}
 							// dialog: show score submitted
 							
-//							returnMainScreen(v);
 						}
 					}
 				});
@@ -550,6 +549,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				uploadScore.cancel();
+				returnMainScreen(v);
 				
 			}
 		});
