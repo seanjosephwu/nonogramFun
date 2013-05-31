@@ -12,7 +12,6 @@ package uw.cse403.nonogramfun.tests.network;
 
 import static org.easymock.EasyMock.createNiceMock;
 import static org.easymock.EasyMock.expectLastCall;
-import static org.junit.Assert.*;
 import junit.framework.TestCase;
 
 import org.easymock.EasyMock;

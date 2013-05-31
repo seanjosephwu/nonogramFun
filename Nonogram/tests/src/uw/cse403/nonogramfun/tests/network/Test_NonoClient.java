@@ -8,11 +8,8 @@
  */
 
 package uw.cse403.nonogramfun.tests.network;
-
 import junit.framework.TestCase;
-
 import org.junit.Test;
-
 import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.network.NonoClient;
 import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
