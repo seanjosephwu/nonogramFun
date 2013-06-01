@@ -1,4 +1,3 @@
-
 package uw.cse403.nonogramfun;
 
 import android.app.Activity;

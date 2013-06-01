@@ -32,6 +32,7 @@ import android.widget.TableRow;
 public class CreateGameScreen extends Activity implements OnClickListener{
 	private Button[][] buttons;
 	protected int dimension;
+	private boolean test;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,6 +40,8 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 
 		Bundle bundle = getIntent().getExtras();
 		dimension = bundle.getInt("size");
+		test = bundle.getBoolean("test");
+		
 		if(dimension == 5){
 			setTitle("Small");
 		}else if (dimension == 10){
@@ -92,7 +95,12 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 			TableRow tr = new TableRow(this);
 			for (int j = 0; j < dimension; j++) {
 	        	buttons[i][j] = new Cell(this);
-	        	buttons[i][j].setText(Integer.toString(i)+""+Integer.toString(j));
+	        	
+	        	if (test){
+	        		//test scenario
+	        		buttons[i][j].setText(Integer.toString(i)+""+Integer.toString(j));
+	        	}
+	        	
 	        	if((i % 2 == j % 2)){
 	        		buttons[i][j].setBackgroundColor(Color.LTGRAY);
 	        	}

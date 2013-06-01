@@ -54,6 +54,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	Runnable timerRun;
 	boolean stopTimer = false;
 	Difficulty puzzleDifficulty;
+	private boolean test;
 	
 	// IMPORTANT: X and Y axis are FLIPPED in both gameArray and buttons[][].
 	// For debugging purpose, given buttons[x][y], x denotes the ROW NUMBER, y denotes the COLUMN number
@@ -65,8 +66,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		
 		Bundle bundle = getIntent().getExtras();
 		dimension = bundle.getInt("size");
-		gameArray = new Integer[dimension][dimension];
-		
+		test = bundle.getBoolean("test");
 		if(dimension == 5){
 			setTitle("Small (5x5)");
 		}else if(dimension == 10){
@@ -75,13 +75,14 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			setTitle("Large (14x14");
 		}
 		
+		gameArray = new Integer[dimension][dimension];
+		
 		fetchPuzzle();
 		parseGameRow();
 		parseGameColumn();
 		
 		TableLayout layout = new TableLayout (this);
 		layout.setLayoutParams( new TableLayout.LayoutParams());
-		//layout.setPadding(50,50,50,50);
 		
 		//timer 
 		starttime = System.currentTimeMillis();
@@ -110,11 +111,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		hintButton.setOnClickListener(new HintButtonListener()); 
 		
 		Button submitButton = (Button) findViewById(R.id.playgamesubmit);
-		
 		submitButton.setOnClickListener(new SubmitButtonListener()); 
-		
-//		editText = (EditText)findViewById(R.id.search);
-//		editText.setVisibility(View.INVISIBLE);
 		
 		timerRun.run();
 	}
@@ -268,16 +265,17 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					tr.addView(buttons[i][j],50,200);
 				} else {
 					Cell c = (Cell) buttons[i][j];
-					c.setText(Integer.toString(i)+Integer.toString(j));
+					if (test){
+		        		//test scenario
+						c.setText(Integer.toString(i)+""+Integer.toString(j));
+					}
 		        	if((i % 2 == j % 2)){
 		        		c.setOriginColor(Color.LTGRAY);
 		        		c.setColor(Color.LTGRAY);
-		        		//c.setTextColor(Color.LTGRAY);
 		        	}
 		        	else{
 		        		c.setOriginColor(Color.WHITE);
 		        		c.setColor(Color.WHITE);
-		        		//c.setTextColor(Color.WHITE);
 		        	}
 		        	
 		        	c.setOnClickListener(this);
@@ -358,7 +356,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			input.setVisibility(View.INVISIBLE);
 			if (answer) {
 				input.setVisibility(View.VISIBLE);
-				final String name = input.getText().toString();
 				// get the time in second, as for score
 				String time = (String) timedisplay.getText();
 				String[] splitTime = time.split(":");
@@ -367,12 +364,13 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				
 				alertDialog.setButton(-2, "Yes", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
+						final String name = input.getText().toString();
 						if (name.length() == 0 || name.length() >= 20) {
 							final AlertDialog invalidName = new AlertDialog.Builder(v.getContext()).create();
 							invalidName.setButton(-1, "OK", new DialogInterface.OnClickListener() {						
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
-									// TODO Auto-generated method stub
+									invalidName.cancel();
 									
 								}
 							});
@@ -395,26 +393,29 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 								} else {
 									puzzleDifficulty = Difficulty.UNDEFINED;
 								}
-								saveScore(name, score);
+								saveScore(name, score, v);
+								showDialog("Success", "Upload the score", v);
 								//NonoClient.saveScore(name, puzzleDifficulty, score);
 							} catch (Exception e) {
 								
 							}
 							// dialog: show score submitted
 							
-							returnMainScreen(v);
 						}
 					}
 				});
 				alertDialog.setButton(-1, "No", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
+						alertDialog.cancel();
 						returnMainScreen(v);
 					}
 				});
 			} else {
 				alertDialog.setButton(-3, "Okay", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
+						alertDialog.cancel();
 						returnMainScreen(v);
+						// Don't do anything. Just close the dialogue box
 					}
 				});
 			}
@@ -506,32 +507,27 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	}
 	
 	
-	private void saveScore(final String name, final int score){
+	private void saveScore(final String name, final int score, final View v){
 		Thread thread = new Thread(new Runnable(){
 			@Override
 			public void run() {
 				
 				try {
-					if (dimension == 5){
-						puzzleDifficulty = Difficulty.EASY;
-					} else if (dimension == 10) {
-						puzzleDifficulty = Difficulty.MEDIUM;
-					} else if (dimension == 14) {
-						puzzleDifficulty = Difficulty.HARD;
-					} else {
-						puzzleDifficulty = Difficulty.UNDEFINED;
-					}
-					
 					NonoClient.saveScore(name, puzzleDifficulty, score);
-					
+//					runOnUiThread(new Runnable() {
+//						@Override
+//						public void run() {
+//							showDialog("Success", "Upload the score", v);
+//						}
+//					});
 				} catch (UnknownHostException e) {
-					
+					showDialog("Error", "Error in connection", v);
 				} catch (IOException e) {
-					
+					showDialog("Error", "Error in connection", v);					
 				} catch (JSONException e) {
-					
+					showDialog("Error", "Error in connection", v);					
 				} catch (Exception e) {
-
+					showDialog("Error", "Error in connection", v);
 				}
 
 			}
@@ -542,6 +538,22 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		} catch (InterruptedException e) {
 			
 		}
+	}
+	
+	private void showDialog(String title, String message, final View v) {
+		final AlertDialog uploadScore = new AlertDialog.Builder(v.getContext()).create();
+		uploadScore.setButton(-1, "OK", new DialogInterface.OnClickListener() {						
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				uploadScore.cancel();
+				returnMainScreen(v);
+				
+			}
+		});
+		uploadScore.setTitle(title);
+		uploadScore.setMessage(message);
+		uploadScore.show();
 	}
 	
 }

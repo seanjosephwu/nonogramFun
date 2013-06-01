@@ -23,6 +23,7 @@ public class Test_CreateGameScreen_Medium extends ActivityInstrumentationTestCas
 		super.setUp();
 		Intent i = new Intent();
 		i.putExtra("size", SIZE_MEDIUM);
+		i.putExtra("test", true);
 		setActivityIntent(i);
 		activity = getActivity();
 		solo = new Solo(getInstrumentation(),activity);
@@ -43,7 +44,8 @@ public class Test_CreateGameScreen_Medium extends ActivityInstrumentationTestCas
 		for(int i = 0; i < SIZE_MEDIUM; i++){
 			for (int j = 0; j < SIZE_MEDIUM; j++){
 				
-				text = Integer.toString(i)+Integer.toString(j);
+				text = Integer.toString(i)+""+Integer.toString(j);
+				
 				assertEquals(true, solo.searchButton(text));
 				
 				Button button = solo.getButton(text);
