@@ -11,8 +11,9 @@ import uw.cse403.nonogramfun.Cell;
 import uw.cse403.nonogramfun.PlayGameScreen;
 
 /**
- * Test the cell class
- * @author renhax
+ * White Box Tests
+ * Testing the cell (button of gameboard) class
+ * @author Renhao Xie
  *
  */
 public class Test_Cell  extends ActivityInstrumentationTestCase2<PlayGameScreen> {

@@ -3,7 +3,12 @@ package uw.cse403.nonogramfun.tests.frontend;
 import com.jayway.android.robotium.solo.Solo;
 import uw.cse403.nonogramfun.*;
 import android.test.ActivityInstrumentationTestCase2;
-
+/**
+ * Black Box Tests
+ * HowToPlay class
+ * @author Huiqi Wang
+ *
+ */
 public class Test_HowToPlay extends ActivityInstrumentationTestCase2<HowToPlay> {
 	private Solo solo;
 	

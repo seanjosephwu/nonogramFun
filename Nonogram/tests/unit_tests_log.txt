@@ -73,21 +73,12 @@ test:
      [exec] uw.cse403.nonogramfun.tests.frontend.Test_CreateGameScreen_Large:..
      [exec] uw.cse403.nonogramfun.tests.frontend.Test_CreateGameScreen_Medium:..
      [exec] uw.cse403.nonogramfun.tests.frontend.Test_CreateGameScreen_Small:..
+     [exec] uw.cse403.nonogramfun.tests.frontend.Test_HowToPlay:...
+     [exec] uw.cse403.nonogramfun.tests.frontend.Test_HowToPlay2:....
+     [exec] uw.cse403.nonogramfun.tests.frontend.Test_HowToPlay3:..
      [exec] uw.cse403.nonogramfun.tests.frontend.Test_MainActivity:....
      [exec] uw.cse403.nonogramfun.tests.frontend.Test_PlayGameMenu:...
-     [exec] uw.cse403.nonogramfun.tests.frontend.Test_PlayGameScreen_Large:.
-     [exec] Failure in testViewsCreated:
-     [exec] junit.framework.AssertionFailedError: expected:<true> but was:<false>
-     [exec] 	at uw.cse403.nonogramfun.tests.frontend.Test_PlayGameScreen_Large.testViewsCreated(Test_PlayGameScreen_Large.java:46)
-     [exec] 	at java.lang.reflect.Method.invokeNative(Native Method)
-     [exec] 	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
-     [exec] 	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
-     [exec] 	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
-     [exec] 	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
-     [exec] 	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
-     [exec] 	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
-     [exec] 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1661)
-     [exec] 
+     [exec] uw.cse403.nonogramfun.tests.frontend.Test_PlayGameScreen_Large:..
      [exec] uw.cse403.nonogramfun.tests.frontend.Test_PlayGameScreen_Medium:.
      [exec] Failure in testViewsCreated:
      [exec] junit.framework.AssertionFailedError: expected:<true> but was:<false>
@@ -119,18 +110,18 @@ test:
      [exec] uw.cse403.nonogramfun.tests.nonogram.Test_NonoDatabase:...
      [exec] uw.cse403.nonogramfun.tests.nonogram.Test_NonoPuzzle:.........................
      [exec] Test results for InstrumentationTestRunner=...........................F.E.E.E...........
-     [exec] .......F..F..F..............................
-     [exec] ...
-     [exec] Time: 1297.574
+     [exec] ..................F..F.....................
+     [exec] ............
+     [exec] Time: 684.203
      [exec] 
      [exec] FAILURES!!!
-     [exec] Tests run: 85,  Failures: 4,  Errors: 3
+     [exec] Tests run: 94,  Failures: 3,  Errors: 3
      [exec] 
      [exec] 
      [exec] Generated code coverage data to /data/data/uw.cse403.nonogramfun/coverage.ec
      [echo] Setting permission to download the coverage file...
      [echo] Downloading coverage file into project directory...
-     [exec] 271 KB/s (1785 bytes in 0.006s)
+     [exec] 496 KB/s (3264 bytes in 0.006s)
      [echo] Extracting coverage report...
      [echo] Cleaning up temporary files...
    [delete] Deleting: /Users/Angel/Documents/cse/cse403/gitRepo/nonogramFun/Nonogram/tests/bin/coverage.ec

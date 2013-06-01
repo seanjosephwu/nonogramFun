@@ -1,11 +1,14 @@
 package uw.cse403.nonogramfun.tests.frontend;
 
-import junit.framework.Assert;
 import uw.cse403.nonogramfun.*;
 import android.test.ActivityInstrumentationTestCase2;
-
 import com.jayway.android.robotium.solo.Solo;
-
+/**
+ * Black Box Tests
+ * ScoreBoard class
+ * @author Huiqi Wang
+ *
+ */
 public class Test_ScoreBoard extends ActivityInstrumentationTestCase2<ScoreBoard> {
 	private Solo solo;
 	
@@ -23,8 +26,6 @@ public class Test_ScoreBoard extends ActivityInstrumentationTestCase2<ScoreBoard
 		solo.assertCurrentActivity("Not ScoreBoard", ScoreBoard.class);
 		solo.clickOnButton("Small");
 		solo.assertCurrentActivity("Not ScoreBoard", ScoreBoard.class);
-		// verify the game board size
-		
 	}
 	
 	public void testMediumGameButton(){

@@ -1,13 +1,17 @@
 package uw.cse403.nonogramfun.tests.frontend;
 
-import com.jayway.android.robotium.solo.Solo;
-
 import uw.cse403.nonogramfun.CreateGameScreen;
 import android.app.Activity;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 
+import com.jayway.android.robotium.solo.Solo;
+/**
+ * Test the case of large gameboard of CreateGameScreen
+ * @author Huiqi Wang
+ *
+ */
 public class Test_CreateGameScreen_Large extends ActivityInstrumentationTestCase2<CreateGameScreen> {
 	private Activity activity;
 	private Solo solo;
@@ -32,13 +36,13 @@ public class Test_CreateGameScreen_Large extends ActivityInstrumentationTestCase
 	}
 
 	/*
-	 * White Box Tests
+	 * White Box Test
 	 * Test if the gameboard buttons are all created in the view, and if clicking the
 	 * buttons will mark the buttons
 	 */
 	public void testViewsCreated(){
 		solo.assertCurrentActivity("Not CreateGameScreen", CreateGameScreen.class);
-		/*String text;
+		String text;
 		for(int i = 0; i < SIZE_LARGE; i++){
 			for (int j = 0; j < SIZE_LARGE; j++){
 				
@@ -49,10 +53,14 @@ public class Test_CreateGameScreen_Large extends ActivityInstrumentationTestCase
 				solo.clickOnButton(text);
 				assertEquals("X", button.getText());
 			}
-		}*/
+		}
 	}
 	
+	/*
+	 * Black Box Test
+	 * Test if the submit button exists and functions properly
+	 */
 	public void testSubmitButton(){
-		//test alert box
+		
 	}
 }
