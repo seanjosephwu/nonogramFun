@@ -10,6 +10,8 @@
 package uw.cse403.nonogramfun.network;
 import java.io.IOException;
 import org.json.JSONObject;
+
+import android.util.Log;
 import uw.cse403.nonogramfun.enums.*;
 import uw.cse403.nonogramfun.nonogram.*;
 import uw.cse403.nonogramfun.utility.*;
@@ -143,22 +145,28 @@ public class NonoClient {
 		
 		while(!success && port < NonoConfig.MAX_PORT) {
 			try {
+				Log.i("Trying to get response", "Rawr");
 				// 1. Send request: Create & Save puzzle in database
 				NonoNetwork network = NonoConfig.getNonoNetwork(port, mockNet);
+				Log.i("Can't get network", "Can't get network");
 				JSONObject requestJSON = new JSONObject();
 				NonoUtil.putClientRequest(requestJSON, ClientRequest.GET_SCORE_BOARD);
 				NonoUtil.putDifficulty(requestJSON, difficulty);
 				network.sendMessage(requestJSON);
 				success = true;
-				
+				Log.i("Trying to get Scoreboard!", "Rawr");
 				// 2. Get server response and check if it is success or error
 				JSONObject responseJSON = network.readMessageJSON();
+				Log.i("We got a scoreboard!", "Rawr");
 				checkResponseError(responseJSON);
+				
 				NonoScoreBoard ret = NonoUtil.getScoreBoard(responseJSON); 
+				Log.i("Okay...", "Should be working now");
 				network.close();
 				return ret;
 			}catch(Exception e) {
 				if(!success && port < NonoConfig.MAX_PORT) { port ++; }else{ throw e; }
+				Log.i("Changing port", "Okay...");
 			}
 		}
 		return null;

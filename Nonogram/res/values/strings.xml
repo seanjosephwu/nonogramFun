@@ -27,4 +27,10 @@
     <string name="submit_button">Submit</string>
     <string name="hint_button">Hint</string>
     
+    <string name="activity_scoreboard_menu">Score Board Menu</string>
+    <string name="activity_scoreboard_screen">Score Board Screen</string>
+    <string name="show_small_scoreboard">Small Board Ranking</string>
+    <string name="show_medium_scoreboard">Medium Board Ranking</string>
+    <string name="show_large_scoreboard">Large Board Ranking</string>
+    
 </resources>

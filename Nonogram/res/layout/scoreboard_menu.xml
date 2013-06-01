@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg3"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose a Puzzle Size's Scoreboard:"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+   <Button android:id="@+id/scoreboard_screen_button1"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+  	   android:background="@drawable/button_red"
+  	   android:onClick="scoreSmall"
+  	   android:layout_marginTop="20dp"
+  	   android:layout_marginLeft="50dp"
+  	   android:layout_marginRight="50dp"
+       android:text="@string/small_button" />
+   
+   <Button android:id="@+id/scoreboard_screen_button2"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+  	   android:background="@drawable/button_yellow"
+  	   android:onClick="scoreMedium"
+  	   android:layout_marginTop="20dp"
+  	   android:layout_marginLeft="50dp"
+  	   android:layout_marginRight="50dp"
+       android:text="@string/medium_button" />
+
+   <Button android:id="@+id/scoreboard_screen_button3"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+  	   android:background="@drawable/button_green"
+  	   android:onClick="scoreLarge"
+  	   android:layout_marginTop="20dp"
+  	   android:layout_marginLeft="50dp"
+  	   android:layout_marginRight="50dp"
+       android:text="@string/large_button" />
+</LinearLayout>

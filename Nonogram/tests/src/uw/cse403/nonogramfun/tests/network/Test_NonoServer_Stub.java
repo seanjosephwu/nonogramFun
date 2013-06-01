@@ -7,9 +7,15 @@ package uw.cse403.nonogramfun.tests.network;
  * @since   Spring 2013 
  */
 
+import static org.junit.Assert.assertTrue;
+
 import java.net.Socket;
-import org.junit.*;
-import static org.junit.Assert.*;
+
+import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import uw.cse403.nonogramfun.network.NonoConfig;
 import uw.cse403.nonogramfun.network.NonoServer;
 
@@ -18,7 +24,7 @@ import uw.cse403.nonogramfun.network.NonoServer;
  * in NonoConfig to localhost. (I thought about adding a setter in NonoConfig, but since
  * server name is public field, I think it should remain as a final field)
  */
-public class Test_NonoServer_Stub {
+public class Test_NonoServer_Stub extends TestCase {
 
 	@Before
 	public void setStub() {
