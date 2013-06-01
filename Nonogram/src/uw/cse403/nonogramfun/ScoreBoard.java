@@ -25,6 +25,13 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+/**
+ * CSE 403 AA
+ * Project Nonogram: FrontEnd
+ * @author  Xiaoxia Jian
+ * @version v1.0, University of Washington 
+ * @since   Spring 2013 
+ */
 public class ScoreBoard extends Activity {
 	NonoScoreBoard nonoScoreBoard;
 	List<NonoScore> nonoScores = new ArrayList<NonoScore>();
