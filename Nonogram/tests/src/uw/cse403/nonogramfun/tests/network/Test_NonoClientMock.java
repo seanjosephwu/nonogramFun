@@ -26,6 +26,7 @@ import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 import uw.cse403.nonogramfun.utility.NonoUtil;
 
 import com.google.android.testing.mocking.AndroidMock;
+import com.google.android.testing.mocking.UsesMocks;
 
 
 public class Test_NonoClientMock extends TestCase {
@@ -55,6 +56,7 @@ public class Test_NonoClientMock extends TestCase {
 	}
 
 	@Test
+	@UsesMocks(NonoNetwork.class)
 	public void test_createPuzzle() {
 		JSONObject requestJSON = new JSONObject();
 		JSONObject requestJSON2 = new JSONObject();
@@ -89,6 +91,7 @@ public class Test_NonoClientMock extends TestCase {
 	//--Test getPuzzle------------------------------------------------------------------------
 	
 	@Test
+	@UsesMocks(NonoNetwork.class)
 	public void test_getPuzzle() {
 		JSONObject requestJSON = new JSONObject();
 		JSONObject requestJSON2 = new JSONObject();
