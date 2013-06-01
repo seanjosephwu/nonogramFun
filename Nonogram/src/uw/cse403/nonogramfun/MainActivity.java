@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void scoreBoardScreen(View view) {
-		Intent i = new Intent(this, ScoreBoardMenu.class);
+		Intent i = new Intent(this, ScoreBoard.class);
 		startActivity(i);
 	}
 	

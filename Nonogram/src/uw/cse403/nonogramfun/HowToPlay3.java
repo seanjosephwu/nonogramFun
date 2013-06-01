@@ -1,3 +1,4 @@
+
 package uw.cse403.nonogramfun;
 
 import android.app.Activity;
@@ -27,7 +28,8 @@ public class HowToPlay3 extends Activity {
 	}
 	
 	public void prev(View view) {
-		Intent i = new Intent(this, HowToPlay2.class);
+		Intent i = new Intent(this, HowToPlay3.class);
 		startActivity(i);
 	}
 }
+

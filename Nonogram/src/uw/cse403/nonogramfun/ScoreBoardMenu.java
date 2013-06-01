@@ -29,6 +29,7 @@ public class ScoreBoardMenu extends Activity implements OnClickListener {
 	//List<NonoScore> nonoScoresMedium = new ArrayList<NonoScore>();
 	//List<NonoScore> nonoScoresLarge = new ArrayList<NonoScore>();
 	List<NonoScore> listToSort = new ArrayList<NonoScore>();
+	private static final int small = 101; 
 	
 	
 	@Override
@@ -61,7 +62,7 @@ public class ScoreBoardMenu extends Activity implements OnClickListener {
     	switch (v.getId()) {
     	    case R.id.scoreboard_screen_button1:
     	    	Log.i("Getting easy", "STart");
-    	    	getScore(Difficulty.EASY);
+    	    	getScore(small);
     	    	Log.i("Getting easy", "Got scoreBoard");
     	        List<NonoScore> topTen = sortingNonoScores();
     	        Log.i("Getting easy", "Sorted the NonoScores");
@@ -78,11 +79,11 @@ public class ScoreBoardMenu extends Activity implements OnClickListener {
     	    	startActivity(intent);
     	        break;
     	    case R.id.scoreboard_screen_button2:
-    	    	getScore(Difficulty.MEDIUM);
+    	    	getScore(small);
     	    	sortingNonoScores();
     	       break;
     	    case R.id.scoreboard_screen_button3:
-    	    	getScore(Difficulty.HARD);
+    	    	getScore(small);
     	    	sortingNonoScores();
     	        break;
     	    }   
@@ -114,15 +115,19 @@ public class ScoreBoardMenu extends Activity implements OnClickListener {
 	}
 	
 	//given the difficulty retrieve all NonoScore for that difficulty level
-	private void getScore(final Difficulty d){
+	private void getScore(final int type){
 		Thread thread = new Thread(new Runnable(){
 			@Override
 			public void run() {
 				Log.i("In thread", "Starting");
 				try {
 					Log.i("Hi", "Why don't you work?");
-					nonoScoreBoard = NonoClient.getScoreBoard(d);
+					if (type == small)
+						nonoScoreBoard = NonoClient.getScoreBoard(Difficulty.EASY);
 					Log.i("Yay!", "You worked!");
+					if (nonoScoreBoard == null) {
+						Log.e("error","returns null");
+					}
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
