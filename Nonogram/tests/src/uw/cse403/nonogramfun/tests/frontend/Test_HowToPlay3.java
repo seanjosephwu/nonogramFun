@@ -27,6 +27,12 @@ public class Test_HowToPlay3 extends ActivityInstrumentationTestCase2<HowToPlay3
 		assertEquals(true, solo.searchButton("prev"));
 	}
 	
+	public void testPrevButton(){
+		solo.assertCurrentActivity("Not HowToPlay3", HowToPlay3.class);
+		solo.clickOnButton("prev");
+		solo.assertCurrentActivity("Not HowToPlay2", HowToPlay2.class);
+	}
+	
 	public void testDoneButton(){
 		solo.assertCurrentActivity("Not HowToPlay3", HowToPlay3.class);
 		solo.clickOnButton("done");

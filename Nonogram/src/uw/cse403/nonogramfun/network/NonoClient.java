@@ -11,7 +11,6 @@ package uw.cse403.nonogramfun.network;
 import java.io.IOException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import uw.cse403.nonogramfun.enums.*;
 import uw.cse403.nonogramfun.nonogram.*;
 import uw.cse403.nonogramfun.utility.*;
