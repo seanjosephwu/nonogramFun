@@ -2,6 +2,7 @@ package uw.cse403.nonogramfun.tests.frontend;
 
 import com.jayway.android.robotium.solo.Solo;
 import uw.cse403.nonogramfun.CreateGameScreen;
+import uw.cse403.nonogramfun.MainActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
@@ -20,6 +21,7 @@ public class Test_CreateGameScreen_Medium extends ActivityInstrumentationTestCas
 		super(CreateGameScreen.class);
 	}
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		Intent i = new Intent();
@@ -30,8 +32,9 @@ public class Test_CreateGameScreen_Medium extends ActivityInstrumentationTestCas
 		solo = new Solo(getInstrumentation(),activity);
 	}
 
+	@Override
 	protected void tearDown() throws Exception {
-		super.tearDown();
+		solo.finishOpenedActivities();
 	}
 
 	/*
@@ -58,9 +61,37 @@ public class Test_CreateGameScreen_Medium extends ActivityInstrumentationTestCas
 	
 	/*
 	 * Black Box Test
-	 * Test if the submit button exists and functions properly
+	 * Test if the submit button exists
 	 */
-	public void testSubmitButton(){
-		
+	public void testSubmitButtonView(){
+		solo.assertCurrentActivity("Not CreateGameScreen", CreateGameScreen.class);
+		assertEquals(true,solo.searchButton("Submit"));	
+	}
+	
+	/*
+	 * Black Box Test
+	 * Test clicking submit with an empty game gives an error message
+	 */
+	public void testSubmitButton_EmptyGame(){
+		solo.assertCurrentActivity("Not CreateGameScreen", CreateGameScreen.class);
+		assertEquals(false, solo.searchButton("X"));	
+		solo.clickOnButton("Submit");
+		assertEquals(true, solo.searchText("Error"));
+		solo.clickOnButton("OK");
+		solo.assertCurrentActivity("Not MainActivity", MainActivity.class);
+	}
+	
+	/*
+	 * Black Box Test
+	 * Test clicking submit with a non-empty game gives a success message
+	 */
+	public void testSubmitButton_NonEmptyGame(){
+		solo.assertCurrentActivity("Not CreateGameScreen", CreateGameScreen.class);
+		solo.clickOnButton("11");
+		assertEquals(true, solo.searchButton("X"));	
+		solo.clickOnButton("Submit");
+		assertEquals(true, solo.searchText("Success"));
+		solo.clickOnButton("OK");
+		solo.assertCurrentActivity("Not MainActivity", MainActivity.class);
 	}
 }
