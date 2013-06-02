@@ -16,14 +16,20 @@
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:layout_gravity="left"
-              android:text="USER" />
+              android:text="USER" 
+              android:textSize="22sp"
+              android:textStyle="bold"
+              android:textColor="#FF5050"/>
     
     <TextView android:id="@+id/ranking_score_title"
           android:layout_width="0dp"
           android:layout_weight="1"
           android:layout_height="wrap_content"
   		  android:layout_gravity="right"
-          android:text="SCORE" />
+          android:text="SCORE" 
+          android:textSize="22sp"
+          android:textStyle="bold"
+          android:textColor="#FF5050"/>
 	</LinearLayout>
 	
 </LinearLayout>

@@ -1,3 +1,12 @@
+/**
+ * CSE 403 AA
+ * Project Nonogram: FrontEnd
+ * @author  Xiaoxia Jian
+ * @version v1.0, University of Washington 
+ * @since   Spring 2013 
+ */
+
+
 package uw.cse403.nonogramfun;
 
 import java.io.IOException;
@@ -7,15 +16,14 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
-
 import org.json.JSONException;
-
 import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.network.NonoClient;
 import uw.cse403.nonogramfun.nonogram.NonoScore;
 import uw.cse403.nonogramfun.nonogram.NonoScoreBoard;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,11 +33,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * CSE 403 AA
- * Project Nonogram: FrontEnd
- * @author  Xiaoxia Jian
- * @version v1.0, University of Washington 
- * @since   Spring 2013 
+ * 
+ * ScoreBoard Display rankings depends on difficulties that user wants to see.
+ * It displays up to 10 rankings. Less time is used in solving the game on the 
+ * given level has higher ranking.
  */
 public class ScoreBoard extends Activity {
 	NonoScoreBoard nonoScoreBoard;
@@ -70,7 +77,6 @@ public class ScoreBoard extends Activity {
 	    	   .setTitle("Score Board (Small Puzzle)")
 	           .setNeutralButton(R.string.scoreboard_acknowledgement, null);
 	    builder.create();
-
 	    builder.show();
 	}
 	
@@ -94,8 +100,6 @@ public class ScoreBoard extends Activity {
 	    	   .setTitle("Score Board (Medium Puzzle)")
 	           .setNeutralButton(R.string.scoreboard_acknowledgement, null);
 	    builder.create();
-	    
-	    
 	    builder.show();
 	}
 	
@@ -118,8 +122,7 @@ public class ScoreBoard extends Activity {
 	    builder.setView(scoreboard)
 	    	   .setTitle("Score Board (Large Puzzle)")
 	           .setNeutralButton(R.string.scoreboard_acknowledgement, null);
-	    builder.create();
-	    
+	    builder.create();  
 	    builder.show();
 	}
 	
@@ -133,16 +136,11 @@ public class ScoreBoard extends Activity {
 			public void run() {
 				try {			
 					nonoScoreBoard = NonoClient.getScoreBoard(d);
-				} catch (UnknownHostException e) {
-					
-				} catch (IOException e) {
-					
+				} catch (UnknownHostException e) {					
+				} catch (IOException e) {			
 				} catch (JSONException e) {
-					
 				} catch (Exception e) {
-
 				}
-
 			}
 		});
 		thread.start();
@@ -181,19 +179,33 @@ public class ScoreBoard extends Activity {
 		return minScoreQue;
 	}
 	
+	/**
+	 * Set up scoreboard layout before inject the the dialog 
+	 * @param d difficulty level 
+	 * @param board
+	 * @return a setup linearlayout
+	 */
 	private LinearLayout setUpScoreBoard(Difficulty d, LinearLayout board) {
 		getScore(d);
 		PriorityQueue<NonoScore> top = sortingNonoScores();
+		int color_stripe = 0;
 		while(!top.isEmpty()) {
+			color_stripe++;
 			NonoScore least = top.remove();
 			
 			LayoutInflater inflater = this.getLayoutInflater();
 			View rank = inflater.inflate(R.layout.score_board_rank, null);
 			TextView name = (TextView) rank.findViewById(R.id.rank_name);
 			TextView score = (TextView) rank.findViewById(R.id.rank_score);
+		    name.setTextSize(14);
+		    score.setTextSize(14);    
+			
+			//strip the quotation mark from the name getback from backend
 			String preName = least.playerName;
-			String[] preNames = preName.split("\"");		
+			String[] preNames = preName.split("\"");	
 			name.setText(preNames[1]);
+			
+			//cover total second from backend to min:sec form
 			int min = least.score / 60;
 			int sec = least.score % 60;
 			String minDisplay;
@@ -211,6 +223,12 @@ public class ScoreBoard extends Activity {
 			}
 			String scoreDisplay = String.format("%2s: %2s", minDisplay, secDisplay);
 			score.setText(scoreDisplay);
+			
+			//color code the ranking 
+			if(color_stripe % 2 == 1){
+				name.setBackgroundColor(Color.GRAY);
+				score.setBackgroundColor(Color.GRAY);
+			}
 			board.addView(rank);
 		}
 		
