@@ -217,6 +217,7 @@ public class ScoreBoard extends Activity {
 			} else {
 				minDisplay = "" + min;
 			}
+			
 			String scoreDisplay = String.format("%2s: %2s", minDisplay, secDisplay);
 			score.setText(scoreDisplay);
 			
