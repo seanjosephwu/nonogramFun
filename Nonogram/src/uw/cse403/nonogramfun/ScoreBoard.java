@@ -41,7 +41,6 @@ public class ScoreBoard extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.scoreboard_menu);
 		setTitle("Score Board");
-		Log.i("scoreboard.java", "on create");
 	}
     
     @Override
@@ -116,11 +115,8 @@ public class ScoreBoard extends Activity {
 		Thread thread = new Thread(new Runnable(){
 			@Override
 			public void run() {
-				try {
-					Log.i("get score", "before");
+				try {			
 					nonoScoreBoard = NonoClient.getScoreBoard(d);
-					Log.i("get score", "after");
-
 				} catch (UnknownHostException e) {
 					
 				} catch (IOException e) {
@@ -177,19 +173,12 @@ public class ScoreBoard extends Activity {
 			TextView score = (TextView) rank.findViewById(R.id.rank_score);
 			String preName = least.playerName;
 			String[] preNames = preName.split("\"");		
-			//Log.i("rank", least.playerName + " : " + least.score);
 			name.setText(preNames[1]);
-			int hour = least.score / 3600;
-			int min = least.score % 3600/ 60;
-			int sec = least.score % 3600 % 60;
-			String hourDisplay;
+			int min = least.score / 60;
+			int sec = least.score % 60;
 			String minDisplay;
 			String secDisplay;
-			if(hour < 10 ) {
-				hourDisplay = "0" + hour;
-			} else{
-				hourDisplay = "" + hour;
-			}
+
 			if(sec < 10 ) {
 				secDisplay = "0" + sec;
 			} else{
@@ -200,7 +189,7 @@ public class ScoreBoard extends Activity {
 			} else {
 				minDisplay = "" + min;
 			}
-			String scoreDisplay = String.format("%2s: %2s: %2s", hourDisplay, minDisplay, secDisplay);
+			String scoreDisplay = String.format("%2s: %2s", minDisplay, secDisplay);
 			score.setText(scoreDisplay);
 			board.addView(rank);
 		}
@@ -213,9 +202,9 @@ public class ScoreBoard extends Activity {
 		public minScoreCompare() {}
 		@Override
 		public int compare(NonoScore lhs, NonoScore rhs) {
-			if (lhs.score > rhs.score) 
+			if (lhs.score < rhs.score) 
 				return -1;
-			else if (lhs.score < rhs.score)
+			else if (lhs.score > rhs.score)
 				return 1;
 			return 0;
 		}
@@ -227,9 +216,9 @@ public class ScoreBoard extends Activity {
 		public maxScoreCompare() {}
 		@Override
 		public int compare(NonoScore lhs, NonoScore rhs) {
-			if (lhs.score < rhs.score) 
+			if (lhs.score > rhs.score) 
 				return -1;
-			else if (lhs.score > rhs.score)
+			else if (lhs.score < rhs.score)
 				return 1;
 			return 0;
 		}
