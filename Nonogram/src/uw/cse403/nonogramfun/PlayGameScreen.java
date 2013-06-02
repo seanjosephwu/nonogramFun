@@ -424,7 +424,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 									puzzleDifficulty = Difficulty.UNDEFINED;
 								}
 								saveScore(name, score, v);
-								showDialog("Success", "Upload the score", v);
+//								showDialog("Success", "Upload the score", v);
 							} catch (Exception e) {
 								
 							}
@@ -480,10 +480,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 						if (diff) {
 							// cell flashes
 							hint++;
-//							seconds += hint * 30;
-//					        int minutes = seconds / 60;
-//					        int second = seconds % 60;
-//					        timedisplay.setText(String.format("%d:%02d", minutes, second));
 							flashCell(i, j, cellColor, cellColor_sol);
 							break;
 						}
@@ -563,12 +559,12 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				
 				try {
 					NonoClient.saveScore(name, puzzleDifficulty, score);
-//					runOnUiThread(new Runnable() {
-//						@Override
-//						public void run() {
-//							showDialog("Success", "Upload the score", v);
-//						}
-//					});
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							showDialog("Success", "Upload the score", v);
+						}
+					});
 				} catch (UnknownHostException e) {
 					showDialog("Error", "Error in connection", v);
 				} catch (IOException e) {
