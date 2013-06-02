@@ -1,6 +1,5 @@
 package uw.cse403.nonogramfun;
 
-
 /**
  * CSE 403 AA
  * Project Nonogram: Frontend
@@ -8,7 +7,6 @@ package uw.cse403.nonogramfun;
  * @version v1.0, University of Washington 
  * @since   Spring 2013 
  */
-
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -42,6 +40,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+/**
+ * The screen of play a game
+ */
 public class PlayGameScreen extends Activity implements OnClickListener{
 	private int dimension;         //dimension is size for the clickable cells
 	private Integer[][] gameArray; //store the gameArray get back from the server
@@ -49,6 +50,8 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	private String[] rowHint;
 	private String[] columnHint;
 	private TextView timedisplay;
+	private int hint;
+	private int seconds;
 	long starttime; 
 	Handler timerHandle;
 	Runnable timerRun;
@@ -65,6 +68,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		setContentView(R.layout.activity_play_game_screen);
 		
 		Bundle bundle = getIntent().getExtras();
+		hint = 0;
 		dimension = bundle.getInt("size");
 		test = bundle.getBoolean("test");
 		if(dimension == 5){
@@ -123,7 +127,9 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		return true;
 	}
 	
-	//pull a puzzle from the server database
+	/**
+	 * pull a puzzle from the server database
+	 */
 	private void fetchPuzzle(){
 		Thread thread = new Thread(new Runnable(){
 			@Override
@@ -167,6 +173,10 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		}
 	}
 	
+	/**
+	 * Parse the game into text filed, which can tell the user 
+	 * how many blocks are selected for each row
+	 */
 	private void parseGameRow(){
 		rowHint = new String[dimension];
 		for(int x = 0; x < dimension; x++){
@@ -200,6 +210,10 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		}
 	}
 	
+	/**
+	 * Parse the game into text filed, shich can tell the user
+	 * how many blocks are selected for each column
+	 */
 	private void parseGameColumn(){
 		columnHint = new String[dimension];
 		for(int y = 0; y < dimension; y++){
@@ -232,6 +246,11 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	}
 	
 	
+	/**
+	 * Create the table for buttons that represents the game
+	 * @param layout
+	 * @return
+	 */
 	private TableLayout createGameTable(TableLayout layout) {
 		//create the empty game board with the number fields
 		for (int i = 0; i < dimension + 1; i++) {
@@ -298,18 +317,24 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		cell.setStateColor();
 	}
 	
-	//helper function to calculate the time has passed
+	/**
+	 * helper function to calculate the time has passed
+	 */
 	public void timeHasPassed(){
         long millis = System.currentTimeMillis() - starttime;
-        int seconds = (int) (millis / 1000);
+        seconds = (int) (millis / 1000);
+        seconds += hint * 10;
         int minutes = seconds / 60;
-        seconds     = seconds % 60;
-        timedisplay.setText(String.format("%d:%02d", minutes, seconds));
+        int second = seconds % 60;
+        timedisplay.setText(String.format("%d:%02d", minutes, second));
         if (!stopTimer)
         	timerHandle.postDelayed(timerRun, 1000);
 	}
 	
-	
+	/**
+	 * return to the main menu
+	 * @param view
+	 */
 	public void returnMainScreen(View view) {
 		Intent i = new Intent(this, MainActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -317,6 +342,9 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	}
 	
 	
+	/**
+	 * set the submit button listener, show up a dialog when user submit a game success
+	 */
 	private class SubmitButtonListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
@@ -338,7 +366,8 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					Integer sol = gameArray[i][j];
 					// the answer given by the user
 					int state = ((Cell)buttons[i + 1][j + 1]).getState();
-					if (state != 1 && sol.equals(Color.BLACK)) {
+					if ((state != 1 && sol.equals(Color.BLACK))
+						|| (state == 1 && sol.equals(Color.WHITE))) {
 						return false;
 					}
 				}
@@ -365,6 +394,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				alertDialog.setButton(-2, "Yes", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						final String name = input.getText().toString();
+						// if the input name is too long or too short, give another dialog
 						if (name.length() == 0 || name.length() >= 20) {
 							final AlertDialog invalidName = new AlertDialog.Builder(v.getContext()).create();
 							invalidName.setButton(-1, "OK", new DialogInterface.OnClickListener() {						
@@ -395,7 +425,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 								}
 								saveScore(name, score, v);
 								showDialog("Success", "Upload the score", v);
-								//NonoClient.saveScore(name, puzzleDifficulty, score);
 							} catch (Exception e) {
 								
 							}
@@ -428,6 +457,9 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	}
 	
 	
+	/**
+	 * Set up the hint button
+	 */
 	private class HintButtonListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
@@ -447,6 +479,11 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 						// current cell color doesn't match the solution
 						if (diff) {
 							// cell flashes
+							hint++;
+//							seconds += hint * 30;
+//					        int minutes = seconds / 60;
+//					        int second = seconds % 60;
+//					        timedisplay.setText(String.format("%d:%02d", minutes, second));
 							flashCell(i, j, cellColor, cellColor_sol);
 							break;
 						}
@@ -459,6 +496,13 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			}
 		}
 		
+		/**
+		 * The hint button
+		 * @param i
+		 * @param j
+		 * @param cellColor
+		 * @param cellColor_sol
+		 */
 		private void flashCell(int i, int j, int cellColor, Integer cellColor_sol) {
 			final Animation animation = new AlphaAnimation(1, 0);
 			animation.setDuration(500);
@@ -506,7 +550,12 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		
 	}
 	
-	
+	/**
+	 * Submmit the score to the server
+	 * @param name
+	 * @param score
+	 * @param v
+	 */
 	private void saveScore(final String name, final int score, final View v){
 		Thread thread = new Thread(new Runnable(){
 			@Override
@@ -540,12 +589,17 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		}
 	}
 	
+	/**
+	 * Create a new dialog, eith given title and message
+	 * @param title
+	 * @param message
+	 * @param v
+	 */
 	private void showDialog(String title, String message, final View v) {
 		final AlertDialog uploadScore = new AlertDialog.Builder(v.getContext()).create();
 		uploadScore.setButton(-1, "OK", new DialogInterface.OnClickListener() {						
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
 				uploadScore.cancel();
 				returnMainScreen(v);
 				

@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 /**
@@ -52,6 +51,10 @@ public class ScoreBoard extends Activity {
         return true;
     }
     
+    /**
+     * The score board for small game
+     * @param view
+     */
 	public void scoreSmall(View view){
 	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	    // Get the layout inflater
@@ -72,6 +75,10 @@ public class ScoreBoard extends Activity {
 	    builder.show();
 	}
 	
+	/**
+	 * The score board for medium game
+	 * @param view
+	 */
 	public void scoreMedium(View view){
 	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	    // Get the layout inflater
@@ -93,6 +100,10 @@ public class ScoreBoard extends Activity {
 	    builder.show();
 	}
 	
+	/**
+	 * The score board for large game
+	 * @param view
+	 */
 	public void scoreLarge(View view){
 	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	    // Get the layout inflater
@@ -113,6 +124,10 @@ public class ScoreBoard extends Activity {
 	    builder.show();
 	}
 	
+	/** 
+	 * Get the score from the server
+	 * @param d, the difficulty level
+	 */
 	private void getScore(final Difficulty d){
 		Thread thread = new Thread(new Runnable(){
 			@Override
@@ -142,6 +157,10 @@ public class ScoreBoard extends Activity {
 		}
 	}
 	
+	/**
+	 * Save the scores in order
+	 * @return
+	 */
 	private PriorityQueue<NonoScore> sortingNonoScores() {
 		PriorityQueue<NonoScore> minScoreQue = new PriorityQueue<NonoScore>(11, new minScoreCompare());
 		PriorityQueue<NonoScore> maxScoreQue = new PriorityQueue<NonoScore>(11, new maxScoreCompare());
@@ -186,6 +205,9 @@ public class ScoreBoard extends Activity {
 		return board;
 	}
 	
+	/**
+	 * Get the minimum score
+	 */
 	public class minScoreCompare implements  Comparator<NonoScore> {
 
 		public minScoreCompare() {}
@@ -200,6 +222,9 @@ public class ScoreBoard extends Activity {
 		
 	}
 	
+	/**
+	 * Get the maximum score
+	 */
 	public class maxScoreCompare implements  Comparator<NonoScore> {
 		
 		public maxScoreCompare() {}

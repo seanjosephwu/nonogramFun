@@ -15,7 +15,7 @@
     <string name="title_activity_create_game_screen">Create Game Screen</string>
     <string name="title_activity_play_game_menu">Play Game Menu</string>
     <string name="title_activity_play_game_screen">Play Game Screen</string>
-    <string name="scoreboard_acknowledgement">ok</string>
+    <string name="scoreboard_acknowledgement">OK</string>
     <string name="next">next</string>
     <string name="prev">prev</string>
     <string name="title_activity_how_two_play2">HowTwoPlay2</string>
@@ -32,5 +32,8 @@
     <string name="show_small_scoreboard">Small Board Ranking</string>
     <string name="show_medium_scoreboard">Medium Board Ranking</string>
     <string name="show_large_scoreboard">Large Board Ranking</string>
+    <string name="Choose_a_Puzzle_Size:">Choose a Puzzle Size:</string>
+    <string name="skip">skip</string>
+    <string name="TODO">TODO</string>
     
 </resources>
