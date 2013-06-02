@@ -102,7 +102,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	   	timedisplay.setText("0:00");
 	   	timedisplay.setTextSize(30);
 	   	timedisplay.setTextColor(Color.BLUE);
-		//layout.addView(timedisplay);
 		
 		// dimension + 1 for the number field at the top and left sides
 		buttons = new View[dimension + 1][dimension + 1];
@@ -149,7 +148,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					NonoPuzzle puzzle = NonoClient.getPuzzle(puzzleDifficulty);
 					for(int i = 0; i < puzzle.getNonoPicColSize(); i++){
 						for(int j = 0; j < puzzle.getNonoPicRowSize(); j++){
-							Log.i("gameArrayLength", String.valueOf(gameArray[i].length));
 							gameArray[i][j] = puzzle.getColor(i, j);
 						}
 					}	
@@ -185,7 +183,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			int count = 0;
 			for(int y = 0; y < dimension; y++){
 				// If the game cell is filled in...
-				Log.i("PlayAGameScreen",gameArray[x][y].toString());
 				if (gameArray[x][y].equals(Color.BLACK)){
 					emptyCell = false;
 					count++;
@@ -204,14 +201,14 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 						count = 0;
 						emptyCell = true;
 					}
-					// Otherwise we do nothing
+
 				}
 			}
 		}
 	}
 	
 	/**
-	 * Parse the game into text filed, shich can tell the user
+	 * Parse the game into text filed, can tell the user
 	 * how many blocks are selected for each column
 	 */
 	private void parseGameColumn(){
@@ -239,7 +236,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 						count = 0;
 						emptyCell = true;
 					}
-					// Otherwise we do nothing
+
 				}
 			}
 		}
@@ -308,7 +305,6 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		return layout;
 		
 	}
-	
 	
 	@Override
 	public void onClick(View view) {
@@ -424,12 +420,11 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 									puzzleDifficulty = Difficulty.UNDEFINED;
 								}
 								saveScore(name, score, v);
-//								showDialog("Success", "Upload the score", v);
+
 							} catch (Exception e) {
 								
 							}
-							// dialog: show score submitted
-							
+
 						}
 					}
 				});
@@ -562,7 +557,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							showDialog("Success", "Upload the score", v);
+							showDialog("Success", "Your score is uploaded", v);
 						}
 					});
 				} catch (UnknownHostException e) {

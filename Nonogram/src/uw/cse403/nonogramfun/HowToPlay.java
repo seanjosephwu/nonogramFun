@@ -11,7 +11,6 @@ package uw.cse403.nonogramfun;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -23,7 +22,6 @@ public class HowToPlay extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.how_to_play);
-		Log.i("create a game", "on create");
 		setTitle("How To Play");
 	}
 	 
