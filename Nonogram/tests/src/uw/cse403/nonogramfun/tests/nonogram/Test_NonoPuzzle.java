@@ -9,14 +9,15 @@
 
 package uw.cse403.nonogramfun.tests.nonogram;
 
-import static org.junit.Assert.*;
+import java.util.Iterator;
+
+import junit.framework.TestCase;
 
 import org.junit.Test;
-import java.util.Iterator;
-import junit.framework.TestCase;
+
+import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 import uw.cse403.nonogramfun.nonogram.NonoPuzzle.NonoNum;
-import uw.cse403.nonogramfun.enums.Difficulty;
 
 /**
  * This class tests NonoPuzzle object

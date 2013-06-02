@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+/**
+ * Create game menu screen, the user need to choose which level of game he want to play
+ */
 public class CreateGameMenu extends Activity {
 
 	@Override
@@ -31,6 +34,10 @@ public class CreateGameMenu extends Activity {
 	}
 
 	
+	/**
+	 * small game
+	 * @param view
+	 */
 	public void CreateGameSmallScreen(View view) {
 		Intent i = new Intent(this, CreateGameScreen.class);
 		i.putExtra("size", 5);
@@ -38,6 +45,10 @@ public class CreateGameMenu extends Activity {
 		startActivity(i);
 	}
 
+	/**
+	 * middle game
+	 * @param view
+	 */
 	public void CreateGameMediumScreen(View view) {
 		Intent i = new Intent(this, CreateGameScreen.class);
 		i.putExtra("size", 10);
@@ -45,6 +56,10 @@ public class CreateGameMenu extends Activity {
 		startActivity(i);
 	}
 
+	/**
+	 * large game
+	 * @param view
+	 */
 	public void CreateGameLargeScreen(View view) {
 		Intent i = new Intent(this, CreateGameScreen.class);
 		i.putExtra("size", 14);

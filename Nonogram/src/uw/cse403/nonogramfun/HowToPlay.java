@@ -14,10 +14,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
 
+/**
+ * The first page of HowToPlay screen, give tutorial to user about how to play the game
+ */
 public class HowToPlay extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +34,19 @@ public class HowToPlay extends Activity {
         return true;
     }
 	
+    /**
+     * go to next page of HowToPlay
+     * @param view
+     */
 	public void next(View view) {
 		Intent i = new Intent(this, HowToPlay2.class);
 		startActivity(i);
 	}
 	
+	/**
+	 * back to the main menu
+	 * @param view
+	 */
 	public void skip(View view) {
 		Intent i = new Intent(this, MainActivity.class);
 		startActivity(i);

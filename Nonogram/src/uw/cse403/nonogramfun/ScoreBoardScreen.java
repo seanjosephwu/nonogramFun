@@ -6,12 +6,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
+/**
+ * CSE 403 AA
+ * Project Nonogram: Frontend
+ * @author  Xiaoxia Jian, Huiqi Wang, Renhao Xie, Alan Loh
+ * @version v1.0, University of Washington 
+ * @since   Spring 2013 
+ */
 public class ScoreBoardScreen extends Activity{
 	ArrayList<String> names;
 	ArrayList<String> scores;
@@ -37,7 +41,6 @@ public class ScoreBoardScreen extends Activity{
 		//parse topTenStirng by *** to get each NonoScore
 	
 		for(int i = 0; i < topTenStrings.size(); i++){
-			LinearLayout l1 = new LinearLayout(this);
 			TextView tv1 = new TextView(this);
 			tv1.setGravity(Gravity.LEFT);
 			tv1.setText(i);
@@ -50,6 +53,7 @@ public class ScoreBoardScreen extends Activity{
 		
 	}
 	
+
 	private void parser(ArrayList<String> list){
 		for(int i = 0; i < list.size(); i ++){
 			String s = list.get(i);

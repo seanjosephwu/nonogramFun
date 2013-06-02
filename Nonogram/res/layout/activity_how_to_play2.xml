@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.99"
+        android:contentDescription="@string/TODO"
         android:src="@drawable/htp2" />
 
     <Gallery
@@ -51,7 +52,7 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/button_red"
             android:onClick="skip"
-            android:text="skip" />
+            android:text="@string/skip" />
     </RelativeLayout>
 
 </LinearLayout>

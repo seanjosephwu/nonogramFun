@@ -9,17 +9,16 @@ package uw.cse403.nonogramfun;
  */
 
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * The screen of main menu
+ */
 public class MainActivity extends Activity {
 
     public Button b;
@@ -40,6 +39,9 @@ public class MainActivity extends Activity {
         return true;
     }
 	
+    /**
+     * Set the background music
+     */
 	private void startMusicPlayer(){
 		mPlayer = MediaPlayer.create(this, R.raw.humoresque);
         mPlayer.setLooping(true);
@@ -47,28 +49,45 @@ public class MainActivity extends Activity {
         mPlayer.start();
 	}
 	
+	/**
+	 * Go to the howToPlay screen
+	 * @param view
+	 */
 	public void howToPlayScreen(View view) {
 		Intent i = new Intent(this, HowToPlay.class);
 		startActivity(i);
 	}
 	
-	
+	/**
+	 * Go to the createGame menu
+	 * @param view
+	 */
 	public void createGameScreen(View view) {
 		Intent i = new Intent(this, CreateGameMenu.class);
 		startActivity(i);
 	}
     
-	
+	/**
+	 * Go to the playGame menu
+	 * @param view
+	 */
 	public void playGameScreen(View view) {
 		Intent i = new Intent(this, PlayGameMenu.class);
 		startActivity(i);
 	}
 	
+	/**
+	 * Go to the scoreboard menu
+	 * @param view
+	 */
 	public void scoreBoardScreen(View view) {
 		Intent i = new Intent(this, ScoreBoard.class);
 		startActivity(i);
 	}
 	
+	/**
+	 * Stop the music when exit
+	 */
 	@Override
 	public void onDestroy(){
 		super.onDestroy();

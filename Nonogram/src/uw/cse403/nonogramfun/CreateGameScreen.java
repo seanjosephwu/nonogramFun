@@ -28,7 +28,9 @@ import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-
+/**
+ * The Great game screen, users can create a game as they want
+ */
 public class CreateGameScreen extends Activity implements OnClickListener{
 	private Button[][] buttons;
 	protected int dimension;
@@ -75,6 +77,10 @@ public class CreateGameScreen extends Activity implements OnClickListener{
     }
 
 
+	/**
+	 * The cell get an index x when the user press it once, and remove it when the user
+	 * press it another time.
+	 */
 	@Override
 	public void onClick(View arg0) {
 		if(((Cell)arg0).getSelectVal()){
@@ -88,7 +94,11 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 		((Cell) arg0).setSelectVal();
 	}
 	
-	
+	/**
+	 * Create the button table
+	 * @param layout
+	 * @return
+	 */
 	private TableLayout createTable(TableLayout layout) {
 		
 		for (int i = 0; i < dimension; i++) {
@@ -116,12 +126,19 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 		return layout;
 	}
 	
+	/**
+	 * Return to the main screen
+	 * @param view
+	 */
 	public void returnMainScreen(View view) {
 		Intent i = new Intent(this, MainActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 	}
 	
+	/**
+	 * Set the submit button listener, show up a dialog if the game is created success
+	 */
 	private class SubmitButtonListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
@@ -173,7 +190,12 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 			
 		}
 
-		
+		/**
+		 * Create the alert dialog with given title and given message
+		 * @param v
+		 * @param title
+		 * @param message
+		 */
 		private void showAlertDialog(final View v, String title, String message){
 			AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
 			alertDialog.setTitle(title);
@@ -189,6 +211,10 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 		
 	}
 	
+	/**
+	 * Get the dimension of the game the user want to create
+	 * @return
+	 */
 	public int getDimension(){
 		return dimension;
 	}
