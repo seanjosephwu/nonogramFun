@@ -7,8 +7,6 @@ package uw.cse403.nonogramfun.tests.network;
  * @since   Spring 2013 
  */
 
-import static org.junit.Assert.assertTrue;
-
 import java.net.Socket;
 
 import junit.framework.TestCase;

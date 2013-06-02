@@ -8,9 +8,10 @@
  */
 
 package uw.cse403.nonogramfun.tests.enums;
-import static org.junit.Assert.*;
-import org.junit.Test;
 import junit.framework.TestCase;
+
+import org.junit.Test;
+
 import uw.cse403.nonogramfun.enums.Difficulty;
 
 /**
