@@ -205,7 +205,7 @@ public class Test_NonoClientMock extends TestCase {
 			Iterator<NonoScore> iter = board.getIterator();
 			assert(iter.hasNext());
 			NonoScore score = iter.next();
-			assertEquals(EASY, score.difficulty);
+			assertEquals(EASY.toString(), score.difficulty);
 			assertEquals(TESTSTRING, score.playerName);
 			assertEquals(TESTSCORE, Integer.valueOf(score.score));
 			assert(!iter.hasNext());
