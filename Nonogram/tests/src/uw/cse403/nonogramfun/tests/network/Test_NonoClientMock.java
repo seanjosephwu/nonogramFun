@@ -10,6 +10,8 @@
 
 package uw.cse403.nonogramfun.tests.network;
 
+import java.net.Socket;
+
 import junit.framework.TestCase;
 
 import org.json.JSONObject;
@@ -21,6 +23,7 @@ import uw.cse403.nonogramfun.enums.ClientRequest;
 import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.enums.ServerResponse;
 import uw.cse403.nonogramfun.network.NonoClient;
+import uw.cse403.nonogramfun.network.NonoConfig;
 import uw.cse403.nonogramfun.network.NonoNetwork;
 import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 import uw.cse403.nonogramfun.utility.NonoUtil;
@@ -46,7 +49,11 @@ public class Test_NonoClientMock extends TestCase {
 	
 	@Before
 	public void setUp() {
-		mockNetwork = AndroidMock.createNiceMock(NonoNetwork.class);
+		try {
+			mockNetwork = AndroidMock.createNiceMock(NonoNetwork.class, new Socket(NonoConfig.getServerIP(), NonoConfig.BASE_PORT));
+		} catch (Exception e) {
+			fail("Could not create mockNetwork");
+		}
 		NonoClient.setNetwork(mockNetwork);
 	}
 	
