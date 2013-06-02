@@ -25,7 +25,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -221,6 +220,7 @@ public class ScoreBoard extends Activity {
 			} else {
 				minDisplay = "" + min;
 			}
+			
 			String scoreDisplay = String.format("%2s: %2s", minDisplay, secDisplay);
 			score.setText(scoreDisplay);
 			
