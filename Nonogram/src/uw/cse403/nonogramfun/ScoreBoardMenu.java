@@ -20,11 +20,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-
 /**
  * CSE 403 AA
  * Project Nonogram: Frontend
- * @author  Xiaoxia Jian, Huiqi Wang, Renhao Xie, Alan Loh
+ * @author  Xiaoxia Jian
  * @version v1.0, University of Washington 
  * @since   Spring 2013 
  */
@@ -34,46 +33,32 @@ public class ScoreBoardMenu extends Activity implements OnClickListener {
 	List<NonoScore> listToSort = new ArrayList<NonoScore>();
 	private static final int small = 101; 
 	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.scoreboard_menu);
 		setTitle("Score Board Menu");
-		Log.i("scoreboard.java", "on create");
 		
 		//grab the view 
 		Button b1 = (Button)findViewById(R.id.scoreboard_screen_button1);
-		Log.i("Created buttons", "button 1 created");
 		Button b2 = (Button)findViewById(R.id.scoreboard_screen_button2);
-		Log.i("Created buttons", "button 2 created");
 		Button b3 = (Button)findViewById(R.id.scoreboard_screen_button3);
-		Log.i("Created buttons", "button 3 created");
-		Log.i("Created buttons", "buttons created");
 	    b1.setOnClickListener(this);
-	    Log.i("Created buttons", "button 1 listener created");
 	    b2.setOnClickListener(this);
-	    Log.i("Created buttons", "button 2 listener created");
 	    b3.setOnClickListener(this);
-	    Log.i("Created buttons", "button 3 listener created");
-	    Log.i("Listeners set", "button listeners set");
-
 	}
 	
     @Override
     public void onClick(View v) {
     	switch (v.getId()) {
     	    case R.id.scoreboard_screen_button1:
-    	    	Log.i("Getting easy", "STart");
+    	    	
     	    	getScore(small);
-    	    	Log.i("Getting easy", "Got scoreBoard");
+    	    	
     	        List<NonoScore> topTen = sortingNonoScores();
-    	        Log.i("Getting easy", "Sorted the NonoScores");
+    	       
     	    	Intent intent = new Intent(this, ScoreBoardScreen.class);
-    	    	//Bundle bundle = new Bundle();
-    	    	//intent.putParcelableArrayListExtra("topTen", topTen);
-    	    	//Intent intent = getIntent();
-    	    	//get NonoScores toString form and pass as intent
+
     	    	ArrayList<String> list = new ArrayList<String>(topTen.size());
     	    	for(int j = 0; j < topTen.size(); j++){
     	    		list.add(topTen.get(j).toString());
@@ -103,7 +88,7 @@ public class ScoreBoardMenu extends Activity implements OnClickListener {
 			while(scoreIter.hasNext()) {
 				NonoScore next = scoreIter.next();
 				listToSort.add(next);
-				Log.i("Next item", next.toString());
+				
 			}
 			assert(listToSort != null);
 			
@@ -128,23 +113,23 @@ public class ScoreBoardMenu extends Activity implements OnClickListener {
 		Thread thread = new Thread(new Runnable(){
 			@Override
 			public void run() {
-				Log.i("In thread", "Starting");
+				
 				try {
-					Log.i("Hi", "Why don't you work?");
+					
 					if (type == small)
 						nonoScoreBoard = NonoClient.getScoreBoard(Difficulty.EASY);
-					Log.i("Yay!", "You worked!");
+					
 					if (nonoScoreBoard == null) {
 						Log.e("error","returns null");
 					}
 				} catch (UnknownHostException e) {
-					e.printStackTrace();
+				
 				} catch (IOException e) {
-					e.printStackTrace();
+					
 				} catch (JSONException e) {		
-					e.printStackTrace();
+					
 				} catch (Exception e) {
-					e.printStackTrace();
+					
 				}
 			}
 		});
@@ -152,7 +137,7 @@ public class ScoreBoardMenu extends Activity implements OnClickListener {
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
-			Log.i("MMmk", "???");
+			
 		}
 	}
 }

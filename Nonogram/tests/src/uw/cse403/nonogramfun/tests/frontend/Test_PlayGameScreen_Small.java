@@ -1,8 +1,6 @@
 package uw.cse403.nonogramfun.tests.frontend;
 
 import com.jayway.android.robotium.solo.Solo;
-
-import uw.cse403.nonogramfun.CreateGameScreen;
 import uw.cse403.nonogramfun.MainActivity;
 import uw.cse403.nonogramfun.PlayGameScreen;
 import android.app.Activity;
@@ -10,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
-import android.widget.TextView;
 /**
  * Test the case of small gameboard of PlayGameScreen
  * @author Huiqi Wang
@@ -41,7 +38,7 @@ public class Test_PlayGameScreen_Small extends ActivityInstrumentationTestCase2<
 		solo.finishOpenedActivities();
 	}
 
-	/*
+	/**
 	 * White Box Test
 	 * Test if the gameboard buttons are all created in the view, and if clicking the
 	 * buttons will mark the buttons
@@ -63,7 +60,7 @@ public class Test_PlayGameScreen_Small extends ActivityInstrumentationTestCase2<
 		}
 	}
 	
-	/*
+	/**
 	 * Black Box Test
 	 * Test if the submit button exists
 	 */
@@ -72,7 +69,7 @@ public class Test_PlayGameScreen_Small extends ActivityInstrumentationTestCase2<
 		assertEquals(true,solo.searchButton("Submit"));	
 	}
 	
-	/*
+	/**
 	 * Black Box Test
 	 * Test if the submit button functions properly when the answer is wrong
 	 */
@@ -84,7 +81,7 @@ public class Test_PlayGameScreen_Small extends ActivityInstrumentationTestCase2<
 		solo.assertCurrentActivity("Not MainActivity", MainActivity.class);
 	}
 	
-	/*
+	/**
 	 * Black Box Test
 	 * Test if the hint button exists
 	 */

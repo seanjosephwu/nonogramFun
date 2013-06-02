@@ -6,6 +6,7 @@ import uw.cse403.nonogramfun.MainActivity;
 import uw.cse403.nonogramfun.PlayGameScreen;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 /**
@@ -38,7 +39,7 @@ public class Test_PlayGameScreen_Large extends ActivityInstrumentationTestCase2<
 		solo.finishOpenedActivities();
 	}
 
-	/*
+	/**
 	 * White Box Test
 	 * Test if the gameboard buttons are all created in the view, and if clicking the
 	 * buttons will mark the buttons
@@ -46,20 +47,20 @@ public class Test_PlayGameScreen_Large extends ActivityInstrumentationTestCase2<
 	public void testViewsCreated(){
 		solo.assertCurrentActivity("Not CreateGameScreen", PlayGameScreen.class);
 		String text;
-		for(int i = 0; i < SIZE_LARGE; i++){
-			for (int j = 0; j < SIZE_LARGE; j++){
+		for(int i = 1; i < SIZE_LARGE+1; i++){
+			for (int j = 1; j < SIZE_LARGE+1; j++){
 				
 				text = Integer.toString(j)+""+Integer.toString(i);
 				assertEquals(true, solo.searchButton(text));
 				
 				Button button = solo.getButton(text);
 				solo.clickOnButton(text);
-				assertEquals("X", button.getText());
+				assertEquals(Color.BLACK, button.getCurrentTextColor());
 			}
 		}
 	}
 	
-	/*
+	/**
 	 * Black Box Test
 	 * Test if the submit button exists
 	 */
@@ -68,7 +69,7 @@ public class Test_PlayGameScreen_Large extends ActivityInstrumentationTestCase2<
 		assertEquals(true,solo.searchButton("Submit"));	
 	}
 	
-	/*
+	/**
 	 * Black Box Test
 	 * Test if the submit button functions properly when the answer is wrong
 	 */
@@ -80,7 +81,7 @@ public class Test_PlayGameScreen_Large extends ActivityInstrumentationTestCase2<
 		solo.assertCurrentActivity("Not MainActivity", MainActivity.class);
 	}
 	
-	/*
+	/**
 	 * Black Box Test
 	 * Test if the hint button exists
 	 */

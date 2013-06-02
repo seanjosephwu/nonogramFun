@@ -1,5 +1,11 @@
 package uw.cse403.nonogramfun;
-
+/**
+ * CSE 403 AA
+ * Project Nonogram: Frontend
+ * @author  Renhao Xie, Zhe Shi
+ * @version v1.0, University of Washington 
+ * @since   Spring 2013 
+ */
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

@@ -21,23 +21,32 @@ public class Test_ScoreBoard extends ActivityInstrumentationTestCase2<ScoreBoard
 		super.setUp();
 		solo = new Solo(getInstrumentation(),getActivity());
 	}
-
+	
+	public void testViewsCreated(){
+		assertEquals(true, solo.searchButton("Small"));
+		assertEquals(true, solo.searchButton("Medium"));
+		assertEquals(true, solo.searchButton("Large"));
+	}
+	
 	public void testSmallGameButton(){
 		solo.assertCurrentActivity("Not ScoreBoard", ScoreBoard.class);
 		solo.clickOnButton("Small");
 		solo.assertCurrentActivity("Not ScoreBoard", ScoreBoard.class);
+		solo.clickOnButton("OK");
 	}
 	
 	public void testMediumGameButton(){
 		solo.assertCurrentActivity("Not ScoreBoard", ScoreBoard.class);
 		solo.clickOnButton("Medium");
 		solo.assertCurrentActivity("Not ScoreBoard", ScoreBoard.class);
+		solo.clickOnButton("OK");
 	}
 
 	public void testLargeGameButton(){
 		solo.assertCurrentActivity("Not ScoreBoard", ScoreBoard.class);
 		solo.clickOnButton("Large");
 		solo.assertCurrentActivity("Not ScoreBoard", ScoreBoard.class);
+		solo.clickOnButton("OK");
 	}
 
 	@Override

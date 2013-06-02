@@ -25,6 +25,13 @@ public class Test_MainActivity extends ActivityInstrumentationTestCase2<MainActi
 		solo = new Solo(getInstrumentation(),getActivity());
 	}
 
+	public void testViewsCreated(){
+		assertEquals(true, solo.searchButton("How To Play"));
+		assertEquals(true, solo.searchButton("Play A Game"));
+		assertEquals(true, solo.searchButton("Create A Game"));
+		assertEquals(true, solo.searchButton("Scoreboard"));
+	}
+	
 	@Test
 	public void testHowToPlay(){
 		solo.assertCurrentActivity("Not MainActivity", MainActivity.class);

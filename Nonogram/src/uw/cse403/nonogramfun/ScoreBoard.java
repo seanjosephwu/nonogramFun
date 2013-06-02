@@ -1,3 +1,4 @@
+package uw.cse403.nonogramfun;
 /**
  * CSE 403 AA
  * Project Nonogram: FrontEnd
@@ -5,10 +6,6 @@
  * @version v1.0, University of Washington 
  * @since   Spring 2013 
  */
-
-
-package uw.cse403.nonogramfun;
-
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -25,7 +22,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;

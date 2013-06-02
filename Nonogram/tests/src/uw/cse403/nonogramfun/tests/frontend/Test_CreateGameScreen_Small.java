@@ -38,7 +38,7 @@ public class Test_CreateGameScreen_Small extends ActivityInstrumentationTestCase
 		solo.finishOpenedActivities();
 	}
 
-	/*
+	/**
 	 * White Box Test
 	 * Test if the gameboard buttons are all created in the view, and if clicking the
 	 * buttons will mark the buttons
@@ -59,7 +59,7 @@ public class Test_CreateGameScreen_Small extends ActivityInstrumentationTestCase
 		}
 	}
 	
-	/*
+	/**
 	 * Black Box Test
 	 * Test if the submit button exists
 	 */
@@ -68,7 +68,7 @@ public class Test_CreateGameScreen_Small extends ActivityInstrumentationTestCase
 		assertEquals(true,solo.searchButton("Submit"));	
 	}
 	
-	/*
+	/**
 	 * Black Box Test
 	 * Test clicking submit with an empty game gives an error message
 	 */
@@ -81,7 +81,7 @@ public class Test_CreateGameScreen_Small extends ActivityInstrumentationTestCase
 		solo.assertCurrentActivity("Not MainActivity", MainActivity.class);
 	}
 	
-	/*
+	/**
 	 * Black Box Test
 	 * Test clicking submit with a non-empty game gives a success message
 	 */

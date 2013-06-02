@@ -24,6 +24,12 @@ public class Test_PlayGameMenu extends ActivityInstrumentationTestCase2<PlayGame
 		solo = new Solo(getInstrumentation(),getActivity());
 	}
 
+	public void testViewsCreated(){
+		assertEquals(true, solo.searchButton("Small"));
+		assertEquals(true, solo.searchButton("Medium"));
+		assertEquals(true, solo.searchButton("Large"));
+	}
+	
 	public void testSmallGameButton(){
 		solo.assertCurrentActivity("Not PlayGameMenu", PlayGameMenu.class);
 		solo.clickOnButton("Small");
