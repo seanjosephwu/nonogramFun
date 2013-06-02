@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 /**
@@ -176,10 +175,33 @@ public class ScoreBoard extends Activity {
 			View rank = inflater.inflate(R.layout.score_board_rank, null);
 			TextView name = (TextView) rank.findViewById(R.id.rank_name);
 			TextView score = (TextView) rank.findViewById(R.id.rank_score);
-			
-			Log.i("rank", least.playerName + " : " + least.score);
-			name.setText(least.playerName);
-			score.setText("" + least.score);
+			String preName = least.playerName;
+			String[] preNames = preName.split("\"");		
+			//Log.i("rank", least.playerName + " : " + least.score);
+			name.setText(preNames[1]);
+			int hour = least.score / 3600;
+			int min = least.score % 3600/ 60;
+			int sec = least.score % 3600 % 60;
+			String hourDisplay;
+			String minDisplay;
+			String secDisplay;
+			if(hour < 10 ) {
+				hourDisplay = "0" + hour;
+			} else{
+				hourDisplay = "" + hour;
+			}
+			if(sec < 10 ) {
+				secDisplay = "0" + sec;
+			} else{
+				secDisplay = "" + sec;
+			}
+			if(min < 10) {
+				minDisplay = "0" + min;
+			} else {
+				minDisplay = "" + min;
+			}
+			String scoreDisplay = String.format("%2s: %2s: %2s", hourDisplay, minDisplay, secDisplay);
+			score.setText(scoreDisplay);
 			board.addView(rank);
 		}
 		
