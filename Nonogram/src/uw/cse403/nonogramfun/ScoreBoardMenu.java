@@ -17,17 +17,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
+
+/**
+ * CSE 403 AA
+ * Project Nonogram: Frontend
+ * @author  Xiaoxia Jian, Huiqi Wang, Renhao Xie, Alan Loh
+ * @version v1.0, University of Washington 
+ * @since   Spring 2013 
+ */
 
 public class ScoreBoardMenu extends Activity implements OnClickListener {
 	NonoScoreBoard nonoScoreBoard;
-	//List<NonoScore> nonoScoresSmall = new ArrayList<NonoScore>();
-	//List<NonoScore> nonoScoresMedium = new ArrayList<NonoScore>();
-	//List<NonoScore> nonoScoresLarge = new ArrayList<NonoScore>();
 	List<NonoScore> listToSort = new ArrayList<NonoScore>();
 	private static final int small = 101; 
 	
@@ -89,7 +92,10 @@ public class ScoreBoardMenu extends Activity implements OnClickListener {
     	    }   
     }
 	
-	//sorting by score, store top 10 (based on least score)
+	/**
+	 * sorting by score, store top 10 (based on least score)
+	 * @return
+	 */
 	private List<NonoScore> sortingNonoScores(){
 		if(nonoScoreBoard != null){
 			Iterator<NonoScore> scoreIter = nonoScoreBoard.getIterator();
@@ -114,7 +120,10 @@ public class ScoreBoardMenu extends Activity implements OnClickListener {
 		return null;
 	}
 	
-	//given the difficulty retrieve all NonoScore for that difficulty level
+	/**
+	 * given the difficulty retrieve all NonoScore for that difficulty level
+	 * @param type
+	 */
 	private void getScore(final int type){
 		Thread thread = new Thread(new Runnable(){
 			@Override

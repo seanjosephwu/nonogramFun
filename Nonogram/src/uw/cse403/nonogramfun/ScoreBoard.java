@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 /**
@@ -42,7 +41,6 @@ public class ScoreBoard extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.scoreboard_menu);
 		setTitle("Score Board");
-		Log.i("scoreboard.java", "on create");
 	}
     
     @Override
@@ -52,6 +50,10 @@ public class ScoreBoard extends Activity {
         return true;
     }
     
+    /**
+     * The score board for small game
+     * @param view
+     */
 	public void scoreSmall(View view){
 	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	    // Get the layout inflater
@@ -72,6 +74,10 @@ public class ScoreBoard extends Activity {
 	    builder.show();
 	}
 	
+	/**
+	 * The score board for medium game
+	 * @param view
+	 */
 	public void scoreMedium(View view){
 	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	    // Get the layout inflater
@@ -93,6 +99,10 @@ public class ScoreBoard extends Activity {
 	    builder.show();
 	}
 	
+	/**
+	 * The score board for large game
+	 * @param view
+	 */
 	public void scoreLarge(View view){
 	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	    // Get the layout inflater
@@ -113,15 +123,16 @@ public class ScoreBoard extends Activity {
 	    builder.show();
 	}
 	
+	/** 
+	 * Get the score from the server
+	 * @param d, the difficulty level
+	 */
 	private void getScore(final Difficulty d){
 		Thread thread = new Thread(new Runnable(){
 			@Override
 			public void run() {
-				try {
-					Log.i("get score", "before");
+				try {			
 					nonoScoreBoard = NonoClient.getScoreBoard(d);
-					Log.i("get score", "after");
-
 				} catch (UnknownHostException e) {
 					
 				} catch (IOException e) {
@@ -142,6 +153,10 @@ public class ScoreBoard extends Activity {
 		}
 	}
 	
+	/**
+	 * Save the scores in order
+	 * @return
+	 */
 	private PriorityQueue<NonoScore> sortingNonoScores() {
 		PriorityQueue<NonoScore> minScoreQue = new PriorityQueue<NonoScore>(11, new minScoreCompare());
 		PriorityQueue<NonoScore> maxScoreQue = new PriorityQueue<NonoScore>(11, new maxScoreCompare());
@@ -176,38 +191,60 @@ public class ScoreBoard extends Activity {
 			View rank = inflater.inflate(R.layout.score_board_rank, null);
 			TextView name = (TextView) rank.findViewById(R.id.rank_name);
 			TextView score = (TextView) rank.findViewById(R.id.rank_score);
-			
-			Log.i("rank", least.playerName + " : " + least.score);
-			name.setText(least.playerName);
-			score.setText("" + least.score);
+			String preName = least.playerName;
+			String[] preNames = preName.split("\"");		
+			name.setText(preNames[1]);
+			int min = least.score / 60;
+			int sec = least.score % 60;
+			String minDisplay;
+			String secDisplay;
+
+			if(sec < 10 ) {
+				secDisplay = "0" + sec;
+			} else{
+				secDisplay = "" + sec;
+			}
+			if(min < 10) {
+				minDisplay = "0" + min;
+			} else {
+				minDisplay = "" + min;
+			}
+			String scoreDisplay = String.format("%2s: %2s", minDisplay, secDisplay);
+			score.setText(scoreDisplay);
 			board.addView(rank);
 		}
 		
 		return board;
 	}
 	
+	/**
+	 * Get the minimum score
+	 */
 	public class minScoreCompare implements  Comparator<NonoScore> {
 
 		public minScoreCompare() {}
 		@Override
 		public int compare(NonoScore lhs, NonoScore rhs) {
-			if (lhs.score > rhs.score) 
+			if (lhs.score < rhs.score) 
 				return -1;
-			else if (lhs.score < rhs.score)
+			else if (lhs.score > rhs.score)
 				return 1;
 			return 0;
 		}
 		
 	}
 	
+	/**
+	 * Get the maximum score
+	 */
 	public class maxScoreCompare implements  Comparator<NonoScore> {
 		
 		public maxScoreCompare() {}
 		@Override
 		public int compare(NonoScore lhs, NonoScore rhs) {
-			if (lhs.score < rhs.score) 
+			if (lhs.score > rhs.score) 
 				return -1;
-			else if (lhs.score > rhs.score)
+			else if (lhs.score < rhs.score)
 				return 1;
 			return 0;
 		}

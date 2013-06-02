@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+/**
+ * The second page of HowToPlay screen, give tutorial to user about how to play the game
+ */
 public class HowToPlay2 extends Activity {
 
 	@Override
@@ -21,16 +24,28 @@ public class HowToPlay2 extends Activity {
 		return true;
 	}
 
+	/**
+	 * go to the next screen
+	 * @param view
+	 */
 	public void next(View view) {
 		Intent i = new Intent(this, HowToPlay3.class);
 		startActivity(i);
 	}
 	
+	/**
+	 * go to the previous screen
+	 * @param view
+	 */
 	public void prev(View view) {
 		Intent i = new Intent(this, HowToPlay.class);
 		startActivity(i);
 	}
 	
+	/**
+	 * go back to the main scren
+	 * @param view
+	 */
 	public void skip(View view) {
 		Intent i = new Intent(this, MainActivity.class);
 		startActivity(i);
