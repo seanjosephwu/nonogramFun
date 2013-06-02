@@ -5,7 +5,12 @@ import uw.cse403.nonogramfun.*;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.jayway.android.robotium.solo.Solo;
-
+/**
+ * Black Box Tests
+ * CreateGameMenu class
+ * @author Huiqi Wang
+ *
+ */
 public class Test_CreateGameMenu extends ActivityInstrumentationTestCase2<CreateGameMenu> {
 	private Solo solo;
 	

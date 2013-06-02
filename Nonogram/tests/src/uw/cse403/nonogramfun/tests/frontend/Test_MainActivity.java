@@ -6,7 +6,12 @@ import uw.cse403.nonogramfun.*;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.jayway.android.robotium.solo.Solo;
-
+/**
+ * Black Box Tests
+ * MainActivity class
+ * @author Huiqi Wang
+ *
+ */
 public class Test_MainActivity extends ActivityInstrumentationTestCase2<MainActivity> {
 	private Solo solo;
 	
@@ -41,15 +46,12 @@ public class Test_MainActivity extends ActivityInstrumentationTestCase2<MainActi
 		solo.assertCurrentActivity("Not PlayGame", PlayGameMenu.class);
 	}
   
-  
 	@Test
 	public void testScoreBoard(){
 		solo.assertCurrentActivity("Not MainActivity", MainActivity.class);
 		solo.clickOnButton("Scoreboard");
 		solo.assertCurrentActivity("Not Scoreboard", ScoreBoard.class);
 	}
- 
- 
 	
 	@Override
 	protected void tearDown() throws Exception {

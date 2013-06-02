@@ -5,7 +5,12 @@ import uw.cse403.nonogramfun.*;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.jayway.android.robotium.solo.Solo;
-
+/**
+ * Black Box Tests
+ * PlayGameMenu class
+ * @author Huiqi Wang
+ *
+ */
 public class Test_PlayGameMenu extends ActivityInstrumentationTestCase2<PlayGameMenu> {
 	private Solo solo;
 	
@@ -23,7 +28,6 @@ public class Test_PlayGameMenu extends ActivityInstrumentationTestCase2<PlayGame
 		solo.assertCurrentActivity("Not PlayGameMenu", PlayGameMenu.class);
 		solo.clickOnButton("Small");
 		solo.assertCurrentActivity("Not PlayGameScreen", PlayGameScreen.class);
-		// verify the game board size
 		// verify the game board size
 		int dimensions = solo.getCurrentActivity().getIntent().getIntExtra("size", 0);
 		Assert.assertEquals(5, dimensions);

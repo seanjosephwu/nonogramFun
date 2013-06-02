@@ -1,23 +1,24 @@
 package uw.cse403.nonogramfun.tests.frontend;
 
 import com.jayway.android.robotium.solo.Solo;
-import uw.cse403.nonogramfun.CreateGameScreen;
+
+import uw.cse403.nonogramfun.PlayGameScreen;
 import android.app.Activity;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 /**
- * Test the case of medium gameboard of CreateGameScreen
+ * Test the case of medium gameboard of PlayGameScreen
  * @author Huiqi Wang
  *
  */
-public class Test_CreateGameScreen_Medium extends ActivityInstrumentationTestCase2<CreateGameScreen> {
+public class Test_PlayGameScreen_Medium extends ActivityInstrumentationTestCase2<PlayGameScreen> {
 	private Activity activity;
 	private Solo solo;
 	final int SIZE_MEDIUM = 10;
 	
-	public Test_CreateGameScreen_Medium() {
-		super(CreateGameScreen.class);
+	public Test_PlayGameScreen_Medium() {
+		super(PlayGameScreen.class);
 	}
 
 	protected void setUp() throws Exception {
@@ -40,13 +41,12 @@ public class Test_CreateGameScreen_Medium extends ActivityInstrumentationTestCas
 	 * buttons will mark the buttons
 	 */
 	public void testViewsCreated(){
-		solo.assertCurrentActivity("Not CreateGameScreen", CreateGameScreen.class);
+		solo.assertCurrentActivity("Not CreateGameScreen", PlayGameScreen.class);
 		String text;
 		for(int i = 0; i < SIZE_MEDIUM; i++){
 			for (int j = 0; j < SIZE_MEDIUM; j++){
 				
-				text = Integer.toString(i)+""+Integer.toString(j);
-				
+				text = Integer.toString(j)+""+Integer.toString(i);
 				assertEquals(true, solo.searchButton(text));
 				
 				Button button = solo.getButton(text);

@@ -5,15 +5,15 @@ import uw.cse403.nonogramfun.*;
 import android.test.ActivityInstrumentationTestCase2;
 /**
  * Black Box Tests
- * HowToPlay class
+ * HowToPlay2 class
  * @author Huiqi Wang
  *
  */
-public class Test_HowToPlay extends ActivityInstrumentationTestCase2<HowToPlay> {
+public class Test_HowToPlay2 extends ActivityInstrumentationTestCase2<HowToPlay2> {
 	private Solo solo;
 	
-	public Test_HowToPlay() {
-		super(HowToPlay.class);
+	public Test_HowToPlay2() {
+		super(HowToPlay2.class);
 	}
 
 	@Override
@@ -25,21 +25,28 @@ public class Test_HowToPlay extends ActivityInstrumentationTestCase2<HowToPlay> 
 	public void testViewsCreated(){
 		assertEquals(true, solo.searchButton("next"));
 		assertEquals(true, solo.searchButton("skip"));
+		assertEquals(true, solo.searchButton("prev"));
 	}
 	
-	public void testNextButton(){
-		solo.assertCurrentActivity("Not HowToPlay", HowToPlay.class);
-		solo.clickOnButton("next");
+	public void testPrevButton(){
 		solo.assertCurrentActivity("Not HowToPlay2", HowToPlay2.class);
-		
-		// test going back to HowToPlay from HowToPlay2
-		assertEquals(true, solo.searchButton("prev"));
 		solo.clickOnButton("prev");
 		solo.assertCurrentActivity("Not HowToPlay", HowToPlay.class);
 	}
 	
+	public void testNextButton(){
+		solo.assertCurrentActivity("Not HowToPlay2", HowToPlay2.class);
+		solo.clickOnButton("next");
+		solo.assertCurrentActivity("Not HowToPlay3", HowToPlay3.class);
+		
+		// test going back to HowToPlay2 from HowToPlay3
+		assertEquals(true, solo.searchButton("prev"));
+		solo.clickOnButton("prev");
+		solo.assertCurrentActivity("Not HowToPlay2", HowToPlay2.class);
+	}
+	
 	public void testSkipButton(){
-		solo.assertCurrentActivity("Not HowToPlay", HowToPlay.class);
+		solo.assertCurrentActivity("Not HowToPlay2", HowToPlay2.class);
 		solo.clickOnButton("skip");
 		solo.assertCurrentActivity("Not MainAcitivity", MainActivity.class);
 	}

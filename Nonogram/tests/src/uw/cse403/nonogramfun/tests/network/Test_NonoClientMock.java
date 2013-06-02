@@ -10,11 +10,8 @@
 
 package uw.cse403.nonogramfun.tests.network;
 
-import static org.easymock.EasyMock.createNiceMock;
-import static org.easymock.EasyMock.expectLastCall;
 import junit.framework.TestCase;
 
-import org.easymock.EasyMock;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
@@ -27,6 +24,9 @@ import uw.cse403.nonogramfun.network.NonoClient;
 import uw.cse403.nonogramfun.network.NonoNetwork;
 import uw.cse403.nonogramfun.nonogram.NonoPuzzle;
 import uw.cse403.nonogramfun.utility.NonoUtil;
+
+import com.google.android.testing.mocking.AndroidMock;
+import com.google.android.testing.mocking.UsesMocks;
 
 
 public class Test_NonoClientMock extends TestCase {
@@ -43,10 +43,10 @@ public class Test_NonoClientMock extends TestCase {
 	private static final String EXP_NAME_1 = "Ice Cream";
 	private static final NonoPuzzle PUZZLE_1 = NonoPuzzle.createNonoPuzzle(EXP_ARR_1, EXP_BG_COLOR_1, EXP_NAME_1);
 	private NonoNetwork mockNetwork;
-/*	
+	
 	@Before
 	public void setUp() {
-		mockNetwork = createNiceMock(NonoNetwork.class);
+		mockNetwork = AndroidMock.createNiceMock(NonoNetwork.class);
 		NonoClient.setNetwork(mockNetwork);
 	}
 	
@@ -56,6 +56,7 @@ public class Test_NonoClientMock extends TestCase {
 	}
 
 	@Test
+	@UsesMocks(NonoNetwork.class)
 	public void test_createPuzzle() {
 		JSONObject requestJSON = new JSONObject();
 		JSONObject requestJSON2 = new JSONObject();
@@ -68,16 +69,16 @@ public class Test_NonoClientMock extends TestCase {
 			
 			
 			mockNetwork.sendMessage(requestJSON);
-			expectLastCall().once();
+			AndroidMock.expectLastCall().once();
 			mockNetwork.readMessageJSON();
-			expectLastCall().andReturn(requestJSON2);
-			expectLastCall().once();
+			AndroidMock.expectLastCall().andReturn(requestJSON2);
+			AndroidMock.expectLastCall().once();
 		} catch (Exception e) {
 			fail(e.getLocalizedMessage());
 		}
 		mockNetwork.close();
-		expectLastCall().once();
-		EasyMock.replay(mockNetwork);
+		AndroidMock.expectLastCall().once();
+		AndroidMock.replay(mockNetwork);
 		
 		
 		try {
@@ -90,6 +91,7 @@ public class Test_NonoClientMock extends TestCase {
 	//--Test getPuzzle------------------------------------------------------------------------
 	
 	@Test
+	@UsesMocks(NonoNetwork.class)
 	public void test_getPuzzle() {
 		JSONObject requestJSON = new JSONObject();
 		JSONObject requestJSON2 = new JSONObject();
@@ -101,17 +103,17 @@ public class Test_NonoClientMock extends TestCase {
 			NonoUtil.putNonoPuzzle(requestJSON2, PUZZLE_1);
 			
 			mockNetwork.sendMessage(requestJSON);
-			expectLastCall().once();
+			AndroidMock.expectLastCall().once();
 			mockNetwork.readMessageJSON();
-			expectLastCall().andStubReturn(requestJSON2);
+			AndroidMock.expectLastCall().andStubReturn(requestJSON2);
 		} catch (Exception e) {
 			fail (e.getLocalizedMessage());
 		}
 
 		mockNetwork.close();
-		expectLastCall().once();
+		AndroidMock.expectLastCall().once();
 		
-		EasyMock.replay(mockNetwork);
+		AndroidMock.replay(mockNetwork);
 		
 		try {
 			NonoPuzzle puzzle = NonoClient.getPuzzle(EASY);
@@ -122,5 +124,5 @@ public class Test_NonoClientMock extends TestCase {
 			fail(e.getLocalizedMessage());
 		}
 	}
-  */
+  
 }
