@@ -12,7 +12,9 @@ import uw.cse403.nonogramfun.PlayGameScreen;
 
 /**
  * White Box Tests
- * Testing the cell (button of gameboard) class
+ * Testing the cell (button of gameboard) class on a small game board
+ * (Cell class is used in all game boards, so testing on one game board
+ * is sufficient.)
  * @author Renhao Xie
  *
  */
@@ -32,6 +34,7 @@ public class Test_Cell  extends ActivityInstrumentationTestCase2<PlayGameScreen>
 		super.setUp();
 		Intent i = new Intent();
 		i.putExtra("size", 5);
+		i.putExtra("test", true);
 		setActivityIntent(i);
 		solo = new Solo(getInstrumentation(),getActivity());
 	}

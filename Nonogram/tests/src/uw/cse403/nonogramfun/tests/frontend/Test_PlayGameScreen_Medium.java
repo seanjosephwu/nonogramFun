@@ -2,6 +2,7 @@ package uw.cse403.nonogramfun.tests.frontend;
 
 import com.jayway.android.robotium.solo.Solo;
 
+import uw.cse403.nonogramfun.MainActivity;
 import uw.cse403.nonogramfun.PlayGameScreen;
 import android.app.Activity;
 import android.content.Intent;
@@ -21,6 +22,7 @@ public class Test_PlayGameScreen_Medium extends ActivityInstrumentationTestCase2
 		super(PlayGameScreen.class);
 	}
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		Intent i = new Intent();
@@ -31,8 +33,9 @@ public class Test_PlayGameScreen_Medium extends ActivityInstrumentationTestCase2
 		solo = new Solo(getInstrumentation(),activity);
 	}
 
+	@Override
 	protected void tearDown() throws Exception {
-		super.tearDown();
+		solo.finishOpenedActivities();
 	}
 
 	/*
@@ -58,9 +61,32 @@ public class Test_PlayGameScreen_Medium extends ActivityInstrumentationTestCase2
 	
 	/*
 	 * Black Box Test
-	 * Test if the submit button exists and functions properly
+	 * Test if the submit button exists
 	 */
-	public void testSubmitButton(){
-		
+	public void testSubmitButtonView(){
+		solo.assertCurrentActivity("Not PlayGameScreen", PlayGameScreen.class);
+		assertEquals(true,solo.searchButton("Submit"));	
+	}
+	
+	/*
+	 * Black Box Test
+	 * Test if the submit button functions properly when the answer is wrong
+	 */
+	public void testSubmitWrongGame(){
+		solo.assertCurrentActivity("Not PlayGameScreen", PlayGameScreen.class);
+		solo.clickOnButton("Submit");	
+		assertEquals(true,solo.searchText("Try Again"));
+		solo.clickOnButton("Okay");	
+		solo.assertCurrentActivity("Not MainActivity", MainActivity.class);
+	}
+	
+	/*
+	 * Black Box Test
+	 * Test if the hint button exists
+	 */
+	public void testHintButtonView(){
+		solo.assertCurrentActivity("Not PlayGameScreen", PlayGameScreen.class);
+		assertEquals(true,solo.searchButton("Hint"));	
+		solo.clickOnButton("Hint");
 	}
 }
