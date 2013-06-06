@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -132,6 +133,7 @@ public class ScoreBoard extends Activity {
 			public void run() {
 				try {			
 					nonoScoreBoard = NonoClient.getScoreBoard(d);
+					Log.i("score.java", nonoScoreBoard.toString());
 				} catch (UnknownHostException e) {					
 				} catch (IOException e) {			
 				} catch (JSONException e) {
@@ -147,10 +149,12 @@ public class ScoreBoard extends Activity {
 		}
 	}
 	
+	
 	/**
 	 * Save the scores in order
 	 * @return
 	 */
+	/*
 	private PriorityQueue<NonoScore> sortingNonoScores() {
 		PriorityQueue<NonoScore> minScoreQue = new PriorityQueue<NonoScore>(11, new minScoreCompare());
 		PriorityQueue<NonoScore> maxScoreQue = new PriorityQueue<NonoScore>(11, new maxScoreCompare());
@@ -174,7 +178,7 @@ public class ScoreBoard extends Activity {
 		}
 		return minScoreQue;
 	}
-	
+	*/
 	/**
 	 * Set up scoreboard layout before inject the the dialog 
 	 * @param d difficulty level 
@@ -183,30 +187,45 @@ public class ScoreBoard extends Activity {
 	 */
 	private LinearLayout setUpScoreBoard(Difficulty d, LinearLayout board) {
 		getScore(d);
-		PriorityQueue<NonoScore> top = sortingNonoScores();
-		int color_stripe = 0;
-		while(!top.isEmpty()) {
-			color_stripe++;
-			NonoScore least = top.remove();
-			
+		
+		//store nonoScore getting from backend
+		ArrayList<NonoScore> ns = new ArrayList<NonoScore>();
+		Iterator<NonoScore> itr = nonoScoreBoard.getIterator();
+		while(itr.hasNext()){
+			NonoScore next = itr.next();
+			ns.add(next);
+			Log.i("itr", next.toString());
+		}
+		
+		int size = ns.size();
+		int showing;
+		if(size < 10)
+			showing = size;
+		else
+			showing = 10;
+		
+		for(int i = 0; i < showing; i++){	
 			LayoutInflater inflater = this.getLayoutInflater();
 			View rank = inflater.inflate(R.layout.score_board_rank, null);
 			TextView name = (TextView) rank.findViewById(R.id.rank_name);
 			TextView score = (TextView) rank.findViewById(R.id.rank_score);
-		    name.setTextSize(14);
-		    score.setTextSize(14);    
 			
+			//setting font size for name and score
+		    name.setTextSize(16);
+		    score.setTextSize(16);    
+		    
 			//strip the quotation mark from the name getback from backend
-			String preName = least.playerName;
+			String preName = ns.get(i).playerName;
 			String[] preNames = preName.split("\"");	
 			name.setText(preNames[1]);
 			
 			//cover total second from backend to min:sec form
-			int min = least.score / 60;
-			int sec = least.score % 60;
+			int min = ns.get(i).score / 60;
+			int sec = ns.get(i).score % 60;
 			String minDisplay;
 			String secDisplay;
-
+			
+			//make sure it has uniform format [00:00]
 			if(sec < 10 ) {
 				secDisplay = "0" + sec;
 			} else{
@@ -222,13 +241,12 @@ public class ScoreBoard extends Activity {
 			score.setText(scoreDisplay);
 			
 			//color code the ranking 
-			if(color_stripe % 2 == 1){
+			if(i % 2 == 1){
 				name.setBackgroundColor(Color.GRAY);
 				score.setBackgroundColor(Color.GRAY);
 			}
 			board.addView(rank);
 		}
-		
 		return board;
 	}
 	
@@ -245,8 +263,7 @@ public class ScoreBoard extends Activity {
 			else if (lhs.score > rhs.score)
 				return 1;
 			return 0;
-		}
-		
+		}	
 	}
 	
 	/**
