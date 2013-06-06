@@ -2,11 +2,10 @@
 <resources>
 
     <string name="app_name">Nonogram</string>
-    <string name="action_settings">Settings</string>
     <string name="creategame_button">Create A Game</string>
     <string name="howtoplay_button">How To Play</string>
     <string name="playgame_button">Play A Game</string>
-    <string name="settings_button">Settings</string>
+    <string name="action_settings">Action Settings</string>
     <string name="scoreboard_button">Scoreboard</string>
     <string name="title_activity_create_game_menu">Create Game Menu</string>
     <string name="title_activity_create_game_screen">Create Game Screen</string>
@@ -33,15 +32,5 @@
     <string name="skip">skip</string>
     <string name="TODO">TODO</string>
     
-    <string name="congrats">Congratulations!</string>
-    <string name="correct_message">You have completed the puzzle correctly! Would you like to submit your time?</string>
-    <string name="try_again">Try Again</string>
-    <string name="incorrect_message">Your answer does not match the solution. Better luck next time</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="enter_name">enter name</string>
-    <string name="error">Error</string>
-    <string name="error_msg1">Name cannot be empty</string>
-    <string name="error_msg2">Name cannot be longer than 20 characters</string>
-    
+        
 </resources>
