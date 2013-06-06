@@ -122,35 +122,6 @@ public class ScoreBoard extends Activity {
 	}
 	
 	/**
-	 * Save the scores in order
-	 * @return
-	 */
-	/*
-	private PriorityQueue<NonoScore> sortingNonoScores() {
-		PriorityQueue<NonoScore> minScoreQue = new PriorityQueue<NonoScore>(11, new minScoreCompare());
-		PriorityQueue<NonoScore> maxScoreQue = new PriorityQueue<NonoScore>(11, new maxScoreCompare());
-		if(nonoScoreBoard != null){
-			Iterator<NonoScore> scoreIter = nonoScoreBoard.getIterator();
-			while(scoreIter.hasNext()) {
-				NonoScore next = scoreIter.next();
-				if (minScoreQue.size() < 10) {
-					minScoreQue.add(next);
-					maxScoreQue.add(next);
-				} else {
-					NonoScore most = maxScoreQue.peek();
-					if (most.compareTo(next) > 0) {
-						maxScoreQue.poll();
-						minScoreQue.remove(most);
-						minScoreQue.add(next);
-						maxScoreQue.add(next);
-					}
-				}
-			}
-		}
-		return minScoreQue;
-	}
-	*/
-	/**
 	 * Set up scoreboard layout before inject the the dialog 
 	 * @param d difficulty level 
 	 * @param board
