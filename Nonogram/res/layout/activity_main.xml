@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:contentDescription="@string/hello_world"
         android:src="@drawable/huskysoftlogo" />
 
     <Button

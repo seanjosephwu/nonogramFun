@@ -22,7 +22,7 @@ public class HowToPlay extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.how_to_play);
-		setTitle("How To Play");
+		setTitle(getString(R.string.howtoplay_button));
 	}
 	 
     @Override

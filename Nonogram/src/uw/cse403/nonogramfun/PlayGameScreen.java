@@ -348,9 +348,9 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			stopTimer = true;
 			boolean correctAnswer = compareSolution();
 			if (correctAnswer) {
-				showAlertDialog(v, "Congratulations!", "You've complete the puzzle correctly! Would you like to submit your time?", correctAnswer);
+				showAlertDialog(v, getString(R.string.congrats), getString(R.string.correct_message), correctAnswer);
 			} else {
-				showAlertDialog(v, "Try Again", "Your answer doesn't match the solution.", correctAnswer);
+				showAlertDialog(v, getString(R.string.try_again), getString(R.string.incorrect_message), correctAnswer);
 			}
 
 		}
@@ -376,7 +376,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 			final AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
 			
 			final EditText input = new EditText(v.getContext());
-			input.setHint("enter name");
+			input.setHint(getString(R.string.enter_name));
 			alertDialog.setView(input);
 			input.setVisibility(View.INVISIBLE);
 			if (answer) {
@@ -387,24 +387,24 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				int minToSec = 60 * Integer.parseInt(splitTime[0]);
 				final int score = minToSec + Integer.parseInt(splitTime[1]);
 				
-				alertDialog.setButton(-2, "Yes", new DialogInterface.OnClickListener() {
+				alertDialog.setButton(-2, getString(R.string.yes), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						final String name = input.getText().toString();
 						// if the input name is too long or too short, give another dialog
 						if (name.length() == 0 || name.length() >= 20) {
 							final AlertDialog invalidName = new AlertDialog.Builder(v.getContext()).create();
-							invalidName.setButton(-1, "OK", new DialogInterface.OnClickListener() {						
+							invalidName.setButton(-1, getString(R.string.scoreboard_acknowledgement), new DialogInterface.OnClickListener() {						
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
 									invalidName.cancel();
 									
 								}
 							});
-							invalidName.setTitle("Error");
+							invalidName.setTitle(getString(R.string.error));
 							if (name.length() == 0) {
-								invalidName.setMessage("Name cannot be empty");
+								invalidName.setMessage(getString(R.string.error_msg1));
 							} else {
-								invalidName.setMessage("Name cannot be longer than 20 characters");
+								invalidName.setMessage(getString(R.string.error_msg2));
 							}
 							invalidName.show();
 						} else {
@@ -428,14 +428,14 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 						}
 					}
 				});
-				alertDialog.setButton(-1, "No", new DialogInterface.OnClickListener() {
+				alertDialog.setButton(-1, getString(R.string.no), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						alertDialog.cancel();
 						returnMainScreen(v);
 					}
 				});
 			} else {
-				alertDialog.setButton(-3, "Okay", new DialogInterface.OnClickListener() {
+				alertDialog.setButton(-3, getString(R.string.scoreboard_acknowledgement), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						alertDialog.cancel();
 						returnMainScreen(v);
