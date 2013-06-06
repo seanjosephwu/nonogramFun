@@ -14,7 +14,10 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 /**
  * The screen of main menu
@@ -23,12 +26,15 @@ public class MainActivity extends Activity {
 
     public Button b;
     private MediaPlayer mPlayer;
+    private boolean musicOn;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        addMuteMusicButton();
         startMusicPlayer();
+        musicOn = true;
     }
 
     
@@ -47,6 +53,30 @@ public class MainActivity extends Activity {
         mPlayer.setLooping(true);
     	mPlayer.setVolume(100,100);
         mPlayer.start();
+	}
+	
+	/**
+	 * Set the button to mute music background
+	 */
+	private void addMuteMusicButton(){
+		final ImageView muteButton = (ImageView) findViewById(R.id.music);
+		muteButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				
+				if(musicOn){
+					musicOn = false;
+					mPlayer.pause();
+					muteButton.setImageResource(R.drawable.mute);
+				}else{
+					musicOn = true;
+					mPlayer.start();
+					muteButton.setImageResource(R.drawable.on);
+				}
+				
+			}
+		});
 	}
 	
 	/**
