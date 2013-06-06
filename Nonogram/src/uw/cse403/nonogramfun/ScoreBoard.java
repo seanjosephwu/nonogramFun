@@ -133,7 +133,6 @@ public class ScoreBoard extends Activity {
 			public void run() {
 				try {			
 					nonoScoreBoard = NonoClient.getScoreBoard(d);
-					Log.i("score.java", nonoScoreBoard.toString());
 				} catch (UnknownHostException e) {					
 				} catch (IOException e) {			
 				} catch (JSONException e) {
@@ -192,9 +191,7 @@ public class ScoreBoard extends Activity {
 		ArrayList<NonoScore> ns = new ArrayList<NonoScore>();
 		Iterator<NonoScore> itr = nonoScoreBoard.getIterator();
 		while(itr.hasNext()){
-			NonoScore next = itr.next();
-			ns.add(next);
-			Log.i("itr", next.toString());
+			ns.add(itr.next());
 		}
 		
 		int size = ns.size();
@@ -248,38 +245,5 @@ public class ScoreBoard extends Activity {
 			board.addView(rank);
 		}
 		return board;
-	}
-	
-	/**
-	 * Get the minimum score
-	 */
-	public class minScoreCompare implements  Comparator<NonoScore> {
-
-		public minScoreCompare() {}
-		@Override
-		public int compare(NonoScore lhs, NonoScore rhs) {
-			if (lhs.score < rhs.score) 
-				return -1;
-			else if (lhs.score > rhs.score)
-				return 1;
-			return 0;
-		}	
-	}
-	
-	/**
-	 * Get the maximum score
-	 */
-	public class maxScoreCompare implements  Comparator<NonoScore> {
-		
-		public maxScoreCompare() {}
-		@Override
-		public int compare(NonoScore lhs, NonoScore rhs) {
-			if (lhs.score > rhs.score) 
-				return -1;
-			else if (lhs.score < rhs.score)
-				return 1;
-			return 0;
-		}
-		
 	}
 }
