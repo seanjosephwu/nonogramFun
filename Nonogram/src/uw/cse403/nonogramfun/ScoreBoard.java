@@ -36,8 +36,6 @@ import android.widget.TextView;
  */
 public class ScoreBoard extends Activity {
 	NonoScoreBoard nonoScoreBoard;
-	List<NonoScore> nonoScores = new ArrayList<NonoScore>();
-	List<NonoScore> topTen = new ArrayList<NonoScore>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +68,7 @@ public class ScoreBoard extends Activity {
 	    
 	    Button btn = (Button) view;
 	    CharSequence btnName = btn.getText();
-	    Log.i("btnName", btnName.toString());
+	    
 	    if(btnName.equals("Small (5x5)")){
 	    	scoreboard = setUpScoreBoard(Difficulty.EASY, scoreboard);
 	    	smallSB = true;
