@@ -9,10 +9,8 @@ package uw.cse403.nonogramfun;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.PriorityQueue;
 import org.json.JSONException;
 import uw.cse403.nonogramfun.enums.Difficulty;
 import uw.cse403.nonogramfun.network.NonoClient;
@@ -26,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -55,10 +54,13 @@ public class ScoreBoard extends Activity {
     }
     
     /**
-     * The score board for small game
+     * Display scoreboard according to different difficulty levels
      * @param view
      */
-	public void scoreSmall(View view){
+	public void score(View view){
+		boolean smallSB = false;
+		boolean mediumSB = false;
+		boolean largeSB = false;
 	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	    // Get the layout inflater
 	    LayoutInflater inflater = this.getLayoutInflater();
@@ -66,60 +68,33 @@ public class ScoreBoard extends Activity {
 		View layout = inflater.inflate(R.layout.scoreboard_layout, null);
 	    LinearLayout scoreboard = (LinearLayout) layout.findViewById(R.id.score_board);
 	    
-	    scoreboard = setUpScoreBoard(Difficulty.EASY, scoreboard);
-	    
+	    Button btn = (Button) view;
+	    CharSequence btnName = btn.getText();
+	    Log.i("btnName", btnName.toString());
+	    if(btnName.equals("Small (5x5)")){
+	    	scoreboard = setUpScoreBoard(Difficulty.EASY, scoreboard);
+	    	smallSB = true;
+	    }
+	    else if(btnName.equals("Medium (10x10)")){
+	    	scoreboard = setUpScoreBoard(Difficulty.MEDIUM, scoreboard);
+	    	mediumSB = true;
+	    }
+	    else if (btnName.equals("Large (14x14)")){
+	    	scoreboard = setUpScoreBoard(Difficulty.HARD, scoreboard);
+	    	largeSB = true;
+	    }
+	    	
 	    // Inflate and set the layout for the dialog
 	    // Pass null as the parent view because its going in the dialog layout
 	    builder.setView(scoreboard)
-	    	   .setTitle("Score Board (Small Puzzle)")
 	           .setNeutralButton(R.string.scoreboard_acknowledgement, null);
+	    if(smallSB)
+	    	builder.setTitle("Score Board (Small)");
+	    if(mediumSB)
+	    	builder.setTitle("Score Board (Medium)");
+	    if(largeSB)
+	    	builder.setTitle("Score Board (Large)");
 	    builder.create();
-	    builder.show();
-	}
-	
-	/**
-	 * The score board for medium game
-	 * @param view
-	 */
-	public void scoreMedium(View view){
-	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    // Get the layout inflater
-	    LayoutInflater inflater = this.getLayoutInflater();
-
-		View layout = inflater.inflate(R.layout.scoreboard_layout, null);
-	    LinearLayout scoreboard = (LinearLayout) layout.findViewById(R.id.score_board);
-	    
-	    scoreboard = setUpScoreBoard(Difficulty.MEDIUM, scoreboard);
-
-	    // Inflate and set the layout for the dialog
-	    // Pass null as the parent view because its going in the dialog layout
-	    builder.setView(scoreboard)
-	    	   .setTitle("Score Board (Medium Puzzle)")
-	           .setNeutralButton(R.string.scoreboard_acknowledgement, null);
-	    builder.create();
-	    builder.show();
-	}
-	
-	/**
-	 * The score board for large game
-	 * @param view
-	 */
-	public void scoreLarge(View view){
-	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    // Get the layout inflater
-	    LayoutInflater inflater = this.getLayoutInflater();
-
-		View layout = inflater.inflate(R.layout.scoreboard_layout, null);
-	    LinearLayout scoreboard = (LinearLayout) layout.findViewById(R.id.score_board);
-	    
-	    scoreboard = setUpScoreBoard(Difficulty.HARD, scoreboard);
-
-	    // Inflate and set the layout for the dialog
-	    // Pass null as the parent view because its going in the dialog layout
-	    builder.setView(scoreboard)
-	    	   .setTitle("Score Board (Large Puzzle)")
-	           .setNeutralButton(R.string.scoreboard_acknowledgement, null);
-	    builder.create();  
 	    builder.show();
 	}
 	
@@ -147,7 +122,6 @@ public class ScoreBoard extends Activity {
 			
 		}
 	}
-	
 	
 	/**
 	 * Save the scores in order
