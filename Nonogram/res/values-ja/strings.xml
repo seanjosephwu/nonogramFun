@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Nonogram</string>
+    <string name="action_settings">設定</string>
+    <string name="creategame_button">ゲームを作る</string>
+    <string name="howtoplay_button">プレイ方法</string>
+    <string name="playgame_button">ゲームを遊ぶ</string>
+    <string name="settings_button">設定</string>
+    <string name="scoreboard_button">スコアボード</string>
+    <string name="title_activity_create_game_menu">ゲームを作るメニュー</string>
+    <string name="title_activity_create_game_screen">ゲームを作る</string>
+    <string name="title_activity_play_game_menu">ゲームを遊ぶメニュー</string>
+    <string name="title_activity_play_game_screen">ゲームを遊ぶ</string>
+    <string name="scoreboard_acknowledgement">OK</string>
+    <string name="next">次</string>
+    <string name="prev">戻</string>
+    <string name="title_activity_how_two_play2">プレイ方法2</string>
+    <string name="title_activity_how_to_play3">プレイ方法3</string>
+    <string name="play">プレイ</string>
+    <string name="small_button">小(5x5)</string>
+    <string name="medium_button">中(10x10)</string>
+    <string name="large_button">大(14x14)</string>
+    <string name="submit_button">確認</string>
+    <string name="hint_button">ヒント</string>
+    
+    <string name="activity_scoreboard_menu">スコアボードメニュー</string>
+    <string name="activity_scoreboard_screen">スコアボード</string>
+    <string name="show_small_scoreboard">スコアボード（小）</string>
+    <string name="show_medium_scoreboard">スコアボード（中）</string>
+    <string name="show_large_scoreboard">スコアボード（大）</string>
+    <string name="Choose_a_Puzzle_Size:">ゲームのサイズを選んで下さい:</string>
+    <string name="skip">スキップ</string>
+    <string name="TODO">TODO</string>
+    
+</resources>

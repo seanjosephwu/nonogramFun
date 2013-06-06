@@ -125,5 +125,3 @@ public class MainActivity extends Activity {
 		mPlayer = null;
 	}
 }
-
-
