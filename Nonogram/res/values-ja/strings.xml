@@ -2,11 +2,10 @@
 <resources>
 
     <string name="app_name">Nonogram</string>
-    <string name="action_settings">設定</string>
     <string name="creategame_button">ゲームを作る</string>
     <string name="howtoplay_button">プレイ方法</string>
     <string name="playgame_button">ゲームを遊ぶ</string>
-    <string name="settings_button">設定</string>
+    <string name="action_settings">設定</string>
     <string name="scoreboard_button">スコアボード</string>
     <string name="title_activity_create_game_menu">ゲームを作るメニュー</string>
     <string name="title_activity_create_game_screen">ゲームを作る</string>
@@ -32,5 +31,17 @@
     <string name="Choose_a_Puzzle_Size:">ゲームのサイズを選んで下さい:</string>
     <string name="skip">スキップ</string>
     <string name="TODO">TODO</string>
+    
+    <string name="music">Music Background</string>
+    <string name="congrats">おめでとう!</string>
+    <string name="correct_message">ゲームを完成しました! 時間を送りますか?</string>
+    <string name="try_again">リトライ</string>
+    <string name="incorrect_message">答えが間違っています。残念でした。</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+    <string name="enter_name">名前を入力して下さい</string>
+    <string name="error">エラー</string>
+    <string name="error_msg1">名前は空でダメです</string>
+    <string name="error_msg2">名前は２０字すぎない下さい</string>
     
 </resources>

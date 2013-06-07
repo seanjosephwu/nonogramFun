@@ -31,6 +31,18 @@
     <string name="Choose_a_Puzzle_Size:">Choose a Puzzle Size:</string>
     <string name="skip">skip</string>
     <string name="TODO">TODO</string>
+    
     <string name="music">Music Background</string>
-        
+    <string name="congrats">Congratulations!</string>
+    <string name="correct_message">You have completed the puzzle correctly! Would you like to submit your time?</string>
+    <string name="try_again">Try Again</string>
+    <string name="incorrect_message">Your answer does not match the solution. Better luck next time</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="enter_name">enter name</string>
+    <string name="error">Error</string>
+    <string name="error_msg1">Name cannot be empty</string>
+    <string name="error_msg2">Name cannot be longer than 20 characters</string>
+    
+    
 </resources>
