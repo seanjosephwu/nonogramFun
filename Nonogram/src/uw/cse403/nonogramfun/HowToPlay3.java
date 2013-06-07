@@ -20,7 +20,7 @@ public class HowToPlay3 extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_how_to_play3);
+		setContentView(R.layout.how_to_play3);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class HowToPlay3 extends Activity {
 	 * go back to the main menu
 	 * @param view
 	 */
-	public void next(View view) {
+	public void done(View view) {
 		Intent i = new Intent(this, MainActivity.class);
 		startActivity(i);
 	}
