@@ -88,6 +88,32 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		layout.setLayoutParams( new TableLayout.LayoutParams());
 		
 		//timer 
+		setupTimer();
+		
+		// dimension + 1 for the number field at the top and left sides
+		buttons = new View[dimension + 1][dimension + 1];
+		layout = createGameTable(layout);
+		
+		HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
+		scrollView.addView(layout);
+		
+		//buttons
+		setupButton();
+		
+		timerRun.run();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.play_game_screen, menu);
+		return true;
+	}
+
+	/**
+	 * Set up the timer
+	 */
+	private void setupTimer() {
 		starttime = System.currentTimeMillis();
 	    //this posts a message to the main thread from our timertask and updates the textfield
 	    timerHandle = new Handler();
@@ -101,28 +127,17 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	   	timedisplay.setText("0:00");
 	   	timedisplay.setTextSize(30);
 	   	timedisplay.setTextColor(Color.BLUE);
-		
-		// dimension + 1 for the number field at the top and left sides
-		buttons = new View[dimension + 1][dimension + 1];
-		layout = createGameTable(layout);
-
-		HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.nonogram_gameboard);
-		scrollView.addView(layout);	
+	}
 	
+	/**
+	 * setup the buttons
+	 */
+	private void setupButton() {
 		Button hintButton = (Button) findViewById(R.id.playgamehint);
 		hintButton.setOnClickListener(new HintButtonListener()); 
 		
 		Button submitButton = (Button) findViewById(R.id.playgamesubmit);
 		submitButton.setOnClickListener(new SubmitButtonListener()); 
-		
-		timerRun.run();
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.play_game_screen, menu);
-		return true;
 	}
 	
 	/**
@@ -580,7 +595,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	}
 	
 	/**
-	 * Create a new dialog, eith given title and message
+	 * Create a new dialog, either given title and message
 	 * @param title
 	 * @param message
 	 * @param v
