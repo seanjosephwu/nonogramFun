@@ -14,6 +14,7 @@
     <string name="scoreboard_acknowledgement">OK</string>
     <string name="next">next</string>
     <string name="prev">prev</string>
+    <string name="done">done</string>
     <string name="title_activity_how_two_play2">HowTwoPlay2</string>
     <string name="title_activity_how_to_play3">HowToPlay3</string>
     <string name="play">play</string>

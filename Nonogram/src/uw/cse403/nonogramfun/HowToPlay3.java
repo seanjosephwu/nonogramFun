@@ -36,6 +36,7 @@ public class HowToPlay3 extends Activity {
 	 */
 	public void done(View view) {
 		Intent i = new Intent(this, MainActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 	}
 	

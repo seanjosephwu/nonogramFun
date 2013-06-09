@@ -54,6 +54,7 @@ public class HowToPlay2 extends Activity {
 	 */
 	public void skip(View view) {
 		Intent i = new Intent(this, MainActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 	}
 }
