@@ -17,6 +17,9 @@ import uw.cse403.nonogramfun.utility.NonoUtil;
 /**
  * NonoDatabase manages all database related functionalities, such as
  * inserting data into table and getting data from table, using PostGres SQL.
+ * There are 2 tables in database:
+ * 1. puzzles(id, difficulty, size, hashVal, puzzleArray, puzzle)
+ * 2. scores(name, difficulty, score)
  */
 public class NonoDatabase {
 	
@@ -34,6 +37,9 @@ public class NonoDatabase {
 	private static final String PUZZLE_TABLE = "puzzles";
 	private static final String PUZZLE_ID = "id";
 	private static final String PUZZLE_DIFFICULTY = "difficulty";
+	private static final String PUZZLE_SIZE = "size";
+	private static final String PUZZLE_HASH = "hashVal";
+	private static final String PUZZLE_ARRAY = "puzzleArray";
 	private static final String PUZZLE_OBJECT = "puzzle";
 	private static final String SCORE_TABLE = "scores";
 	private static final String SCORE = "score";
@@ -95,15 +101,21 @@ public class NonoDatabase {
 		Connection conn = null; PreparedStatement ps = null;
 		
 		String sql = " INSERT INTO " + PUZZLE_TABLE +
-				     " VALUES (?, ?, ?)";
+				     " VALUES (?, ?, ?, ?, ?, ?)";
 		
 		try {
-			// 1. Get connection & set up SQL statement
+			// 1. Check for duplicates before inserting
+			checkDuplicate(puzzle); 
+			
+			// 2. Get connection & set up SQL statement
 			conn = getConnection();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, puzzle.getPuzzleID());
 			ps.setString(2, puzzle.getDifficulty().toString());
-			ps.setObject(3, NonoUtil.objecToByte(puzzle));
+			ps.setString(3, (puzzle.getNonoPicRowSize() + "x" + puzzle.getNonoPicColSize()));
+			ps.setInt(4, puzzle.toString().hashCode());
+			ps.setString(5, puzzle.toString());
+			ps.setObject(6, NonoUtil.objecToByte(puzzle));
 			
 			// 2. Execute statement 
 			ps.executeUpdate();
@@ -111,6 +123,35 @@ public class NonoDatabase {
 			throw e;
 		} finally {
 			closeResources(conn, ps, null);
+		}
+	}
+	
+	// Checks if the database already contains given puzzle
+	private static void checkDuplicate(NonoPuzzle puzzle) throws Exception {
+		Connection conn = null; PreparedStatement ps = null; ResultSet rs = null;
+		String puzzleArr = puzzle.toString();
+		
+		String sql = " SELECT " + PUZZLE_ARRAY +
+			         " FROM   " + PUZZLE_TABLE + 
+			         " WHERE  " + PUZZLE_SIZE  + "=? AND " + PUZZLE_HASH + "=?";
+		
+		try {
+			// 1. Get connection & set up SQL statement
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, (puzzle.getNonoPicRowSize() + "x" + puzzle.getNonoPicColSize()));
+			ps.setInt(2, puzzleArr.hashCode());
+			
+			// 2. Execute statement & get result
+			rs = ps.executeQuery();
+			while(rs.next()) { 
+				String storedArray = rs.getString(PUZZLE_ARRAY);
+				if(puzzleArr.equals(storedArray)) { throw new IllegalStateException("Error: Cannot insert duplicate puzzle!"); }
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			closeResources(conn, ps, rs);
 		}
 	}
 	
@@ -250,17 +291,6 @@ public class NonoDatabase {
 			System.out.println("Error: Problem in closing rsources! \n");
 			e.printStackTrace();
 		}
-	}
-	
-	
-	
-	
-	// TODO: Remove later. For connection testing
-	public static void main(String[] args) throws Exception {
-		System.out.println("MySQL Connect Example.");
-		NonoPuzzle puzzle = getPuzzle(1);
-		System.out.println(puzzle);
-		System.out.println("Connected to the database");
 	}
 }
 
