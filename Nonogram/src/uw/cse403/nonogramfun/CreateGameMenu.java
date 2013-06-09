@@ -23,7 +23,7 @@ public class CreateGameMenu extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_game_menu);
-		setTitle("Create A Game");
+		setTitle(getString(R.string.title_activity_create_game_screen));
 	}
 
 	@Override

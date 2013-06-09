@@ -42,7 +42,7 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/button_red"
             android:onClick="skip"
-            android:text="skip" />
+            android:text="@string/skip" />
     </RelativeLayout>
 
 

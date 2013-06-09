@@ -45,11 +45,11 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 		test = bundle.getBoolean("test");
 		
 		if(dimension == 5){
-			setTitle("Small");
+			setTitle(getString(R.string.small_button));
 		}else if (dimension == 10){
-			setTitle("Medium");
+			setTitle(getString(R.string.medium_button));
 		}else if (dimension == 14){
-			setTitle("Large");
+			setTitle(getString(R.string.large_button));
 		}
 		
 		// Initialize a 2D array of buttons. First coordinate is row #, second coordinate is column # (so y,x instead of x,y)
@@ -158,7 +158,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 			}
 
 			if ( isEmpty ) {
-				showAlertDialog(v, "Error", "Please do not submit an empty game");
+				showAlertDialog(v, getString(R.string.error), getString(R.string.error_msg3));
 			} else {
 				Thread thread = new Thread(new Runnable() {
 					@Override
@@ -185,7 +185,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 					e.printStackTrace();
 				}
 				
-				showAlertDialog(v, "Submit Success", "Puzzle Created");
+				showAlertDialog(v, getString(R.string.submit_success), getString(R.string.submit_message));
 			}
 			
 		}
@@ -201,7 +201,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 			alertDialog.setTitle(title);
 			alertDialog.setMessage(message);
 			// -1 = BUTTON_POSITIVE = a positive button?
-			alertDialog.setButton(-1, "OK", new DialogInterface.OnClickListener() {
+			alertDialog.setButton(-1, getString(R.string.ok), new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					returnMainScreen(v);
 				}

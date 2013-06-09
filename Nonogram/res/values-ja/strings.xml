@@ -28,7 +28,7 @@
     <string name="show_small_scoreboard">スコアボード（小）</string>
     <string name="show_medium_scoreboard">スコアボード（中）</string>
     <string name="show_large_scoreboard">スコアボード（大）</string>
-    <string name="Choose_a_Puzzle_Size:">ゲームのサイズを選んで下さい:</string>
+    <string name="Choose_a_Puzzle_Size">ゲームのサイズを選んで下さい:</string>
     <string name="skip">スキップ</string>
     <string name="TODO">TODO</string>
     
@@ -37,11 +37,21 @@
     <string name="correct_message">ゲームを完成しました! 時間を送りますか?</string>
     <string name="try_again">リトライ</string>
     <string name="incorrect_message">答えが間違っています。残念でした。</string>
+    <string name="submit_success">成功</string>
+    <string name="submit_message">パズルが作りました</string>
+    <string name="score_message">スコアが送りました</string>
     <string name="yes">はい</string>
     <string name="no">いいえ</string>
+    <string name="ok">OK</string>
     <string name="enter_name">名前を入力して下さい</string>
     <string name="error">エラー</string>
     <string name="error_msg1">名前は空でダメです</string>
     <string name="error_msg2">名前は２０字すぎない下さい</string>
+    <string name="error_msg3">空ゲームを作らないでください</string>
+	<string name="error_msg4">接続エラー</string>
     
+	<string name="scoreboard_display_user">ユーザー</string>
+    <string name="scoreboard_display_score">スコア</string>
+    <string name="scoreboard_menu_prompt">サイズを選択</string>
+	
 </resources>

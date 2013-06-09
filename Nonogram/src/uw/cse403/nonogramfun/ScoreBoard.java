@@ -39,7 +39,7 @@ public class ScoreBoard extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.scoreboard_menu);
-		setTitle("Score Board");
+		setTitle(getString(R.string.activity_scoreboard_screen));
 	}
     
     @Override
@@ -67,15 +67,15 @@ public class ScoreBoard extends Activity {
 	    Button btn = (Button) view;
 	    CharSequence btnName = btn.getText();
 	    
-	    if(btnName.equals("Small (5x5)")){
+	    if(btnName.equals(getString(R.string.small_button))){
 	    	scoreboard = setUpScoreBoard(Difficulty.EASY, scoreboard);
 	    	smallSB = true;
 	    }
-	    else if(btnName.equals("Medium (10x10)")){
+	    else if(btnName.equals(getString(R.string.medium_button))){
 	    	scoreboard = setUpScoreBoard(Difficulty.MEDIUM, scoreboard);
 	    	mediumSB = true;
 	    }
-	    else if (btnName.equals("Large (14x14)")){
+	    else if (btnName.equals(getString(R.string.large_button))){
 	    	scoreboard = setUpScoreBoard(Difficulty.HARD, scoreboard);
 	    	largeSB = true;
 	    }
@@ -85,11 +85,11 @@ public class ScoreBoard extends Activity {
 	    builder.setView(scoreboard)
 	           .setNeutralButton(R.string.scoreboard_acknowledgement, null);
 	    if(smallSB)
-	    	builder.setTitle("Score Board (Small)");
+	    	builder.setTitle(getString(R.string.show_small_scoreboard));
 	    if(mediumSB)
-	    	builder.setTitle("Score Board (Medium)");
+	    	builder.setTitle(getString(R.string.show_medium_scoreboard));
 	    if(largeSB)
-	    	builder.setTitle("Score Board (Large)");
+	    	builder.setTitle(getString(R.string.show_large_scoreboard));
 	    builder.create();
 	    builder.show();
 	}
