@@ -43,8 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@drawable/button_red"
-            android:onClick="next"
-            android:text="done" />
+            android:onClick="done"
+            android:text="@string/done" />
     </RelativeLayout>
 
 </LinearLayout>
