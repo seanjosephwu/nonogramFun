@@ -118,7 +118,7 @@ public class CreateGameScreen extends Activity implements OnClickListener{
 	        		buttons[i][j].setBackgroundColor(Color.WHITE);
 	        	}
 	        	buttons[i][j].setOnClickListener(this);
-	        	tr.addView(buttons[i][j],50,50);
+	        	tr.addView(buttons[i][j],75,75);
 			}
 			layout.addView(tr);
 		}

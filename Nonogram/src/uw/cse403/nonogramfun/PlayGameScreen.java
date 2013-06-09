@@ -277,14 +277,14 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 				if (i == 0 && j == 0) {
 					TextView textview = (TextView) buttons[i][j];
 					textview.setBackgroundColor(Color.TRANSPARENT);
-					tr.addView(buttons[i][j],50,50);
+					tr.addView(buttons[i][j],75,75);
 				} else if(j == 0) {
 					// horizontal number field
 					TextView textview = (TextView) buttons[i][j];
 		        	textview.setBackgroundColor(Color.TRANSPARENT);
 		        	textview.setText(rowHint[i-1]);
 		        	textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-		        	tr.addView(buttons[i][j],150,50);
+		        	tr.addView(buttons[i][j],150,75);
 				} else if(i == 0) {
 					// vertical number field
 					TextView textview = (TextView) buttons[i][j];
@@ -292,7 +292,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					textview.setText(columnHint[j-1]);
 					textview.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 					textview.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
-					tr.addView(buttons[i][j],50,200);
+					tr.addView(buttons[i][j],75,200);
 				} else {
 					Cell c = (Cell) buttons[i][j];
 					if (test){
@@ -309,7 +309,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		        	}
 		        	
 		        	c.setOnClickListener(this);
-		        	tr.addView(buttons[i][j],50,50);
+		        	tr.addView(buttons[i][j],75,75);
 				}
 				
 			}
