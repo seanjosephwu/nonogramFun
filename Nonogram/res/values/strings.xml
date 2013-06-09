@@ -50,5 +50,7 @@
     <string name="error_msg3">Please do not submit an empty game</string>
     <string name="error_msg4">Error in connection</string>
     
+    <string name="scoreboard_display_user">USER</string>
+    <string name="scoreboard_display_score">SCORE</string>
     
 </resources>

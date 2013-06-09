@@ -50,5 +50,7 @@
     <string name="error_msg3">空ゲームを作らないでください</string>
 	<string name="error_msg4">接続エラー</string>
     
+	<string name="scoreboard_display_user">ユーザー</string>
+    <string name="scoreboard_display_score">スコア</string>
 	
 </resources>

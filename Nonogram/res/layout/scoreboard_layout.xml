@@ -16,7 +16,7 @@
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:layout_gravity="left"
-              android:text="USER" 
+              android:text="@string/scoreboard_display_user" 
               android:textSize="22sp"
               android:textStyle="bold"
               android:textColor="#FF5050"/>
@@ -26,7 +26,7 @@
           android:layout_weight="1"
           android:layout_height="wrap_content"
   		  android:layout_gravity="right"
-          android:text="SCORE" 
+          android:text="@string/scoreboard_display_score" 
           android:textSize="22sp"
           android:textStyle="bold"
           android:textColor="#FF5050"/>
