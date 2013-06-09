@@ -52,5 +52,6 @@
     
 	<string name="scoreboard_display_user">ユーザー</string>
     <string name="scoreboard_display_score">スコア</string>
+    <string name="scoreboard_menu_prompt">サイズを選択</string>
 	
 </resources>
