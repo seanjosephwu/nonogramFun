@@ -29,6 +29,8 @@
     	    android:layout_width="match_parent"
     	    android:layout_height="wrap_content"
     	    android:gravity = "center"
+    	    android:layout_marginLeft= "@dimen/activity_horizontal_margin"
+    	    android:layout_marginRight= "@dimen/activity_horizontal_margin"
     	    android:id="@+id/nonogram_gameboard"
         >
         
@@ -40,13 +42,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight=".10"
-        android:text="@string/hint_button" />
+        android:text="@string/hint_button"
+        android:padding="1dp" />
     
     <Button
         android:id="@+id/playgamesubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight=".10"
-        android:text="@string/submit_button" />
+        android:text="@string/submit_button" 
+        android:padding="1dp" />
     
 </LinearLayout>
