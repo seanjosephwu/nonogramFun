@@ -71,11 +71,11 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 		dimension = bundle.getInt("size");
 		test = bundle.getBoolean("test");
 		if(dimension == 5){
-			setTitle("Small (5x5)");
+			setTitle(getString(R.string.small_button));
 		}else if(dimension == 10){
-			setTitle("Medium (10x10)");
+			setTitle(getString(R.string.medium_button));
 		}else if(dimension == 14){
-			setTitle("Large (14x14");
+			setTitle(getString(R.string.large_button));
 		}
 		
 		gameArray = new Integer[dimension][dimension];
@@ -571,17 +571,17 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							showDialog("Success", "Your score is uploaded", v);
+							showDialog(getString(R.string.submit_success), getString(R.string.score_message), v);
 						}
 					});
 				} catch (UnknownHostException e) {
-					showDialog("Error", "Error in connection", v);
+					showDialog(getString(R.string.error), getString(R.string.error_msg4), v);
 				} catch (IOException e) {
-					showDialog("Error", "Error in connection", v);					
+					showDialog(getString(R.string.error), getString(R.string.error_msg4), v);
 				} catch (JSONException e) {
-					showDialog("Error", "Error in connection", v);					
+					showDialog(getString(R.string.error), getString(R.string.error_msg4), v);
 				} catch (Exception e) {
-					showDialog("Error", "Error in connection", v);
+					showDialog(getString(R.string.error), getString(R.string.error_msg4), v);
 				}
 
 			}
@@ -602,7 +602,7 @@ public class PlayGameScreen extends Activity implements OnClickListener{
 	 */
 	private void showDialog(String title, String message, final View v) {
 		final AlertDialog uploadScore = new AlertDialog.Builder(v.getContext()).create();
-		uploadScore.setButton(-1, "OK", new DialogInterface.OnClickListener() {						
+		uploadScore.setButton(-1, getString(R.string.ok), new DialogInterface.OnClickListener() {						
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				uploadScore.cancel();

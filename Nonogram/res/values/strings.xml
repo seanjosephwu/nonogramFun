@@ -23,8 +23,8 @@
     <string name="submit_button">Submit</string>
     <string name="hint_button">Hint</string>
     
-    <string name="activity_scoreboard_menu">Score Board Menu</string>
-    <string name="activity_scoreboard_screen">Score Board Screen</string>
+    <string name="activity_scoreboard_menu">Scoreboard Menu</string>
+    <string name="activity_scoreboard_screen">Scoreboard</string>
     <string name="show_small_scoreboard">Small Board Ranking</string>
     <string name="show_medium_scoreboard">Medium Board Ranking</string>
     <string name="show_large_scoreboard">Large Board Ranking</string>
@@ -37,12 +37,18 @@
     <string name="correct_message">You have completed the puzzle correctly! Would you like to submit your time?</string>
     <string name="try_again">Try Again</string>
     <string name="incorrect_message">Your answer does not match the solution. Better luck next time</string>
+    <string name="submit_success">Success</string>
+    <string name="submit_message">Puzzle Created</string>
+    <string name="score_message">Your score is uploaded</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="ok">OK</string>
     <string name="enter_name">enter name</string>
     <string name="error">Error</string>
     <string name="error_msg1">Name cannot be empty</string>
     <string name="error_msg2">Name cannot be longer than 20 characters</string>
+    <string name="error_msg3">Please do not submit an empty game</string>
+    <string name="error_msg4">Error in connection</string>
     
     
 </resources>

@@ -49,7 +49,7 @@ public class HowToPlay2 extends Activity {
 	}
 	
 	/**
-	 * go back to the main scren
+	 * go back to the main screen
 	 * @param view
 	 */
 	public void skip(View view) {
