@@ -38,7 +38,7 @@
             android:text="@string/prev" />
 
         <Button
-            android:id="@+id/next"
+            android:id="@+id/done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

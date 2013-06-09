@@ -78,7 +78,7 @@ public class Test_PlayGameScreen_Medium extends ActivityInstrumentationTestCase2
 		solo.assertCurrentActivity("Not PlayGameScreen", PlayGameScreen.class);
 		solo.clickOnButton("Submit");	
 		assertEquals(true,solo.searchText("Try Again"));
-		solo.clickOnButton("Okay");	
+		solo.clickOnButton("OK");	
 		solo.assertCurrentActivity("Not MainActivity", MainActivity.class);
 	}
 	

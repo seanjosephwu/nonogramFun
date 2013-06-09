@@ -17,7 +17,7 @@ import android.widget.Button;
 public class Test_PlayGameScreen_Large extends ActivityInstrumentationTestCase2<PlayGameScreen> {
 	private Activity activity;
 	private Solo solo;
-	final int SIZE_LARGE = 5;
+	final int SIZE_LARGE = 14;
 	
 	public Test_PlayGameScreen_Large() {
 		super(PlayGameScreen.class);
@@ -77,7 +77,7 @@ public class Test_PlayGameScreen_Large extends ActivityInstrumentationTestCase2<
 		solo.assertCurrentActivity("Not PlayGameScreen", PlayGameScreen.class);
 		solo.clickOnButton("Submit");	
 		assertEquals(true,solo.searchText("Try Again"));
-		solo.clickOnButton("Okay");	
+		solo.clickOnButton("OK");	
 		solo.assertCurrentActivity("Not MainActivity", MainActivity.class);
 	}
 	
