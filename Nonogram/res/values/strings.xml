@@ -28,7 +28,7 @@
     <string name="show_small_scoreboard">Small Board Ranking</string>
     <string name="show_medium_scoreboard">Medium Board Ranking</string>
     <string name="show_large_scoreboard">Large Board Ranking</string>
-    <string name="Choose_a_Puzzle_Size:">Choose a Puzzle Size:</string>
+    <string name="Choose_a_Puzzle_Size">Choose a Puzzle Size:</string>
     <string name="skip">skip</string>
     <string name="TODO">TODO</string>
     

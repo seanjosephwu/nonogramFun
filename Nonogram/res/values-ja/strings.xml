@@ -28,7 +28,7 @@
     <string name="show_small_scoreboard">スコアボード（小）</string>
     <string name="show_medium_scoreboard">スコアボード（中）</string>
     <string name="show_large_scoreboard">スコアボード（大）</string>
-    <string name="Choose_a_Puzzle_Size:">ゲームのサイズを選んで下さい:</string>
+    <string name="Choose_a_Puzzle_Size">ゲームのサイズを選んで下さい:</string>
     <string name="skip">スキップ</string>
     <string name="TODO">TODO</string>
     
